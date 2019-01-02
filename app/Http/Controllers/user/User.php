@@ -39,11 +39,12 @@ class User extends Controller{
           $delete=Cmsmodel::where($where)->delete();
          var_dump($delete);
     }
-   // public function list(){
-        //$list=Cmsmodel::all();
-       // $data=[
-          //  'list'=>$list
-       // ];
-      //  return view('user.index',$data);
-   // }
+    public function list(){
+        $list=Cmsmodel::all();
+       $data=[
+           'list'=>$list
+       ];
+       return view('user.index',$data);
+
+    }
 }
