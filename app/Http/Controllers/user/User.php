@@ -7,10 +7,13 @@
  */
 namespace  App\Http\Controllers\User;
 use App\Model\Cmsmodel;
+
 use Illuminate\Routing\Controller;
+use DB;
 class User extends Controller{
     public function test(){
-        echo __FILE__;
+        var_dump('$_GET');echo '<br>';
+        var_dump('$_POST');echo'<br>';
     }
     public function add(){
         $data=[
@@ -19,7 +22,7 @@ class User extends Controller{
             'sex' =>str_random(5)
         ];
         $add=Cmsmodel::insert($data);
-        //var_dump($data);
+        var_dump($data);
     }
     public function update($id){
         $data=[
@@ -46,5 +49,23 @@ class User extends Controller{
        ];
        return view('user.index',$data);
 
+    }
+    public function world1(){
+        echo __METHOD__;
+    }
+    public function hello2()
+    {
+        echo __METHOD__;
+        header('Location:/world2');
+    }
+    public function world2()
+    {
+        header('Location:http://www.baidu.com');
+    }
+
+    public function md($m,$d)
+    {
+        echo 'm: '.$m;echo '<br>';
+        echo 'd: '.$d;echo '<br>';
     }
 }

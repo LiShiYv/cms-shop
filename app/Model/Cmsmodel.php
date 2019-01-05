@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Cmsmodel extends Model
 {
     protected $table='cmsmodel';
-    protected $updateTime=false;
+    public $timestamps = false;
 
 }
