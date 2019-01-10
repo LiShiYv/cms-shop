@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Test;
 
-use App\Model\Cmsmodel;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
+    use App\Model\Cmsmodel;
+    use App\Model\GoodsModel;
+    use Illuminate\Support\Facades\Hash;
+    use Illuminate\Http\Request;
+    use App\Http\Controllers\Controller;
+    use Illuminate\Support\Facades\Session;
 
 
 class TestController extends Controller
@@ -114,6 +115,8 @@ class TestController extends Controller
         $id=Cmsmodel::insertGetId($data);
         //var_dump($id);
         if($id){
+            setcookie('u_name',$u_name,time()+86400,'/','cms.com',false,true);
+
             setcookie('id',$id,time()+86400,'/','cms.com',false,true);
             header("Refresh:3;url=/test/center");
             echo '注册成功 正在跳转';
@@ -139,8 +142,11 @@ class TestController extends Controller
                 if(password_verify($pass,$id2->pwd)){
                     $token = substr(md5(time().mt_rand(1,99999)),10,10);
                     setcookie('token',$token,time()+86400,'/','cms.com',false,true);
+                    setcookie('u_name',$id2->u_name,time()+86400,'/','cms.com',false,true);
                     setcookie('id',$id2->id,time()+86400,'/','cms.com',false,true);
                     $request->session()->put('u_token',$token);
+                    $request->session()->put('u_name',$id2->u_name);
+                    $request->session()->put('id',$id2->id);
 
                     header("Refresh:3;url=/test/center");
                     echo '登录成功';
@@ -156,23 +162,44 @@ class TestController extends Controller
 
     public function center(Request $request)
     {
-        if($request->session()->get('u_token')!=$_COOKIE['token']){
-           die("非法请求");
-        }else{
-         echo '正常请求';
-      }
+        if(!empty($_COOKIE['token'])){
+            if($request->session()->get('u_token')!=$_COOKIE['token']){
+                die("非法请求");
+            }else{
+                echo '正常请求';
+            }
+        }
+
 
 
         //echo 'token: '.$request->session()->get('u_token'); echo '</br>';
      //   echo '<pre>';print_r($request->session()->get('u_token'));echo '</pre>';
 
         //echo '<pre>';print_r($_COOKIE);echo '</pre>';
-        if(empty($_COOKIE['id'])){
+        if(empty($_COOKIE['u_name'])){
             header('Refresh:2;url=userlogin');
             echo '请先登录';
             exit;
         }else{
-            echo 'ID: '.$_COOKIE['id'] . ' 欢迎回来';
+            return view('test.center');
+
         }
     }
+    public function show(Request $request){
+
+     $detail= GoodsModel::all()->toArray();
+    // print_r($detail);exit;
+        // print_r($v);exit;
+         $data = [
+         'title'     => '商品展示',
+           'detail'      => $detail
+         ];
+        //  print_r($data);exit;
+         return view('cart.goods',$data)->with('detail',$detail);
+        // echo '<pre>';print_r($detail);echo '</pre>';
+        }
+
+        //}
+
+
 }

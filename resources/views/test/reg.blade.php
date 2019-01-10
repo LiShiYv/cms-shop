@@ -1,5 +1,5 @@
 
-@extends('layouts.test2')
+@extends('layouts.new')
 
 
 @section('content')
@@ -35,7 +35,7 @@
         <div class="form-group">
             <label for="inputPassword3" class="col-sm-2 control-label">年龄</label>
             <div class="col-sm-10">
-                <select class="form-control" name="u_sex">
+                <select class="form-control" name="u_age">
                     <option>请选择</option>
                     @for($i=16;$i<=50;$i++){
 

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http;
+use App\Http\Middleware\CheckCookies;
 
+use App\Http\Middleware\CheckCookiesId;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -59,5 +61,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'check.cookies.id'=>CheckCookiesId::class,
+        'check.cookies'=> CheckCookies::class,
     ];
 }

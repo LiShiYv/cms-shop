@@ -60,3 +60,21 @@ Route::get('mvc/test2','Mvc\MvcController@test2');
 //Route::get('/test/cookie1','Test\TestController@cookieTest1');
 //Route::get('/test/cookie2','Test\TestController@cookieTest2');
 //Route::get('/test/session','Test\TestController@sessionTest');
+//Route::get('/test/mid1','Test\TestController@mid1')->middleware('check.uid');        //中间件测试
+//Route::get('/test/check_cookie','Test\TestController@checkCookie')->middleware('check.cookie');        //中间件测试
+//购物车
+//Route::get('/cart','Cart\IndexController@index')->middleware('check.uid');
+Route::get('/cart','Cart\CartController@cart')->middleware('check.cookies');
+Route::get('/cart/add/{goods_id}','Cart\CartController@add')->middleware('check.cookies');      //添加商品
+Route::get('/cart/del/{goods_id}','Cart\CartController@del')->middleware('check.cookies');
+Route::post('/cart/add2','Cart\CartController@add2')->middleware('check.cookies');
+Route::get('/cart/del2/{goods_id}','Cart\CartController@del2')->middleware('check.cookies');
+Route::post('/cart/del1','Cart\CartController@del1')->middleware('check.cookies');
+//商品展示
+Route::get('/cart/goods','Test\TestController@show')->middleware('check.cookies');
+//商品详情
+Route::get('/goods/{goods_id}','Goods\GoodsController@good');
+//下单
+Route::get('/order/add','Order\OrderController@add');
+Route::get('/order','Order\OrderController@ordershow')->middleware('check.cookies');
+Route::get('/order/orderdel/{o_id}','Order\OrderController@orderdel')->middleware('check.cookies');
