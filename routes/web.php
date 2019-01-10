@@ -51,10 +51,13 @@ Route::post('/userregs','Test\TestController@toReg');
 //用户登录
 Route::get('/userlogin','Test\TestController@users');
 Route::post('/userlogins','Test\TestController@userAdd');
-Route::get('/test/center','Test\TestController@center');        //个人中心
+Route::get('/center','Test\TestController@center');        //个人中心
 //引入静态文件
+//首页
 Route::get('/mvc/test1','Mvc\MvcController@test1');
 Route::get('mvc/test2','Mvc\MvcController@test2');
+//用户退出
+Route::get('/userquit','Test\TestController@quit');
 //cookie
 //Cookie
 //Route::get('/test/cookie1','Test\TestController@cookieTest1');
@@ -71,10 +74,11 @@ Route::post('/cart/add2','Cart\CartController@add2')->middleware('check.cookies'
 Route::get('/cart/del2/{goods_id}','Cart\CartController@del2')->middleware('check.cookies');
 Route::post('/cart/del1','Cart\CartController@del1')->middleware('check.cookies');
 //商品展示
-Route::get('/cart/goods','Test\TestController@show')->middleware('check.cookies');
+Route::get('/cart/goods','Test\TestController@show');
 //商品详情
 Route::get('/goods/{goods_id}','Goods\GoodsController@good');
 //下单
 Route::get('/order/add','Order\OrderController@add');
 Route::get('/order','Order\OrderController@ordershow')->middleware('check.cookies');
 Route::get('/order/orderdel/{o_id}','Order\OrderController@orderdel')->middleware('check.cookies');
+Route::post('/order/del1','Order\OrderController@del1')->middleware('check.cookies');

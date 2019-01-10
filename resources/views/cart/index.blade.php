@@ -23,5 +23,5 @@
 
 @section('footer')
     @parent
-    <script src="{{URL::asset('/js/goods/goods.js')}}"></script>
+    <script src="{{URL::asset('/js/cart/cart.js')}}"></script>
 @endsection

@@ -118,7 +118,7 @@ class TestController extends Controller
             setcookie('u_name',$u_name,time()+86400,'/','cms.com',false,true);
 
             setcookie('id',$id,time()+86400,'/','cms.com',false,true);
-            header("Refresh:3;url=/test/center");
+            header("Refresh:3;url=/center");
             echo '注册成功 正在跳转';
         }else{
             echo '注册失败';
@@ -148,7 +148,7 @@ class TestController extends Controller
                     $request->session()->put('u_name',$id2->u_name);
                     $request->session()->put('id',$id2->id);
 
-                    header("Refresh:3;url=/test/center");
+                    header("Refresh:3;url=/center");
                     echo '登录成功';
                 } else {
                     die('密码或用户名错误');
@@ -164,7 +164,10 @@ class TestController extends Controller
     {
         if(!empty($_COOKIE['token'])){
             if($request->session()->get('u_token')!=$_COOKIE['token']){
+                header("Refresh:3;url=/userlogin");
                 die("非法请求");
+
+
             }else{
                 echo '正常请求';
             }
@@ -198,7 +201,14 @@ class TestController extends Controller
          return view('cart.goods',$data)->with('detail',$detail);
         // echo '<pre>';print_r($detail);echo '</pre>';
         }
+        public function quit(Request $request){
+        $request->session()->pull('id',null);
+            $request->session()->pull('u_name',null);
+            $request->session()->pull('u_token',null);
+            echo '已退出';
+        header('Refresh:2;url=/mvc/test1');
 
+}
         //}
 
 

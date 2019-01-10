@@ -79,5 +79,27 @@ class OrderController extends Controller
             echo '删除成功';
         }
     }
+    public function del1(Request $request){
+            //
+        $o_id=$request->input('o_id');
+        $del1=OrderModel::where(['o_id'=>$o_id])->delete();
+        if($del1){
+            $response=[
+                'error'=>0,
+                'msg'=>'删除成功',
+            ];
+            return $response;
+        }else{
+            $response=[
+                'error'=>5003,
+                'msg'=>'删除失败',
+            ];
+            return $response;
+        }
+    }
+    //三表联查 订单详情
+    //$goods=GoodsModel::
+
+
 
 }

@@ -44,8 +44,11 @@ class CartController extends Controller
         // }
 
         //}
-        $uid = session()->get('id');
-        $cart_goods = CartModel::where(['id' => $uid])->get()->toArray();
+        $uid = $this->id;
+        if(!empty($uid)){
+            $cart_goods = CartModel::where(['id' => $uid])->get()->toArray();
+
+
         //echo $id;exit;
         // $cart_goods=CartModel::where(['id'=>$id])->get()->toArray();
 //echo 111;exit;
@@ -54,24 +57,31 @@ class CartController extends Controller
             header("Refresh:3;url=/goods/1");
             die('购物车太空了');
         }
-        // echo 11;exit;
-        if ($cart_goods) {
-            //获取最新的信息
-            foreach ($cart_goods as $k => $v) {
-                $goods_info = GoodsModel::where(['goods_id' => $v['goods_id']])->first()->toArray();
-                //print_r($goods_info);exit;
-                $goods_info['cart_id'] = $v['cart_id'];
-                $goods_info['goods_num'] = $v['goods_num'];
-                //echo '<pre>';print_r($goods_info);echo '</pre>';
-                $list[] = $goods_info;
-            }
-        }
+        //echo $uid;exit;
 
-        $data = [
-            'list' => $list
-        ];
-        return view('cart.index', $data);
-    }
+            // echo 11;exit;
+            if ($cart_goods) {
+                //获取最新的信息
+                foreach ($cart_goods as $k => $v) {
+                    $goods_info = GoodsModel::where(['goods_id' => $v['goods_id']])->first()->toArray();
+
+                    //print_r($goods_info);exit;
+                    $goods_info['cart_id'] = $v['cart_id'];
+                    $goods_info['goods_num'] = $v['goods_num'];
+                    //echo '<pre>';print_r($goods_info);echo '</pre>';
+                    $list[] = $goods_info;
+                }
+            }
+
+            $data = [
+                'list' => $list
+            ];
+            return view('cart.index', $data);
+        }else{
+            header("Refresh:3;url=/userlogin");
+            die('请先登录');
+        }
+}
 
     //添加购物车
     public function add($goods_id)
@@ -107,16 +117,6 @@ class CartController extends Controller
     {
         $goods_id = $request->input('goods_id');
         $num = $request->input('goods_num');
-
-        //检查库存
-        $store_num = GoodsModel::where(['goods_id' => $goods_id])->value('store');
-        if ($store_num <= 0) {
-            $response = [
-                'errno' => 5001,
-                'msg' => '库存不足'
-            ];
-            return $response;
-        }
 
         //写入购物车表
         $data = [
