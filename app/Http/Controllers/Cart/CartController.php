@@ -45,19 +45,19 @@ class CartController extends Controller
 
         //}
         $uid = $this->id;
-        if(!empty($uid)){
+        if (!empty($uid)) {
             $cart_goods = CartModel::where(['id' => $uid])->get()->toArray();
 
 
-        //echo $id;exit;
-        // $cart_goods=CartModel::where(['id'=>$id])->get()->toArray();
+            //echo $id;exit;
+            // $cart_goods=CartModel::where(['id'=>$id])->get()->toArray();
 //echo 111;exit;
-        //print_r($cart_goods);exit;
-        if (empty($cart_goods)) {
-            header("Refresh:3;url=/goods/1");
-            die('购物车太空了');
-        }
-        //echo $uid;exit;
+            //print_r($cart_goods);exit;
+            if (empty($cart_goods)) {
+                header("Refresh:3;url=/goods/1");
+                die('购物车太空了');
+            }
+            //echo $uid;exit;
 
             // echo 11;exit;
             if ($cart_goods) {
@@ -77,11 +77,11 @@ class CartController extends Controller
                 'list' => $list
             ];
             return view('cart.index', $data);
-        }else{
+        } else {
             header("Refresh:3;url=/userlogin");
             die('请先登录');
         }
-}
+    }
 
     //添加购物车
     public function add($goods_id)
@@ -184,13 +184,35 @@ class CartController extends Controller
 
         //判断
         $del1 = CartModel::where(['id' => $this->id, 'cart_id' => $cart_id])->delete();
-        if($del1){
+        if ($del1) {
             $response = [
                 'error' => 0,
                 'msg' => '删除成功'
             ];
             return $response;
-        }else{
+        } else {
+            $response = [
+                'error' => 5003,
+                'msg' => '删除失败'
+            ];
+            return $response;
+        }
+
+    }
+
+    public function del6(Request $request)
+    {
+        $cart_id = $request->input('cart_id');
+
+        //判断
+        $del1 = CartModel::where(['id' => $this->id, 'cart_id' => $cart_id])->delete();
+        if ($del1) {
+            $response = [
+                'error' => 0,
+                'msg' => '删除成功'
+            ];
+            return $response;
+        } else {
             $response = [
                 'error' => 5003,
                 'msg' => '删除失败'
