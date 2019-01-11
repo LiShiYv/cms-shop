@@ -97,8 +97,35 @@ class OrderController extends Controller
             return $response;
         }
     }
+    public function add2(Request $request){
+        $cart_id = $request->input('cart_id');
+        $goods_num = $request->input('goods_num');
+        $goods_price=$request->input('goods_price');
+        $order_amount=$goods_num*$goods_price;
+        $order_sn=OrderModel::getModelOrder();
+        $data=[
+            'order_sn' =>$order_sn,
+            'id' =>session()->get('id'),
+            'reg_time'=>time(),
+            'order_amount'=>$order_amount
+        ];
+        $oid=OrderModel::insertGetId($data);
+        if($oid){
+            CartModel::where(['id'=>session()->get('id')])->delete();
+            $response=[
+                'error'=>0,
+                'msg'=>'下单成功',
+            ];
+            return $response;
+        }else{
+            $response=[
+                'error'=>5003,
+                'msg'=>'下单失败',
+            ];
+            return $response;
+        }
+    }
     //三表联查 订单详情
-    //$goods=GoodsModel::
 
 
 

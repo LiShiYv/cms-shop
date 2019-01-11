@@ -82,3 +82,4 @@ Route::get('/order/add','Order\OrderController@add');
 Route::get('/order','Order\OrderController@ordershow')->middleware('check.cookies');
 Route::get('/order/orderdel/{o_id}','Order\OrderController@orderdel')->middleware('check.cookies');
 Route::post('/order/del1','Order\OrderController@del1')->middleware('check.cookies');
+Route::post('/order/add2','Order\OrderController@add2')->middleware('check.cookies');

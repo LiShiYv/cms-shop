@@ -20,4 +20,5 @@ $(".del_order").click(function(del){
             }
         }
     })
+
 })
