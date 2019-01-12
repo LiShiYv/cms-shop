@@ -78,7 +78,7 @@ Route::get('/cart/goods','Test\TestController@show');
 //商品详情
 Route::get('/goods/{goods_id}','Goods\GoodsController@good');
 //下单
-Route::get('/order/add','Order\OrderController@add');
+Route::get('/order/add','order\OrderController@add');
 Route::get('/order','order\OrderController@ordershow')->middleware('check.cookies');
 Route::get('/order/orderdel/{o_id}','order\OrderController@orderdel')->middleware('check.cookies');
 Route::post('/order/del1','order\OrderController@del1')->middleware('check.cookies');
