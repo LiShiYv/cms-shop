@@ -115,9 +115,9 @@ class TestController extends Controller
         $id=Cmsmodel::insertGetId($data);
         //var_dump($id);
         if($id){
-            setcookie('u_name',$u_name,time()+86400,'/','cms.com',false,true);
+            setcookie('u_name',$u_name,time()+86400,'/','lsy.52self.cn',false,true);
 
-            setcookie('id',$id,time()+86400,'/','cms.com',false,true);
+            setcookie('id',$id,time()+86400,'/','lsy.52self.cn',false,true);
             header("Refresh:3;url=/center");
             echo '注册成功 正在跳转';
         }else{
@@ -141,9 +141,9 @@ class TestController extends Controller
             if($id2){
                 if(password_verify($pass,$id2->pwd)){
                     $token = substr(md5(time().mt_rand(1,99999)),10,10);
-                    setcookie('token',$token,time()+86400,'/','cms.com',false,true);
-                    setcookie('u_name',$id2->u_name,time()+86400,'/','cms.com',false,true);
-                    setcookie('id',$id2->id,time()+86400,'/','cms.com',false,true);
+                    setcookie('token',$token,time()+86400,'/','lsy.52self.cn',false,true);
+                    setcookie('u_name',$id2->u_name,time()+86400,'/','lsy.52self.cn',false,true);
+                    setcookie('id',$id2->id,time()+86400,'/','lsy.52self.cn',false,true);
                     $request->session()->put('u_token',$token);
                     $request->session()->put('u_name',$id2->u_name);
                     $request->session()->put('id',$id2->id);
@@ -168,8 +168,6 @@ class TestController extends Controller
                 die("非法请求");
 
 
-            }else{
-                echo '正常请求';
             }
         }
 

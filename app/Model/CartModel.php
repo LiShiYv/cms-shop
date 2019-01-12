@@ -12,7 +12,7 @@ use App\Model\GoodsModel;
 class CartModel extends Model
 {
 //商品的id
-    public $table = 'CartModel';
+    public $table = 'cartmodel';
     public $timestamps = false;
 public function goodsInfo($goods_id){
     return GoodsModel::where(['goods_id'=>$goods_id])->get();

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class GoodsModel extends Model
 {
-    protected $table='GoodsModel';
+    protected $table='goodsmodel';
     public $timestamps = false;
 
 
