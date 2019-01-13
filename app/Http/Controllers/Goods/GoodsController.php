@@ -32,7 +32,7 @@ class GoodsController extends Controller
             ];
             return view('goods.index', $data);
         } else{
-            header('Refresh:2;url=userlogin');
+            header('Refresh:2;url=/userlogin');
             die('您还没有登录 请先登录');
         }
 
