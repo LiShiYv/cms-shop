@@ -19,7 +19,7 @@ class GoodsController extends Controller
 
         //商品不存在
         if(!$goods){
-            header('Refresh:2;url=/');
+            header('Refresh:2;url=/cart/goods');
             echo '商品未找到,正在跳转至首页 请稍等...';
             exit;
         }

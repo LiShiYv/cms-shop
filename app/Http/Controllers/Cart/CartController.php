@@ -115,35 +115,42 @@ class CartController extends Controller
 
     public function add2(Request $request)
     {
-        $goods_id = $request->input('goods_id');
-        $num = $request->input('goods_num');
+        $uid = $this->id;
+        if (!empty($uid)) {
+            $cart_goods = CartModel::where(['id' => $uid])->get()->toArray();
 
-        //写入购物车表
-        $data = [
-            'goods_id' => $goods_id,
-            'goods_num' => $num,
-            'reg_time' => time(),
-            'id' => session()->get('id'),
-            'token' => session()->get('u_token')
-        ];
+            $goods_id = $request->input('goods_id');
+            $num = $request->input('goods_num');
 
-        $cid = CartModel::insertGetId($data);
-        if (!$cid) {
+            //写入购物车表
+            $data = [
+                'goods_id' => $goods_id,
+                'goods_num' => $num,
+                'reg_time' => time(),
+                'id' => session()->get('id'),
+                'token' => session()->get('u_token')
+            ];
+
+            $cid = CartModel::insertGetId($data);
+            if (!$cid) {
+                $response = [
+                    'errno' => 5002,
+                    'msg' => '添加购物车失败，请重试'
+                ];
+                return $response;
+            }
+
+
             $response = [
-                'errno' => 5002,
-                'msg' => '添加购物车失败，请重试'
+                'error' => 0,
+                'msg' => '添加成功'
             ];
             return $response;
+        } else {
+            header("Refresh:3;url=/userlogin");
+            die('请先登录');
         }
-
-
-        $response = [
-            'error' => 0,
-            'msg' => '添加成功'
-        ];
-        return $response;
     }
-
     //删除购物车
     public function del($goods_id)
     {
