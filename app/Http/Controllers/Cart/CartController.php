@@ -117,7 +117,7 @@ class CartController extends Controller
     {
         $uid = $this->id;
         if (!empty($uid)) {
-            $cart_goods = CartModel::where(['id' => $uid])->get()->toArray();
+
 
             $goods_id = $request->input('goods_id');
             $num = $request->input('goods_num');
