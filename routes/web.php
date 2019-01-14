@@ -84,6 +84,6 @@ Route::get('/order/orderdel/{o_id}','order\OrderController@orderdel')->middlewar
 Route::post('/order/del1','order\OrderController@del1')->middleware('check.cookies');
 Route::post('/order/add2','order\OrderController@add2')->middleware('check.cookies');
 //支付
-Route::get('/pay/order/{oid}','Pay\AustController@order')->middleware('check.cookies');         //订单支付
+Route::get('/pay/order/{o_id}','Pay\AustController@order')->middleware('check.cookies');         //订单支付
 Route::post('/pay/alipay/notify','Pay\AlipayController@notify');        //支付宝支付 通知回调
 Route::get('/pay/alipay/test','Pay\AlipayController@test');         //测试
