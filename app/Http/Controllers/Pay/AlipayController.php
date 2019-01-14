@@ -148,7 +148,7 @@ class AlipayController extends Controller
        // }
 
         //处理订单逻辑
-        $this->dealOrder($_GET);
+       // $this->dealOrder($_GET);
     }
     //支付宝异步设置
     public function notify()
