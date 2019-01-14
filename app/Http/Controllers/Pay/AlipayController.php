@@ -15,7 +15,7 @@ class AlipayController extends Controller
     public $app_id;
     public $gate_way;
     public $notify_url;
-    public $snys_url;
+    public $suys_url;
     public $rsaPrivateKeyFilePath = './key/ali.key';
     public $aliPubKey = './key/aliup.key';
 
@@ -25,7 +25,7 @@ class AlipayController extends Controller
         $this->app_id=env('ALIPAY_APP_ID');
         $this->gate_way=env('ALIPAY_GATE_WAY');
         $this->notify_url=env('ALIPAY_NOTIFY_URL');
-        $this->snys_url=env('ALIPAY_SNYS_URL');
+        $this->suys_url=env('ALIPAY_SUYS_URL');
     }
     public function test()
     {
@@ -47,7 +47,7 @@ class AlipayController extends Controller
             'timestamp'   => date('Y-m-d H:i:s'),
             'version'   => '1.0',
             'notify_url'   => $this->notify_url,
-            'snys_url' =>$this->snys_url,
+            'suys_url' =>$this->suys_url,
             'biz_content'   => json_encode($bizcont),
         ];
 
@@ -139,7 +139,7 @@ class AlipayController extends Controller
 
      //支付宝同步通知回调
 
-    public function snys()
+    public function suys()
     {
        // echo '<pre>';print_r($_GET);echo '</pre>';
         //验签 支付宝公钥
