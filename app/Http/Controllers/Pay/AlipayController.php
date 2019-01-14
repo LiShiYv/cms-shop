@@ -25,14 +25,14 @@ class AlipayController extends Controller
         $this->app_id=env('ALIPAY_APP_ID');
         $this->gate_way=env('ALIPAY_GATE_WAY');
         $this->notify_url=env('ALIPAY_NOTIFY_URL');
-        $this->suys_url=env('ALIPAY_SUYS_URL');
+        $this->suys_url=env('ALIPAY_SNYS_URL');
     }
     public function test()
     {
 
         $bizcont = [
             'subject'           => 'ancsd'. mt_rand(1111,9999).str_random(6),
-            'out_trade_no'      => 'oid'.date('YmdHis').mt_rand(1111,2222),
+            'out_trade_no'      => 'o_id'.date('YmdHis').mt_rand(1111,2222),
             'total_amount'      => 0.01,
             'product_code'      => 'QUICK_WAP_WAY',
 
