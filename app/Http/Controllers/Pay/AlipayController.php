@@ -139,7 +139,7 @@ class AlipayController extends Controller
 
      //支付宝同步通知回调
 
-    public function aliReturn()
+    public function snys()
     {
        // echo '<pre>';print_r($_GET);echo '</pre>';
         //验签 支付宝公钥
@@ -151,7 +151,7 @@ class AlipayController extends Controller
         $this->dealOrder($_GET);
     }
     //支付宝异步设置
-    public function aliNotify()
+    public function notify()
     {
 
         $data = json_encode($_POST);
