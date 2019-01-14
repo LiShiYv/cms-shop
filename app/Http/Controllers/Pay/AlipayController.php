@@ -47,7 +47,7 @@ class AlipayController extends Controller
             'timestamp'   => date('Y-m-d H:i:s'),
             'version'   => '1.0',
             'notify_url'   => $this->notify_url,
-            'suys_url' =>$this->suys_url,
+            'return_url' =>$this->suys_url,
             'biz_content'   => json_encode($bizcont),
         ];
 
@@ -141,7 +141,7 @@ class AlipayController extends Controller
 
     public function suys()
     {
-       // echo '<pre>';print_r($_GET);echo '</pre>';
+       echo '<pre>';print_r($_GET);echo '</pre>';
         //验签 支付宝公钥
         if(!$this->verify()){
             echo 'error';
