@@ -12,10 +12,11 @@ $("#add_cart_btn").click(function(e){
         data    :   {goods_id:goods_id,goods_num:goods_num},
         dataType:   'json',
         success :   function(d){
-            if(d.error==301){
-                window.location.href=d.url;
-            }else{
+            if(d.error!==301){
                 alert(d.msg);
+                window.location.href='/cart';
+            }else{
+                window.location.href=d.url;
             }
         }
     });

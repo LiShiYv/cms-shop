@@ -36,11 +36,13 @@ $("#del_goods").click(function(d) {
             data :{cart_id:cart_id,goods_num:goods_num,goods_price:goods_price},
             dataType :'json',
             success :function(add){
-                if(add.error==301){
-                    window.location.href=url;
-                }else{
+                if(add.error!==301){
                     alert("提交成功");
+                    window.location.href='/order';
                     _this.parents('tr').remove();
+                }else{
+                    window.location.href=url;
+
                 }
             }
         })
