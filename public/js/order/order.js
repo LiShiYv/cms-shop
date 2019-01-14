@@ -15,7 +15,7 @@ $(".del_order").click(function(del){
             if(del.error==301){
                 window.location.href=url;
             }else{
-                alert('删除成功');
+                alert('取消成功');
                 _this.parents('tr').remove();
             }
         }

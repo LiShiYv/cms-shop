@@ -14,7 +14,7 @@
                 <td>{{$v['order_sn']}}</td>
                 <td>{{$v['order_amount']}}</td>
                 <td>{{date('Y-m-d H:i:s',$v['reg_time'])}}</td>
-                <td><a class="del_order btn btn-warning " >取消订单1</a><a href="/order/orderdel/{{$v['o_id']}}"><font color="red" class="btn btn-info">取消订单</font></a> <a href="/pay/order/{{$v['o_id']}}"><font color="#ffd700">立即支付</font></a></td>
+                <td><a class="del_order btn btn-warning " >取消订单1</a><a href="/order/orderdel/{{$v['o_id']}}"><font color="red" class="btn btn-info">取消订单</font></a> <a href="/pay/order/{{$v['o_id']}}" class="btn btn-warning"><font color="#ffd700">立即支付</font></a></td>
             </tr>
         @endforeach
         </tbody>
