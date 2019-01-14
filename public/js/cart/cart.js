@@ -1,4 +1,4 @@
-$("#del_goods").click(function(d) {
+$(".del_goods").click(function(d) {
     d.preventDefault();
     var _this = $(this);
     var cart_id = _this.parents('tr').attr('cart_id');
@@ -14,13 +14,13 @@ $("#del_goods").click(function(d) {
             if (del1.error == 301) {
                 window.location.href = url;
             } else {
-                alert('删除成功');
+                alert('取消成功');
                 _this.parents('tr').remove();
             }
         }
     });
 })
-    $("#add_order").click(function(rr){
+    $(".add_order").click(function(rr){
         //alert(111);
         rr.preventDefault();
         var _this=$(this);
@@ -37,7 +37,7 @@ $("#del_goods").click(function(d) {
             dataType :'json',
             success :function(add){
                 if(add.error!==301){
-                    alert("提交成功");
+                    alert("下单成功");
                     window.location.href='/order';
                     _this.parents('tr').remove();
                 }else{
