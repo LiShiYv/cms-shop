@@ -17,7 +17,7 @@ class AlipayController extends Controller
     public $notify_url;
     public $suys_url;
     public $rsaPrivateKeyFilePath = './key/ali.key';
-    public $aliPubKey = './key/aliup.key';
+    public $aliUpKey = './key/aliup.key';
 
 
     public function __construct()
@@ -183,7 +183,7 @@ class AlipayController extends Controller
         $params['sign'] = null;
 
         //读取公钥文件
-        $pubKey = file_get_contents($this->aliPubKey);
+        $pubKey = file_get_contents($this->aliUpKey);
         $pubKey = "-----BEGIN PUBLIC KEY-----\n" .
             wordwrap($pubKey, 64, "\n", true) .
             "\n-----END PUBLIC KEY-----";
