@@ -143,9 +143,9 @@ class AlipayController extends Controller
     {
        echo '<pre>';print_r($_GET);echo '</pre>';
         //验签 支付宝公钥
-        if(!$this->verify()){
-            echo 'error';
-        }
+       // if(!$this->verify()){
+          //  echo 'error';
+       // }
 
         //处理订单逻辑
         $this->dealOrder($_GET);
