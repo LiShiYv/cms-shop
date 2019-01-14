@@ -14,7 +14,7 @@
                 <td>{{$v['goods_name']}}</td>
                 <td>{{$v['goods_price']}}</td>
                 <td>{{date('Y-m-d H:i:s',$v['reg_time'])}}</td>
-                <td><a href="/goods/{{$v['goods_id']}}">商品详情</a></td>
+                <td><a href="/goods/{{$v['goods_id']}}" class="btn btn-warning">商品详情</a></td>
             </tr>
         @endforeach
         </tbody>
@@ -32,7 +32,7 @@
                 <td>{{$v['goods_name']}}</td>
                 <td>{{$v['goods_price']}}</td>
                 <td>{{date('Y-m-d H:i:s',$v['reg_time'])}}</td>
-                <td><a href="/goods/{{$v['goods_id']}}">商品详情</a></td>
+                <td><a href="/goods/{{$v['goods_id']}} " class="btn btn-inverse">商品详情</a></td>
             </tr>
         @endforeach
         </tbody>

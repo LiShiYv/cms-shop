@@ -1,4 +1,4 @@
-$(".del_order").click(function(del){
+$("#del_order").click(function(del){
     del.preventDefault();
    // alert(111);
     var _this=$(this);

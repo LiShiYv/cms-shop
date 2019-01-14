@@ -48,8 +48,8 @@ class OrderController extends Controller
         if(!$oid){
             echo ('生成失败，请重试');
         }
-
-        echo '下单成功,订单号：'.$order_sn .' 跳转支付';
+        header('Refresh:2;url=/order');
+        echo '下单成功,订单号：'.$order_sn .'';
 
         CartModel::where(['id'=>session()->get('id')])->delete();
     }

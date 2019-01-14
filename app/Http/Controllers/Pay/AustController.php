@@ -37,7 +37,7 @@ class AustController extends Controller
 
         //增加消费积分 ...
 
-        header('Refresh:2;url=/user/center');
+        header('Refresh:2;url=/pay/alipay/test');
         echo '支付成功，正在跳转';
 
     }

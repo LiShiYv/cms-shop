@@ -1,4 +1,4 @@
-$(".del_goods").click(function(d) {
+$("#del_goods").click(function(d) {
     d.preventDefault();
     var _this = $(this);
     var cart_id = _this.parents('tr').attr('cart_id');
@@ -20,7 +20,7 @@ $(".del_goods").click(function(d) {
         }
     });
 })
-    $(".add_order").click(function(rr){
+    $("#add_order").click(function(rr){
         //alert(111);
         rr.preventDefault();
         var _this=$(this);

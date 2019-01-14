@@ -9,13 +9,13 @@
             @foreach($list as $k=>$v)
                 <tr cart_id="{{$v['cart_id']}}" goods_num="{{$v['goods_num']}}" goods_price="{{$v['goods_price']}}">
 
-                    <td>  {{$v['cart_id']}}</td><td>{{$v['goods_name']}}</td><td>{{$v['goods_price']}}</td> <td>{{date('Y-m-d H:i:s',$v['reg_time'])}}</td> <td>{{$v['goods_num']}}</td><td> <a href="/cart/del2/{{$v['cart_id']}}" >删除</a> <a class="add_order" > 下单 </a> <a class="del_goods">删除2</a></td></tr>
+                    <td>  {{$v['cart_id']}}</td><td>{{$v['goods_name']}}</td><td>{{$v['goods_price']}}</td> <td>{{date('Y-m-d H:i:s',$v['reg_time'])}}</td> <td>{{$v['goods_num']}}</td><td> <a href="/cart/del2/{{$v['cart_id']}}" class="btn btn-info">删除</a> <a id="add_order" class="btn btn-primary"> 下单 </a> <a id="del_goods" class="btn btn-info">删除2</a></td></tr>
                <hr>
 
             @endforeach
 
         </table>
-        <a href="/order/add" > 一键下单 </a>
+        <a href="/order/add" class="btn btn-success" > 一键下单 </a>
 
 
 
