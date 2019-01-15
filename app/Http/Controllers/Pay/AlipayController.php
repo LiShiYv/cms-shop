@@ -141,11 +141,11 @@ class AlipayController extends Controller
 
     public function suys()
     {
-       echo '<pre>';print_r($_GET);echo '</pre>';
+       //echo '<pre>';print_r($_GET);echo '</pre>';
         //验签 支付宝公钥
-       // if(!$this->verify()){
-          //  echo 'error';
-       // }
+       if(!$this->verify($_GET)){
+            echo '交易失败';
+        }
 
         //处理订单逻辑
        // $this->dealOrder($_GET);
@@ -172,7 +172,7 @@ class AlipayController extends Controller
         }
 
         //处理订单逻辑
-        $this->dealOrder($_POST);
+       // $this->dealOrder($_POST);
 
         echo 'success';
     }
