@@ -79,7 +79,7 @@ class AlipayController extends Controller
 
         //业务参数
         $bizcont = [
-            'subject' => 'Lening-Order: ' . $o_id,
+            'subject' => 'Weiliang-Order: ' . $o_id,
             'out_trade_no' => $o_id,
             'total_amount' => $order_info['order_amount'] / 100,
             'product_code' => 'QUICK_WAP_WAY',
@@ -188,11 +188,8 @@ class AlipayController extends Controller
 
     public function suys()
     {
-       //echo '<pre>';print_r($_GET);echo '</pre>';
-        //验签 支付宝公钥
-       if(!$this->verify($_GET)){
-            echo '交易失败';
-        }
+        header('Refresh:2;url=/order');
+        echo "订单： ".$_GET['out_trade_no'] . ' 支付成功，正在跳转';
 
         //处理订单逻辑
        // $this->dealOrder($_GET);
