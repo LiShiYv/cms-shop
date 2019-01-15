@@ -41,6 +41,8 @@ class OrderController extends Controller
             'order_sn' =>$order_sn,
             'id' =>session()->get('id'),
             'reg_time'=>time(),
+
+
             'order_amount'=>$order_amount
         ];
         $oid=OrderModel::insertGetId($data);
@@ -51,17 +53,19 @@ class OrderController extends Controller
         header('Refresh:2;url=/order');
         echo '下单成功,订单号：'.$order_sn .'';
 
-        CartModel::where(['id'=>session()->get('id')])->delete();
+        CartModel::where(['id'=>session()->get('id')])->update(['is_del'=>2]);
     }
     public function ordershow(){
         $uid = session()->get('id');
         if(!empty($uid)){
-            $deta= OrderModel::where(['id' => $uid])->get()->all();
+            $deta= OrderModel::where(['id' => $uid,'is_del'=>1])->get()->all();
             // print_r($detail);exit;
             // print_r($v);exit;
             $data = [
                 'title'     => '表单展示',
-                'deta'      => $deta
+                'deta'      => $deta,
+
+
             ];
             //  print_r($data);exit;
             return view('cart.order',$data)->with('deta',$deta);
@@ -73,8 +77,10 @@ class OrderController extends Controller
 
 
     public function orderdel($o_id){
-        $del = OrderModel::where(['o_id' => $o_id])->delete();
+
+        $del = OrderModel::where(['o_id' => $o_id])->update(['is_del'=>2]);
         if ($del) {
+
             header("Refresh:3;url=/order");
             echo '删除成功';
         }
@@ -82,7 +88,7 @@ class OrderController extends Controller
     public function del1(Request $request){
             //
         $o_id=$request->input('o_id');
-        $del1=OrderModel::where(['o_id'=>$o_id])->delete();
+        $del1=OrderModel::where(['o_id'=>$o_id])->update(['is_del'=>2]);
         if($del1){
             $response=[
                 'error'=>0,
@@ -107,6 +113,7 @@ class OrderController extends Controller
             'order_sn' =>$order_sn,
             'id' =>session()->get('id'),
             'reg_time'=>time(),
+
             'order_amount'=>$order_amount
         ];
         $oid=OrderModel::insertGetId($data);
