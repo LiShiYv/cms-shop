@@ -61,8 +61,55 @@ class AlipayController extends Controller
         $url = $this->gate_way . $url;
         header("Location:".$url);
     }
+    public function pay($o_id)
+    {
+
+        //验证订单状态 是否已支付 是否是有效订单
+        $order_info = OrderModel::where(['o_id' => $o_id])->first()->toArray();
+
+        //判断订单是否已被支付
+        if ($order_info['is_pay'] == 1) {
+            die("订单已支付，请勿重复支付");
+        }
+        //判断订单是否已被删除
+        if ($order_info['is_delete'] == 1) {
+            die("订单已被删除，无法支付");
+        }
 
 
+        //业务参数
+        $bizcont = [
+            'subject' => 'Lening-Order: ' . $o_id,
+            'out_trade_no' => $o_id,
+            'total_amount' => $order_info['order_amount'] / 100,
+            'product_code' => 'QUICK_WAP_WAY',
+
+        ];
+        //公共参数
+        $data = [
+            'app_id'   => $this->app_id,
+            'method'   => 'alipay.trade.wap.pay',
+            'format'   => 'JSON',
+            'charset'   => 'utf-8',
+            'sign_type'   => 'RSA2',
+            'timestamp'   => date('Y-m-d H:i:s'),
+            'version'   => '1.0',
+            'notify_url'   => $this->notify_url,        //异步通知地址
+            'return_url'   => $this->suys_url,        // 同步通知地址
+            'biz_content'   => json_encode($bizcont),
+        ];
+        //签名
+        $sign = $this->rsaSign($data);
+        $data['sign'] = $sign;
+        $param_str = '?';
+        foreach($data as $k=>$v){
+            $param_str .= $k.'='.urlencode($v) . '&';
+        }
+
+        $url = rtrim($param_str,'&');
+        $url = $this->gate_way . $url;
+        header("Location:".$url);
+    }
     public function rsaSign($params) {
         return $this->sign($this->getSignContent($params));
     }
