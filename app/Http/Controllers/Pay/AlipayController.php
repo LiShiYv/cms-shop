@@ -188,6 +188,9 @@ class AlipayController extends Controller
 
     public function suys()
     {
+        if(!$this->verify($_GET)){
+            die('支付失败');
+        }
         header('Refresh:2;url=/order');
         echo "订单： ".$_GET['out_trade_no'] . ' 支付成功，正在跳转';
 
@@ -214,6 +217,22 @@ class AlipayController extends Controller
             $log_str .= " Sign OK!<<<<< \n\n";
             file_put_contents('logs/alipay.log',$log_str,FILE_APPEND);
         }
+        //验证订单交易状态
+        if($_POST['trade_status']=='TRADE_SUCCESS'){
+            //更新订单状态
+            $o_id = $_POST['out_trade_no'];     //商户订单号
+            $info = [
+                'is_pay'        => 2,       //支付状态  0未支付 1已支付
+                'pay_amount'    => $_POST['total_amount'] * 100,    //支付金额
+                'pay_time'      => strtotime($_POST['gmt_payment']), //支付时间
+                'plat_oid'      => $_POST['trade_no'],      //支付宝订单号
+                'plat'          => 1,      //平台编号 1支付宝 2微信 3第三方
+            ];
+
+            OrderModel::where(['o_id'=>$o_id])->update($info);
+        }
+
+
 
         //处理订单逻辑
        // $this->dealOrder($_POST);

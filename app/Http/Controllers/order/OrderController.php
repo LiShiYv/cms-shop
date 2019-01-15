@@ -58,7 +58,7 @@ class OrderController extends Controller
     public function ordershow(){
         $uid = session()->get('id');
         if(!empty($uid)){
-            $deta= OrderModel::where(['id' => $uid,'is_del'=>1])->get()->all();
+            $deta= OrderModel::where(['id' => $uid,'is_del'=>1,'is_pay'=>1])->get()->all();
             // print_r($detail);exit;
             // print_r($v);exit;
             $data = [
