@@ -53,7 +53,7 @@ class OrderController extends Controller
         header('Refresh:2;url=/order');
         echo '下单成功,订单号：'.$order_sn .'';
 
-        CartModel::where(['id'=>session()->get('id')])->update(['is_del'=>2]);
+        CartModel::where(['id'=>session()->get('id')])->delete();
     }
     public function ordershow(){
         $uid = session()->get('id');
