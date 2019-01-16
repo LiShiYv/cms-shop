@@ -80,7 +80,7 @@ class AlipayController extends Controller
         //业务参数
         $bizcont = [
             'subject' => 'Weiliang-Order: ' . $o_id,
-            'out_trade_no' => $o_id,
+            'order_sn' => $o_id,
             'total_amount' => $order_info['order_amount'] / 100,
             'product_code' => 'QUICK_WAP_WAY',
 
