@@ -80,7 +80,7 @@ class AlipayController extends Controller
         //业务参数
         $bizcont = [
             'subject' => 'Weiliang-Order: ' . $o_id,
-            'out_trade_no' => $order_info['order_sn'],
+            'out_trade_no' => $o_id,
             'total_amount' => $order_info['order_amount'] / 100,
             'product_code' => 'QUICK_WAP_WAY',
 
@@ -229,7 +229,7 @@ class AlipayController extends Controller
                 'plat'          => 1,      //平台编号 1支付宝 2微信 3第三方g
             ];
           //  file_put_contents('logs/alipay.log',$info,FILE_APPEND);
-            OrderModel::where(['order_sn'=>$o_id])->update($info);
+            OrderModel::where(['o_id'=>$o_id])->update($info);
         }
 
 
