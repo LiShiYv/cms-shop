@@ -226,7 +226,7 @@ class AlipayController extends Controller
                 'pay_amount'    => $_POST['total_amount'] * 100,    //支付金额
                 'pay_time'      => strtotime($_POST['gmt_payment']), //支付时间
                 'plat_oid'      => $_POST['trade_no'],      //支付宝订单号
-                'pay_status'  =>2,
+               
                 'plat'          => 1,      //平台编号 1支付宝 2微信 3第三方g
             ];
           //  file_put_contents('logs/alipay.log',$info,FILE_APPEND);
