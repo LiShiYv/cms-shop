@@ -26,9 +26,9 @@ class GoodsModel extends Model
     }
 
     //获取某字段时 格式化 该字段的值
+    //设置某字段时 格式化 该字段的值
     public function getStoreAttribute($store)
     {
-        return '>' . $store .' <';
+        return $store;
     }
-
 }

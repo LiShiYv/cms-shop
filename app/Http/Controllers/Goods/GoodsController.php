@@ -19,8 +19,7 @@ class GoodsController extends Controller
     }
     public function good($goods_id)
     {
-        $uid = session()->get('id');
-        if (!empty($uid)) {
+
 
             $goods = GoodsModel::where(['goods_id' => $goods_id])->first();
 
@@ -35,11 +34,8 @@ class GoodsController extends Controller
                 'goods' => $goods
             ];
             return view('goods.index', $data);
-        } else{
-            header('Refresh:2;url=/userlogin');
-            die('您还没有登录 请先登录');
         }
 
 
-    }
+
 }

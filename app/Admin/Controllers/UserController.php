@@ -31,8 +31,11 @@ class UserController extends Controller{
         return $grid;
 
     }
-    public function edit($id){
-        echo __METHOD__;
+    public function edit($id, Content $content){
+        return $content
+            ->header('Edit')
+            ->description('description')
+            ->body($this->form()->edit($id));
     }
     public function create(Content $content){
         return $content
@@ -41,15 +44,71 @@ class UserController extends Controller{
             ->body($this->form());
 
     }
+    public function update($id){
+        // echo 111;exit;
+        $where=[
+            'id'=>$id
+
+        ];
+        $data=[
+            'u_name'=>$_POST['u_name'],
+            'u_email'=>$_POST['u_email'],
+            'age'=>$_POST['age'],
+            //'up_time'=>time(),
+        ];
+        $res=CmsModel::where($where)->update($data);
+        if($res){
+            $response = [
+                'status' => true,
+                'message'   => '修改成功'
+            ];
+            return $response;
+        }else{
+            $response = [
+                'status' => false,
+                'message'   => '修改失败'
+            ];
+            return $response;
+        }
+
+    }
+    protected function detail($id)
+    {
+        $show = new Show(CmsModel::findOrFail($id));
+
+        $show->id('用户ID');
+        $show->u_name('用户昵称');
+        $show->pay_time('添加时间');
+        $show->age('年龄');
+
+        $show->u_email('邮箱');
+        //$show->created_at('Created at');
+        //  $show->updated_at('Updated at');
+
+        return $show;
+    }
+
     //删除
     public function destroy($id)
     {
-
-        $response = [
-            'status' => true,
-            'message'   => 'ok'
+        $where=[
+            'id'=>$id
         ];
-        return $response;
+        $res=CmsModel::where($where)->delete();
+        if($res){
+            $response = [
+                'status' => true,
+                'message'   => '删除成功'
+            ];
+            return $response;
+        }else{
+            $response = [
+                'status' => false,
+                'message'   => '删除失败'
+            ];
+            return $response;
+        }
+
     }
     protected function form(){
         $form=new Form(new CmsModel());

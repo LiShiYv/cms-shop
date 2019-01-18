@@ -24,27 +24,9 @@ class CartController extends Controller
 
     public function cart(Request $request)
     {
-        // $goods=session()->get('cart_goods');
-        //var_dump($goods);
-        //if(empty($goods)){
-        //   echo '购物车太空的';
-        //  }else{
-        //  foreach($goods as $k=>$v){
-        //  echo 'Goods ID: '.$v;echo '</br>';
-        //     $detail =GoodsModel::where(['goods_id'=>$v])->first()->get();
-        //  print_r($v);exit;
-        ///  $data = [
-        ///   'title'     => '商品展示',
-        //   'detail'      => $detail
-        //  ];
-        //  print_r($data);exit;
-        //  return view('cart.goods',$data)->with('detail',$detail);
-        // echo '<pre>';print_r($detail);echo '</pre>';
-        // }
 
-        //}
         $uid = $this->id;
-        if (!empty($uid)) {
+
             $cart_goods = CartModel::where(['id' => $uid])->get()->toArray();
 
 
@@ -76,11 +58,9 @@ class CartController extends Controller
                 'list' => $list
             ];
             return view('cart.index', $data);
-        } else {
-            header("Refresh:3;url=/userlogin");
-            die('请先登录');
         }
-    }
+
+
 
     //添加购物车
     public function add($goods_id)
@@ -114,8 +94,7 @@ class CartController extends Controller
 
     public function add2(Request $request)
     {
-        $uid = $this->id;
-        if (!empty($uid)) {
+
 
 
             $goods_id = $request->input('goods_id');
@@ -145,11 +124,8 @@ class CartController extends Controller
                 'msg' => '添加成功'
             ];
             return $response;
-        } else {
-            header("Refresh:3;url=/userlogin");
-            die('请先登录');
         }
-    }
+
     //删除购物车
     public function del($goods_id)
     {

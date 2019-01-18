@@ -1,7 +1,7 @@
 @extends('layouts.new')
 @section('content')
 
-    <b><font size="7px" color="#ffe4c4">欢迎 </font></font><font size="5px" color="red">{{$_COOKIE['u_name']}}</font></b>
+
     <p>这里是 订单
     <table border="1"  class="table table-bordered">
         <thead>
