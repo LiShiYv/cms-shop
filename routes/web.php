@@ -12,9 +12,9 @@
 */
 
 Route::get('/', function () {
-    echo date('Y-m-d H:i:s' );
+   // echo date('Y-m-d H:i:s' );
    // echo '<pre>';print_r($_COOKIE);echo '</pre>';
-    //return view('welcome');
+    return view('welcome');
 });
 Route::get('user','user\User@test');
 Route::get('vip/{id}','vip\vip@vip');
@@ -67,24 +67,28 @@ Route::get('/userquit','Test\TestController@quit');
 //Route::get('/test/check_cookie','Test\TestController@checkCookie')->middleware('check.cookie');        //中间件测试
 //购物车
 //Route::get('/cart','Cart\IndexController@index')->middleware('check.uid');
-Route::get('/cart','Cart\CartController@cart')->middleware('check.cookies');
-Route::get('/cart/add/{goods_id}','Cart\CartController@add')->middleware('check.cookies');      //添加商品
-Route::get('/cart/del/{goods_id}','Cart\CartController@del')->middleware('check.cookies');
-Route::post('/cart/add2','Cart\CartController@add2')->middleware('check.cookies');
-Route::get('/cart/del2/{goods_id}','Cart\CartController@del2')->middleware('check.cookies');
-Route::post('/cart/del1','Cart\CartController@del1')->middleware('check.cookies');
+Route::get('/cart','Cart\CartController@cart');
+Route::get('/cart/add/{goods_id}','Cart\CartController@add');      //添加商品
+Route::get('/cart/del/{goods_id}','Cart\CartController@del');
+Route::post('/cart/add2','Cart\CartController@add2');
+Route::get('/cart/del2/{goods_id}','Cart\CartController@del2');
+Route::post('/cart/del1','Cart\CartController@del1');
 //商品展示
 Route::get('/cart/goods','Test\TestController@show');
 //商品详情
 Route::get('/goods/{goods_id}','Goods\GoodsController@good');
 //下单
 Route::get('/order/add','order\OrderController@add');
-Route::get('/order','order\OrderController@ordershow')->middleware('check.cookies');
-Route::get('/order/orderdel/{o_id}','order\OrderController@orderdel')->middleware('check.cookies');
-Route::post('/order/del1','order\OrderController@del1')->middleware('check.cookies');
-Route::post('/order/add2','order\OrderController@add2')->middleware('check.cookies');
+Route::get('/order','order\OrderController@ordershow');
+Route::get('/order/orderdel/{o_id}','order\OrderController@orderdel');
+Route::post('/order/del1','order\OrderController@del1');
+Route::post('/order/add2','order\OrderController@add2');
 //支付
-Route::get('/pay/order/{o_id}','Pay\AlipayController@pay')->middleware('check.cookies');         //订单支付
+Route::get('/pay/order/{o_id}','Pay\AlipayController@pay');         //订单支付
 Route::post('/pay/alipay/notify','Pay\AlipayController@notify');        //支付宝 通知回调
 Route::get('/pay/alipay/suys','Pay\AlipayController@suys'); //支付宝 异步通知
 Route::get('/pay/alipay/test','Pay\AlipayController@test');         //测试
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

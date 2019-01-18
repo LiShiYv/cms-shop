@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Test;
 
-    use App\Model\Cmsmodel;
+    use App\Model\CmsModel;
     use App\Model\GoodsModel;
     use Illuminate\Support\Facades\Hash;
     use Illuminate\Http\Request;
@@ -12,7 +12,10 @@ namespace App\Http\Controllers\Test;
 
 class TestController extends Controller
 {
-    //
+    public function __construct()
+       {
+           $this->middleware('auth');
+      }
 
     public function abc()
     {

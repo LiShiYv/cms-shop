@@ -16,12 +16,11 @@ class CartController extends Controller
 
     public function __construct()
     {
-        $this->middleware(function ($request, $next) {
-            $this->id = session()->get('id');
-            return $next($request);
-        });
 
+     $this->middleware('auth');
     }
+
+
 
     public function cart(Request $request)
     {

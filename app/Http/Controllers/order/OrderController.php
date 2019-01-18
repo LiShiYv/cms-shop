@@ -15,8 +15,9 @@ use App\Model\OrderModel;
 use App\Http\Controllers\Controller;
 class OrderController extends Controller
 {
-    public function order(){
-        //echo __METHOD__;
+    public function __construct()
+    {
+        $this->middleware('auth');
     }
     //下单
     public function add(Request $request){
