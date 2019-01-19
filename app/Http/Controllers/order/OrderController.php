@@ -58,7 +58,7 @@ class OrderController extends Controller
     }
     public function ordershow(){
         $uid = session()->get('id');
-        if(!empty($uid)){
+        //if(!empty($uid)){
             $deta= OrderModel::where(['id' => $uid,'is_del'=>1,'is_pay'=>1])->get()->all();
             // print_r($detail);exit;
             // print_r($v);exit;
@@ -70,10 +70,10 @@ class OrderController extends Controller
             ];
             //  print_r($data);exit;
             return view('cart.order',$data)->with('deta',$deta);
-        }else{
-            die('您还没有登录 请先登录');
-        }
-    }
+        }//else{
+           // die('您还没有登录 请先登录');
+       // }
+    //}
 
 
 

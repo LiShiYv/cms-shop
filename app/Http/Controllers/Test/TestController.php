@@ -165,14 +165,14 @@ class TestController extends Controller
 
     public function center(Request $request)
     {
-        if(!empty($_COOKIE['token'])){
-            if($request->session()->get('u_token')!=$_COOKIE['token']){
-                header("Refresh:3;url=/userlogin");
-                die("非法请求");
+        //if(!empty($_COOKIE['token'])){
+            //if($request->session()->get('u_token')!=$_COOKIE['token']){
+           //     header("Refresh:3;url=/userlogin");
+             //   die("非法请求");
 
 
-            }
-        }
+          //  }
+      //  }
 
 
 
@@ -180,15 +180,15 @@ class TestController extends Controller
      //   echo '<pre>';print_r($request->session()->get('u_token'));echo '</pre>';
 
         //echo '<pre>';print_r($_COOKIE);echo '</pre>';
-        if(empty($_COOKIE['u_name'])){
-            header('Refresh:2;url=userlogin');
-            echo '请先登录';
-            exit;
-        }else{
+       // if(empty($_COOKIE['u_name'])){
+           // header('Refresh:2;url=userlogin');
+          //  echo '请先登录';
+          //  exit;
+        //}//else{
             return view('test.center');
 
         }
-    }
+   // }
     public function show(Request $request){
 
      $detail= GoodsModel::all()->toArray();

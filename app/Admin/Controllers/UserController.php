@@ -57,16 +57,16 @@ class UserController extends Controller{
             //'up_time'=>time(),
         ];
         $res=CmsModel::where($where)->update($data);
-        if($res){
+        if($res===false){
             $response = [
-                'status' => true,
-                'message'   => '修改成功'
+                'status' => false,
+                'message'   => '修改失败'
             ];
             return $response;
         }else{
             $response = [
-                'status' => false,
-                'message'   => '修改失败'
+                'status' => true,
+                'message'   => '修改成改',
             ];
             return $response;
         }
