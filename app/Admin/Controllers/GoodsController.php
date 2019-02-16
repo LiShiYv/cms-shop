@@ -70,16 +70,16 @@ class GoodsController extends Controller
           //'up_time'=>time(),
         ];
         $res=GoodsModel::where($where)->update($data);
-        if($res){
-            $response = [
-                'status' => true,
-                'message'   => '修改成功'
-            ];
-            return $response;
-        }else{
+        if($res===false){
             $response = [
                 'status' => false,
                 'message'   => '修改失败'
+            ];
+            return $response;
+        }else{
+             $response = [
+                'status' => true,
+                'message'   => '修改成功'
             ];
             return $response;
         }

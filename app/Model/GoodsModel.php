@@ -22,7 +22,7 @@ class GoodsModel extends Model
     //获取某字段时 格式化 该字段的值
     public function getGoodsPriceAttribute($GoodsPrice)
     {
-        return $GoodsPrice / 100;
+        return $GoodsPrice ;
     }
 
     //获取某字段时 格式化 该字段的值

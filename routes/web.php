@@ -17,7 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('user','user\User@test');
-Route::get('vip/{id}','vip\vip@vip');
+
 Route::get('user/add','user\User@add');
 Route::get('user/update/{id}','user\User@update');
 Route::get('user/update/{id}','user\User@update');
@@ -92,3 +92,16 @@ Route::get('/pay/alipay/test','Pay\AlipayController@test');         //测试
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+//文件上传
+Route::get('/vip','vip\vip@vip');
+Route::post('/vip/file','vip\vip@file');
+Route::get('/vip/list','vip\vip@goodsList');
+//考试
+Route::get('/login','login\loginIndexController@login');
+Route::post('/loginadd','login\loginIndexController@loginadd');
+Route::get('/show','login\loginIndexController@show');
+Route::get('/update/{id}','login\loginIndexController@update');
+Route::post('/loginupdate','login\loginIndexController@updateup');
+
+//微信
+Route::post('/weixin/alipay/notify','Pay\AlipayController@notify');
