@@ -97,11 +97,11 @@ Route::get('/vip','vip\vip@vip');
 Route::post('/vip/file','vip\vip@file');
 Route::get('/vip/list','vip\vip@goodsList');
 //考试
-Route::get('/login','login\loginIndexController@login');
-Route::post('/loginadd','login\loginIndexController@loginadd');
-Route::get('/show','login\loginIndexController@show');
-Route::get('/update/{id}','login\loginIndexController@update');
-Route::post('/loginupdate','login\loginIndexController@updateup');
+//Route::get('/login','login\loginIndexController@login');
+//Route::post('/loginadd','login\loginIndexController@loginadd');
+//Route::get('/show','login\loginIndexController@show');
+//Route::get('/update/{id}','login\loginIndexController@update');
+//Route::post('/loginupdate','login\loginIndexController@updateup');
 
 //微信
 Route::post('/weixin/alipay/notify','Pay\AlipayController@notify');
