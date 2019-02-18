@@ -10,7 +10,7 @@ use Encore\Admin\Layout\Row;
 use Encore\Admin\Grid;
 use Encore\Admin\Form;
 
-use App\Model\CmsModel;
+use App\Model\Cmsmodel;
 class UserController extends Controller{
     public function index(Content $content){
         return $content
@@ -56,7 +56,7 @@ class UserController extends Controller{
             'age'=>$_POST['age'],
             //'up_time'=>time(),
         ];
-        $res=CmsModel::where($where)->update($data);
+        $res=Cmsmodel::where($where)->update($data);
         if($res===false){
             $response = [
                 'status' => false,
@@ -94,7 +94,7 @@ class UserController extends Controller{
         $where=[
             'id'=>$id
         ];
-        $res=CmsModel::where($where)->delete();
+        $res=Cmsmodel::where($where)->delete();
         if($res){
             $response = [
                 'status' => true,
