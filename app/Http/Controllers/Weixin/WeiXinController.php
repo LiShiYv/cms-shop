@@ -45,7 +45,7 @@ class WeixinController extends Controller
 
             //保存用户信息
             $u = WeixinUser::where(['openid'=>$openid])->first();
-            //var_dump($u);die;
+            var_dump($u);die;
             if($u){       //用户不存在
                 echo '用户已存在';
             }else{
