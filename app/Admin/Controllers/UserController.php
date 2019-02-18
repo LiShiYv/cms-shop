@@ -19,7 +19,7 @@ class UserController extends Controller{
             ->body($this->grid());
     }
     protected  function grid(){
-        $grid = new Grid(new CmsModel());
+        $grid = new Grid(new Cmsmodel());
         $grid->id('ID');
         $grid->u_name('昵称');
         $grid->age('年龄');
@@ -74,7 +74,7 @@ class UserController extends Controller{
     }
     protected function detail($id)
     {
-        $show = new Show(CmsModel::findOrFail($id));
+        $show = new Show(Cmsmodel::findOrFail($id));
 
         $show->id('用户ID');
         $show->u_name('用户昵称');
@@ -111,7 +111,7 @@ class UserController extends Controller{
 
     }
     protected function form(){
-        $form=new Form(new CmsModel());
+        $form=new Form(new Cmsmodel());
         $form->display('id','ID');
         $form->text('u_name','昵称');
         $form->text('age','年龄');
