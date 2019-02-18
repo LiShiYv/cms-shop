@@ -13,23 +13,10 @@ class WeiXinController extends Controller
 
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
 
-    public function test()
-    {
-        //echo __METHOD__;die;
-        //$this->getWXAccessToken() ;die;
-        $this->getUserInfo(1);
-    }
 
     /**
      * 首次接入
      */
-    public function validToken1()
-    {
-        //$get = json_encode($_GET);
-        //$str = '>>>>>' . date('Y-m-d H:i:s') .' '. $get . "<<<<<\n";
-        //file_put_contents('logs/weixin.log',$str,FILE_APPEND);
-        echo $_GET['echostr'];
-    }
 
     /**
      * 接收微信服务器事件推送
@@ -47,16 +34,7 @@ class WeiXinController extends Controller
     /**
      * 接收事件推送
      */
-    public function validToken()
-    {
-        //$get = json_encode($_GET);
-        //$str = '>>>>>' . date('Y-m-d H:i:s') .' '. $get . "<<<<<\n";
-        //file_put_contents('logs/weixin.log',$str,FILE_APPEND);
-        //echo $_GET['echostr'];
-        $data = file_get_contents("php://input");
-        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
-    }
+
 
     /**
      * 获取微信AccessToken
