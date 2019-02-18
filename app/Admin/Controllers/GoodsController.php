@@ -116,7 +116,7 @@ class GoodsController extends Controller
         $grid->store('库存');
         //$grid->cat_id('Cat id');
         $grid->goods_price('价格');
-      //  $grid->created_at('添加时间');
+      // $grid->created_at('添加时间');
         //$grid->updated_at('Updated at');
 
         return $grid;
