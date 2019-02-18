@@ -22,33 +22,45 @@ class WeixinController extends Controller
     public function wxEvent()
     {
         $data = file_get_contents("php://input");
-        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+
 
         //解析XML
         $xml = simplexml_load_string($data);        //将 xml字符串 转换成对象
-
+       // var_dump($data);
         $event = $xml->Event;                       //事件类型
         //var_dump($xml);echo '<hr>';
+        $openid = $xml->FromUserName;               //用户openid
+        $sub_time = $xml->CreateTime;           //扫码关注时间
+        //获取用户信息
+        $user_info = $this->getUserInfo($openid);
 
         if($event=='subscribe'){
-            $openid = $xml->FromUserName;               //用户openid
-            $sub_time = $xml->CreateTime;               //扫码关注时间
 
+            //保存用户信息
+            $u = WeixinUser::where(['openid'=>$openid])->first();
 
             //echo 'openid: '.$openid;echo '</br>';
             //echo '$sub_time: ' . $sub_time;
 
-            //获取用户信息
-            $user_info = $this->getUserInfo($openid);
-            echo '<pre>';print_r($user_info);echo '</pre>';
+           // echo '<pre>';print_r($user_info);echo '</pre>';
 
-            //保存用户信息
-            $u = WeixinUser::where(['openid'=>$openid])->first();
-            var_dump($u);die;
+
+          //  var_dump($u);die;
             if($u){       //用户不存在
-                echo '用户已存在';
+                // '用户已存在';
+
+                $user_where=['openid'=> $openid];
+                $user_update=[
+                    'nickname'          => $user_info['nickname'],
+                    'sex'               => $user_info['sex'],
+                    'headimgurl'        => $user_info['headimgurl'],
+                    'subscribe_time'    => $sub_time,
+                ];
+                $res=WeixinUser::where($user_where)->update($user_update);
+
             }else{
+                //用户不存在
+
                 $user_data = [
                     'openid'            => $openid,
                     'add_time'          => time(),
@@ -59,11 +71,12 @@ class WeixinController extends Controller
                 ];
 
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
-                var_dump($id);
+               // var_dump($id);
             }
         }
 
-
+        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
+        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
     }
 
 
@@ -72,10 +85,7 @@ class WeixinController extends Controller
     /**
      * 接收事件推送
      */
-    public function validToken()
-    {
-        echo 1;
-    }
+
     /**
      * 获取微信AccessToken
      */
