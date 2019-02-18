@@ -46,8 +46,8 @@ class WeixinController extends Controller
 
            // echo '<pre>';print_r($user_info);echo '</pre>';
 
-
-          //  var_dump($u);die;
+            var_dump($u);die;
+          //
             if($u){       //用户不存在
                 // '用户已存在';
 
