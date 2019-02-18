@@ -30,7 +30,9 @@ class WeiXinController extends Controller
 
 
 
-
+public function validToken(){
+        echo 1;
+}
     /**
      * 接收事件推送
      */
