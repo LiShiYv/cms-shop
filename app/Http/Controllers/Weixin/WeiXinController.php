@@ -24,7 +24,10 @@ class WeiXinController extends Controller
     public function wxEvent()
     {
         $data = file_get_contents("php://input");
+        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
+        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
         //解析xml
+        exit;
         $xml= simplexml_load_string($data);  //将 xml字符串 转换成对象
         $event =$xml->Event;    //事件类型
         //var_dump($xml);echo '<hr>';
@@ -62,8 +65,7 @@ class WeiXinController extends Controller
                 var_dump($id);
             }
         }
-        $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);
+
     }
 
 
