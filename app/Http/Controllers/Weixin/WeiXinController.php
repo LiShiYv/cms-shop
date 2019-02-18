@@ -36,8 +36,8 @@ class WeixinController extends Controller
             $sub_time = $xml->CreateTime;               //扫码关注时间
 
 
-            echo 'openid: '.$openid;echo '</br>';
-            echo '$sub_time: ' . $sub_time;
+            //echo 'openid: '.$openid;echo '</br>';
+            //echo '$sub_time: ' . $sub_time;
 
             //获取用户信息
             $user_info = $this->getUserInfo($openid);
