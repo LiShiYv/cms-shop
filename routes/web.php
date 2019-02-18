@@ -104,4 +104,8 @@ Route::get('/vip/list','vip\vip@goodsList');
 //Route::post('/loginupdate','login\loginIndexController@updateup');
 
 //微信
-Route::post('/weixin/alipay/notify','Pay\AlipayController@notify');
+Route::get('/weixin/test','Weixin\WeiXinController@test');
+Route::get('/weixin/valid','Weixin\WeiXinController@validToken');
+Route::get('/weixin/valid1','Weixin\WeiXinController@validToken1');
+Route::post('/weixin/valid1','Weixin\WeiXinController@wxEvent');        //接收微信服务器事件推送
+Route::post('/weixin/valid','Weixin\WeiXinController@validToken');
