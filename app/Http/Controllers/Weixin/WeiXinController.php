@@ -136,7 +136,7 @@ public function wxMenu(){
         'button'  =>[
             [
                 "type" =>"view",
-                "name " =>"wl",
+                "name " =>"weiliangsss",
                 "url"  => "https://www.baidu.com",
             ]
         ]
@@ -144,10 +144,10 @@ public function wxMenu(){
 $w =$client->request('POST',$url,[
     'body'=>json_encode($data)
 ]);
-var_dump($data);
+//var_dump($data);
 //3.解析微信接口返回的信息
     $response_arr = json_decode($w->getBody(),true);
-    var_dump($response_arr);
+    //var_dump($response_arr);
     if($response_arr['errcode'] == 0){
         echo "菜单创建成功";
     }else{
