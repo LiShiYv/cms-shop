@@ -141,22 +141,27 @@ class WeixinController extends Controller
             "button"    => [
                 [
 
-                    "name"=>"刀入鞘",
+                    "name"=>"未凉",
                     "sub_button"=>[
                         [
                     "type"  => "view",      // view类型 跳转指定 URL
-                    "name"  => "血未凉",
+                    "name"  => "百度一下",
                     "url"   => "https://www.baidu.com"
                 ],
 
               [
                   "type"  => "view",      // view类型 跳转指定 URL
-                  "name"  => "未凉",
+                  "name"  => "主页",
                   "url"   => "http://lsy.52self.cn/"
-                  ]
+                     ],
+                        [
+                            "type" => "view",
+                            "name" =>"娱乐大厅",
+                            "url" => "https://wan.sogou.com/"
+                            ],
+                 ]
+              ]
             ]
-        ]
-                ]
         ];
 var_dump($data);
 
