@@ -146,7 +146,7 @@ class WeixinController extends Controller
 
         //2 请求微信接口
         $client = new GuzzleHttp\Client(['base_uri' => $url]);
-        
+
         $data = [
             "button"    => [
                 [
@@ -156,15 +156,16 @@ class WeixinController extends Controller
                     "type"  => "view",      // view类型 跳转指定 URL
                     "name"  => "百度一下",
                     "url"   => "https://www.baidu.com"
-                            ]
+                            ],
+                        [
+                        "type" => "view",
+                        "name" =>"娱乐大厅",
+                        "url" => "https://wan.sogou.com/"
+                    ],
                         ]
                 ],
 
-                [
-                    "type" => "view",
-                    "name" =>"娱乐大厅",
-                    "url" => "https://wan.sogou.com/"
-                ],
+
                 [
                     "type"  => "click",      // click类型
                     "name"  => "客服01",
