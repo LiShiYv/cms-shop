@@ -156,17 +156,17 @@ class WeixinController extends Controller
             ]
         ]
         ];
-
+var_dump($data);
 
         $r = $client->request('POST', $url, [
             'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
         ]);
-
+var_dump($r);
         // 3 解析微信接口返回信息
 
         $response_arr = json_decode($r->getBody(),true);
         //echo '<pre>';print_r($response_arr);echo '</pre>';
-
+var_dump($response_arr);
         if($response_arr['errcode'] == 0){
             echo "菜单创建成功";
         }else{
