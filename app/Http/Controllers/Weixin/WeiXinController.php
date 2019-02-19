@@ -79,7 +79,9 @@ class WeixinController extends Controller
 
     }
 
-
+public function validToken(){
+  echo 1;
+}
 
 
     /**
