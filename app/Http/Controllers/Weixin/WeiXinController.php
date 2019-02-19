@@ -33,7 +33,7 @@ class WeixinController extends Controller
         //var_dump($xml);echo '<hr>';
         $openid = $xml->FromUserName;               //用户openid
         $sub_time = $xml->CreateTime;
-       
+
         // 处理用户发送消息
         if(isset($xml->MsgType)){
             if($xml->MsgType=='text'){            //用户发送文本消息
@@ -100,6 +100,9 @@ class WeixinController extends Controller
     }
 
 
+    }
+    public function validToken(){
+        echo 1;
     }
 //自动回复
     public function kefu01($openid,$from)
@@ -174,9 +177,9 @@ class WeixinController extends Controller
         //保存图片
         $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
         if($r){     //保存成功
-            echo "保存成功";
+         
         }else{      //保存失败
-            echo "保存失败";
+
 
         }
 
