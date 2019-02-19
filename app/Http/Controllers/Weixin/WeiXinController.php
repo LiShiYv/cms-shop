@@ -131,19 +131,20 @@ public function wxMenu(){
     $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getWXAccessToken();
     echo $url;echo '</br>';
     //2.请求微信接口
-    $client = new GuzzleHttp\Client(['base_url'=>$url]);
+    $client = new GuzzleHttp\Client(['base_uri'=>$url]);
     $data =[
         'button'  =>[
             [
                 "type" =>"view",
                 "name " =>"未凉",
-                "url"  => "https://www.baidu.com/",
+                "url"  => "https://www.baidu.com",
             ]
         ]
     ];
 $w =$client->request('POST',$url,[
     'body'=>json_encode($data)
 ]);
+var_dump($w);
 //3.解析微信接口返回的信息
     $response_arr = json_decode($w->getBody(),true);
     if($response_arr['errcode'] == 0){
