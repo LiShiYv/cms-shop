@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Weixin;
+namespace App\Http\Controllers\WeiXin;
 
 use App\Model\WeixinUser;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use GuzzleHttp;
 use Illuminate\Support\Facades\Redis;
 
-class WeixinController extends Controller
+class WeiXinController extends Controller
 {
     //
 
