@@ -136,7 +136,7 @@ public function wxMenu(){
         'button'  =>[
             [
                 "type" =>"view",
-                "name " =>"weiliang",
+                "name " =>"wl",
                 "url"  => "https://www.baidu.com",
             ]
         ]
