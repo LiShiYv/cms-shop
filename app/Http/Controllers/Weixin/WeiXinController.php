@@ -143,6 +143,7 @@ class WeixinController extends Controller
 
                     "name"=>"刀入鞘",
                     "sub_button"=>[
+                        [
                     "type"  => "view",      // view类型 跳转指定 URL
                     "name"  => "血未凉",
                     "url"   => "https://www.baidu.com"
@@ -155,6 +156,7 @@ class WeixinController extends Controller
                   ]
             ]
         ]
+                ]
         ];
 var_dump($data);
 
