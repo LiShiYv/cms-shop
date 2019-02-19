@@ -108,3 +108,5 @@ Route::get('/vip/list','vip\vip@goodsList');
 Route::get('/weixin/valid1','Weixin\WeiXinController@validToken');
 Route::post('/weixin/valid1','Weixin\WeiXinController@wxEvent');        //接收微信服务器事件推送
 
+//菜单
+Route::get('/weixin/menu','Weixin\WeiXinController@wxMenu');

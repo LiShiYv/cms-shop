@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Weixin;
 use App\Model\WeixinUser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use GuzzleHttp;
 use Illuminate\Support\Facades\Redis;
 
 class WeixinController extends Controller
@@ -124,5 +124,35 @@ class WeixinController extends Controller
 
 
 
+
+//创建菜单
+public function wxMenu(){
+        //1.获取菜单接口
+    $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getWXAccessToken();
+    echo $url;echo '</br>';
+    //2.请求微信接口
+    $client = new GuzzleHttp\Client(['base_url'=>$url]);
+    $data =[
+        'button'  =>[
+            [
+                "type" =>"view",
+                "name " =>"未凉",
+                "url"  => "https://www.baidu.com/",
+            ]
+        ]
+    ];
+$w =$client->request('POST',$url,[
+    'body'=>json_decode($data)
+]);
+//3.解析微信接口返回的信息
+    $response_arr = json_decode($w->getBody(),true);
+    if($response_arr['errcode'] == 0){
+        echo "菜单创建成功";
+    }else{
+        echo "菜单创建失败，请重试";echo '</br>';
+        echo $response_arr['errmsg'];
+
+    }
+}
 
 }
