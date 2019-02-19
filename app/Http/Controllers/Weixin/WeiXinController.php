@@ -144,7 +144,7 @@ public function wxMenu(){
 $w =$client->request('POST',$url,[
     'body'=>json_encode($data)
 ]);
-var_dump($w);
+var_dump($data);
 //3.解析微信接口返回的信息
     $response_arr = json_decode($w->getBody(),true);
     var_dump($response_arr);
