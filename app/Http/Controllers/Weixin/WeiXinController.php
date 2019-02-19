@@ -154,17 +154,22 @@ class WeixinController extends Controller
                     "sub_button"=>[
                         [
                     "type"  => "view",      // view类型 跳转指定 URL
-                    "name"  => "百度一下",
-                    "url"   => "https://www.baidu.com"
+                    "name"  => "首页",
+                    "url"   => "http://lsy.52self.cn"
                             ],
                         [
                         "type" => "view",
-                        "name" =>"娱乐大厅",
-                        "url" => "https://wan.sogou.com/"
+                        "name" =>"个人自述",
+                        "url" => "https://wlbk.52self.cn"
                     ],
+                 [
+                        "type"=>"view",
+                        "name"=>"娱乐中心",
+                        "url" =>"https://wan.sogou.com",
+                 ],
+
                         ]
                 ],
-
 
                 [
                     "type"  => "click",      // click类型
@@ -173,8 +178,8 @@ class WeixinController extends Controller
                 ],
                 [
                     "type"  => "view",      // view类型 跳转指定 URL
-                    "name"  => "主页",
-                    "url"   => "http://lsy.52self.cn/"
+                    "name"  => "百度一下",
+                    "url"   => "https://www.baidu.com"
                     ]
             ],
         ];
