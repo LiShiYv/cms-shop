@@ -140,16 +140,26 @@ class WeixinController extends Controller
         $data = [
             "button"    => [
                 [
+
+                    "name"=>"刀入鞘",
+                    "sub_button"=>[
                     "type"  => "view",      // view类型 跳转指定 URL
-                    "name"  => "weiliang",
+                    "name"  => "血未凉",
                     "url"   => "https://www.baidu.com"
-                ]
+                ],
+
+              [
+                  "type"  => "view",      // view类型 跳转指定 URL
+                  "name"  => "未凉",
+                  "url"   => "http://lsy.52self.cn/"
+                  ]
             ]
+        ]
         ];
 
 
         $r = $client->request('POST', $url, [
-            'body' => json_encode($data)
+            'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
         ]);
 
         // 3 解析微信接口返回信息
