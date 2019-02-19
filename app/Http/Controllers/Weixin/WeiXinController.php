@@ -27,8 +27,8 @@ class WeixinController extends Controller
         //解析XML
         $xml = simplexml_load_string($data);
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
-        file_put_contents('logs/wx_event.log',$log_str,FILE_APPEND);        //将 xml字符串 转换成对象
-       // var_dump($data);
+        file_put_contents('logs/wx_event.log', $log_str, FILE_APPEND);        //将 xml字符串 转换成对象
+        // var_dump($data);
         $event = $xml->Event;                       //事件类型
         //var_dump($xml);echo '<hr>';
         $openid = $xml->FromUserName;               //用户openid
@@ -36,50 +36,60 @@ class WeixinController extends Controller
         //获取用户信息
         $user_info = $this->getUserInfo($openid);
 
-        if($event=='subscribe'){
+        if ($event == 'subscribe') {
 
             //保存用户信息
-            $u = WeixinUser::where(['openid'=>$openid])->first();
+            $u = WeixinUser::where(['openid' => $openid])->first();
 
             //echo 'openid: '.$openid;echo '</br>';
             //echo '$sub_time: ' . $sub_time;
 
-           // echo '<pre>';print_r($user_info);echo '</pre>';
+            // echo '<pre>';print_r($user_info);echo '</pre>';
 
-           // var_dump($u);die;
-          //
-            if($u){       //用户不存在
+            // var_dump($u);die;
+            //
+            if ($u) {       //用户不存在
                 // '用户已存在';
 
-                $user_where=['openid'=> $openid];
-                $user_update=[
-                    'nickname'          => $user_info['nickname'],
-                    'sex'               => $user_info['sex'],
-                    'headimgurl'        => $user_info['headimgurl'],
-                    'subscribe_time'    => $sub_time,
+                $user_where = ['openid' => $openid];
+                $user_update = [
+                    'nickname' => $user_info['nickname'],
+                    'sex' => $user_info['sex'],
+                    'headimgurl' => $user_info['headimgurl'],
+                    'subscribe_time' => $sub_time,
                 ];
-                $res=WeixinUser::where($user_where)->update($user_update);
+                $res = WeixinUser::where($user_where)->update($user_update);
 
-            }else{
+            } else {
                 //用户不存在
 
                 $user_data = [
-                    'openid'            => $openid,
-                    'add_time'          => time(),
-                    'nickname'          => $user_info['nickname'],
-                    'sex'               => $user_info['sex'],
-                    'headimgurl'        => $user_info['headimgurl'],
-                    'subscribe_time'    => $sub_time,
+                    'openid' => $openid,
+                    'add_time' => time(),
+                    'nickname' => $user_info['nickname'],
+                    'sex' => $user_info['sex'],
+                    'headimgurl' => $user_info['headimgurl'],
+                    'subscribe_time' => $sub_time,
                 ];
 
                 $id = WeixinUser::insertGetId($user_data);      //保存用户信息
-               // var_dump($id);
+                // var_dump($id);
             }
-        }
-
+        }elseif($event =='CLICK'){
+            if($xml->EventKey=='kefu01'){
+                $this->kefu01($openid,$xml->ToUserName);
+    }
     }
 
 
+    }
+//自动回复
+    public function kefu01($openid,$from)
+    {
+        // 文本消息
+        $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$from.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. 'Hello World, 现在时间'. date('Y-m-d H:i:s') .']]></Content></xml>';
+        echo $xml_response;
+    }
 
 
     /**
@@ -159,14 +169,19 @@ class WeixinController extends Controller
                             "name" =>"娱乐大厅",
                             "url" => "https://wan.sogou.com/"
                             ],
+                        [
+                            "type" =>"click",
+                            "name"=>"客服",
+                            "key" =>"kefu01"
+                        ]
                  ]
               ]
             ]
         ];
 var_dump($data);
-
+      $body = json_encode($data,JSON_UNESCAPED_UNICODE);
         $r = $client->request('POST', $url, [
-            'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
+           'body'=>$body
         ]);
 var_dump($r);
         // 3 解析微信接口返回信息
