@@ -142,7 +142,7 @@ public function wxMenu(){
         ]
     ];
 $w =$client->request('POST',$url,[
-    'body'=>json_decode($data)
+    'body'=>json_encode($data)
 ]);
 //3.解析微信接口返回的信息
     $response_arr = json_decode($w->getBody(),true);
