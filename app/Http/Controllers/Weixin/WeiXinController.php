@@ -147,6 +147,7 @@ $w =$client->request('POST',$url,[
 var_dump($w);
 //3.解析微信接口返回的信息
     $response_arr = json_decode($w->getBody(),true);
+    var_dump($response_arr);
     if($response_arr['errcode'] == 0){
         echo "菜单创建成功";
     }else{
