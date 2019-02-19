@@ -128,7 +128,7 @@ class WeixinController extends Controller
     /**
      * 创建服务号菜单
      */
-    public function wxWenu(){
+    public function wxMenu(){
         //echo __METHOD__;
         // 1 获取access_token 拼接请求接口
         $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getWXAccessToken();
