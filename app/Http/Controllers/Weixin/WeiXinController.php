@@ -39,8 +39,15 @@ class WeixinController extends Controller
                 $msg = $xml->Content;
                 $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. $msg. date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response;
-                exit();
+
+            }elseif($xml->MsgType=='image'){
+                if(1){
+                    $this->dlWxImg($xml->MediaId);
+                    $xml_response='<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
+                    echo $xml_response;
+                }
             }
+            exit();
         }          //扫码关注时间
         //获取用户信息
         $user_info = $this->getUserInfo($openid);
@@ -168,8 +175,8 @@ class WeixinController extends Controller
                             ],
                         [
                         "type" => "view",
-                        "name" =>"个人自述",
-                        "url" => "https://wlbk.52self.cn"
+                        "name" =>"个人网站",
+                        "url" => "https://jk17970220.m.icoc.bz"
                     ],
                  [
                         "type"=>"view",
@@ -212,6 +219,35 @@ var_dump($response_arr);
         }
 
 
+
+    }
+    /**
+     * 下载图片素材
+     * @param $media_id
+     */
+    public function dlWxImg($media_id)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
+        //echo $url;echo '</br>';
+
+        //保存图片
+        $client = new GuzzleHttp\Client();
+        $response = $client->get($url);
+        //$h = $response->getHeaders();
+
+        //获取文件名
+        $file_info = $response->getHeader('Content-disposition');
+        $file_name = substr(rtrim($file_info[0],'"'),-20);
+
+        $wx_image_path = 'wx/images/'.$file_name;
+        //保存图片
+        $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
+        if($r){     //保存成功
+                echo "保存成功";
+        }else{      //保存失败
+              echo "保存失败";
+
+        }
 
     }
 
