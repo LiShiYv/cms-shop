@@ -146,37 +146,36 @@ class WeixinController extends Controller
 
         //2 请求微信接口
         $client = new GuzzleHttp\Client(['base_uri' => $url]);
-
+        
         $data = [
             "button"    => [
                 [
-
                     "name"=>"未凉",
                     "sub_button"=>[
                         [
                     "type"  => "view",      // view类型 跳转指定 URL
                     "name"  => "百度一下",
                     "url"   => "https://www.baidu.com"
+                            ]
+                        ]
                 ],
 
-              [
-                  "type"  => "view",      // view类型 跳转指定 URL
-                  "name"  => "主页",
-                  "url"   => "http://lsy.52self.cn/"
-                     ],
-                        [
-                            "type" => "view",
-                            "name" =>"娱乐大厅",
-                            "url" => "https://wan.sogou.com/"
-                            ],
-                        [
-                            "type" =>"click",
-                            "name"=>"客服",
-                            "key" =>"kefu01"
-                        ]
-                 ]
-              ]
-            ]
+                [
+                    "type" => "view",
+                    "name" =>"娱乐大厅",
+                    "url" => "https://wan.sogou.com/"
+                ],
+                [
+                    "type"  => "click",      // click类型
+                    "name"  => "客服01",
+                    "key"   => "kefu01"
+                ],
+                [
+                    "type"  => "view",      // view类型 跳转指定 URL
+                    "name"  => "主页",
+                    "url"   => "http://lsy.52self.cn/"
+                    ]
+            ],
         ];
 var_dump($data);
       $body = json_encode($data,JSON_UNESCAPED_UNICODE);
