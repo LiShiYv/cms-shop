@@ -16,10 +16,8 @@ class WeiXinController extends Controller
 
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
 
+    
 
-
-    /**
- 
 
     /**
      * 接收微信服务器事件推送
@@ -208,18 +206,39 @@ class WeiXinController extends Controller
         $data = [
             "button"    => [
                 [
-                    "type"  => "view",      // view类型 跳转指定 URL
-                    "name"  => "百度一下",
-                    "url"   => "https://www.baidu.com"
+                    "name"=>"未凉",
+                    "sub_button"=>[
+                        [
+                            "type"  => "view",      // view类型 跳转指定 URL
+                            "name"  => "首页",
+                            "url"   => "http://lsy.52self.cn"
+                        ],
+                        [
+                            "type" => "view",
+                            "name" =>"个人网站",
+                            "url" => "https://jk17970220.m.icoc.bz"
+                        ],
+                        [
+                            "type"=>"view",
+                            "name"=>"娱乐中心",
+                            "url" =>"https://wan.sogou.com",
+                        ],
+
+                    ]
                 ],
+
                 [
                     "type"  => "click",      // click类型
                     "name"  => "客服01",
                     "key"   => "kefu01"
+                ],
+                [
+                    "type"  => "view",      // view类型 跳转指定 URL
+                    "name"  => "百度一下",
+                    "url"   => "https://www.baidu.com"
                 ]
             ],
         ];
-
 
         $body = json_encode($data,JSON_UNESCAPED_UNICODE);      //处理中文编码
         $r = $client->request('POST', $url, [
