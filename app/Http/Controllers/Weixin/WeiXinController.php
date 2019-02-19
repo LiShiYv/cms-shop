@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\WeiXin;
+namespace App\Http\Controllers\Weixin;
 
 use App\Model\WeixinUser;
 use Illuminate\Http\Request;
@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use GuzzleHttp;
 use Illuminate\Support\Facades\Redis;
 
-class WeiXinController extends Controller
+class WeixinController extends Controller
 {
     //
 
@@ -79,9 +79,7 @@ class WeiXinController extends Controller
 
     }
 
-public function validToken(){
-  echo 1;
-}
+
 
 
     /**
