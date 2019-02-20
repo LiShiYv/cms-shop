@@ -47,9 +47,22 @@ class WeiXinController extends Controller
             }elseif($xml->MsgType=='image'){       //用户发送图片信息
                 //视业务需求是否需要下载保存图片
                 if(1){  //下载图片素材
-                    $this->dlWxImg($xml->MediaId);
+                    $file_name=$this->dlWxImg($xml->MediaId);
                     $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' .'当前时间是'. date('Y-m-d H:i:s') .']]></Content></xml>';
                     echo $xml_response;
+                    //写入数据库
+                    $data = [
+                        'openid'    => $openid,
+                        'add_time'  => time(),
+                        'msg_type'  => 'image',
+                        'media_id'  => $xml->MediaId,
+                        'format'    => $xml->Format,
+                        'msg_id'    => $xml->MsgId,
+                        'local_file_name'   => $file_name
+                    ];
+
+                    $m_id = WeixinMedia::insertGetId($data);
+                    var_dump($m_id);
                 }
             }elseif($xml->MsgType=='voice'){
                 $this->dlVoice($xml->MediaId);
@@ -126,8 +139,8 @@ class WeiXinController extends Controller
 
     public function dlWxImg($media_id)
     {
-        $this->imgdlVoicedlVideo($pramn='image',$media_id);
-
+        $file_name=$this->imgdlVoicedlVideo($pramn='image',$media_id);
+    return $file_name;
     }
 
 
@@ -136,12 +149,14 @@ class WeiXinController extends Controller
 
     public function dlVoice($media_id)
     {
-        $this->imgdlVoicedlVideo($pramn='voice',$media_id);
+        $file_name=$this->imgdlVoicedlVideo($pramn='voice',$media_id);
+        return $file_name;
     }
     //下载视频文件
 
 public function dlVideo($media_id){
-    $this->imgdlVoicedlVideo($pramn='video',$media_id);
+    $file_name=$this->imgdlVoicedlVideo($pramn='video',$media_id);
+    return $file_name;
 }
     public function imgdlVoicedlVideo($pramn,$media_id)
     {
@@ -163,6 +178,7 @@ public function dlVideo($media_id){
         }else{      //保存失败
 
         }
+        return $file_name;
     }
 
 
