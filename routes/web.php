@@ -110,3 +110,5 @@ Route::post('/weixin/valid1','Weixin\WeiXinController@wxEvent');        //接收
 
 //菜单
 Route::get('/weixin/menu','Weixin\WeiXinController@wxMenu');
+//  群发
+Route::get('/weixin/istoall','Weixin\WeiXinController@isToAll');
