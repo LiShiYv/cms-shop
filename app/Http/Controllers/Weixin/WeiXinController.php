@@ -48,18 +48,18 @@ class WeiXinController extends Controller
                 //视业务需求是否需要下载保存图片
                 if(1){  //下载图片素材
                     $this->dlWxImg($xml->MediaId);
-                    $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
+                    $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' .'当前时间是'. date('Y-m-d H:i:s') .']]></Content></xml>';
                     echo $xml_response;
                 }
             }elseif($xml->MsgType=='voice'){
                 $this->dlVoice($xml->MediaId);
-                $xml_response1 = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
+                $xml_response1 = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '当前时间是'.date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response1;
 
 
             }elseif($xml->MsgType=='video'){
                 $this->dlVideo($xml->MediaId);
-                $xml_response2 = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
+                $xml_response2 = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.' 当前时间是'. date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response2;
             }elseif($xml->MsgType=='event'){
 //判断事件类型
@@ -121,33 +121,12 @@ class WeiXinController extends Controller
         echo $xml_response;
     }
 
-    /**
-     * 下载图片素材
-     * @param $media_id
-     */
+    //下载图片素材
+
+
     public function dlWxImg($media_id)
     {
-        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
-      //  echo $url;echo '</br>';
-
-        //保存图片
-        $client = new GuzzleHttp\Client();
-        $response = $client->get($url);
-       // $h = $response->getHeaders();
-        //    print_r($h);
-        //获取文件名
-        $file_info = $response->getHeader('Content-disposition');
-   //     print_r($file_info);
-        $file_name = substr(rtrim($file_info[0],'"'),-20);
-        //print_r($file_name);
-        $wx_image_path = 'wx/images/'.$file_name;
-        //保存图片
-        $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
-        if($r){     //保存成功
-
-        }else{      //保存失败
-
-        }
+        $this->imgdlVoicedlVideo($pramn='image',$media_id);
 
     }
 
@@ -157,29 +136,14 @@ class WeiXinController extends Controller
 
     public function dlVoice($media_id)
     {
-        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
-      //  echo '<pre>';print_r($url);echo '</pre>';
-        $client = new GuzzleHttp\Client();
-        $response = $client->get($url);
-        //$h = $response->getHeaders();
-       // echo '<pre>';print_r($h);echo '</pre>';
-        //获取文件名
-        $file_info = $response->getHeader('Content-disposition');
-        $file_name = substr(rtrim($file_info[0],'"'),-20);
-
-        $wx_image_path = 'wx/voice/'.$file_name;
-        //保存图片
-        $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
-        if($r){     //保存成功
-
-        }else{      //保存失败
-
-        }
+        $this->imgdlVoicedlVideo($pramn='voice',$media_id);
     }
-    //下载语音文件
+    //下载视频文件
 
-
-    public function dlVideo($media_id)
+public function dlVideo($media_id){
+    $this->imgdlVoicedlVideo($pramn='video',$media_id);
+}
+    public function imgdlVoicedlVideo($pramn,$media_id)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
         //  echo '<pre>';print_r($url);echo '</pre>';
@@ -191,7 +155,7 @@ class WeiXinController extends Controller
         $file_info = $response->getHeader('Content-disposition');
         $file_name = substr(rtrim($file_info[0],'"'),-20);
 
-        $wx_image_path = 'wx/video/'.$file_name;
+        $wx_image_path = 'wx/'.$pramn.'/'.$file_name;
         //保存图片
         $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
         if($r){     //保存成功
