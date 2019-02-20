@@ -297,7 +297,7 @@ public function wxMenuType()
     $data = [
         "filter"=>[
 
-    "is_to_all"=>false,
+    "is_to_all"=>true,
       "tag_id"=>2
    ],
    "text"=>[
