@@ -299,7 +299,7 @@ public function wxType()
             "tag_id"=>2
         ],
         "text"=>[
-            "content"=>"上课考试"
+            "content"=>"上课考试111"
         ],
         "msgtype"=>"text"
     ];
