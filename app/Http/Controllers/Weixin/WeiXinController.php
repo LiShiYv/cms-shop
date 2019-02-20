@@ -297,7 +297,7 @@ public function wxMenuType()
     $data =[
         "filter" =>[
                 "is_to_all" => true,
-                "tag_id" => 2    // view类型 跳转指定 URL
+                "tag_id" => ""    // view类型 跳转指定 URL
             ],
             "text" =>[
                 "content"=>"看看思考思考"
