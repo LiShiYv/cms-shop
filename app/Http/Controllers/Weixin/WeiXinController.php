@@ -287,7 +287,44 @@ public function dlVideo($media_id){
 
     }
 
+public function isToAll()
+{
+    $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->getWXAccessToken();
+    //echo $url;echo '</br>';
 
+    //2 请求微信接口
+    $client = new GuzzleHttp\Client(['base_uri' => $url]);
+    $data = [
+        "filter" => [
+            [
+                "is_to_all" => true,
+                "tag_id" => 2,      // view类型 跳转指定 URL
+            ],
+            "text" => [
+                "content"=>"群发",
+                "msgtype" => "text",
+            ],
+
+        ]
+    ];
+    $body = json_encode($data,JSON_UNESCAPED_UNICODE);      //处理中文编码
+    $r = $client->request('POST', $url, [
+        'body' => $body
+    ]);
+
+    // 3 解析微信接口返回信息
+
+    $response_arr = json_decode($r->getBody(),true);
+    //echo '<pre>';print_r($response_arr);echo '</pre>';
+
+    if($response_arr['errcode'] == 0){
+        echo "菜单创建成功";
+    }else{
+        echo "菜单创建失败，请重试";echo '</br>';
+        echo $response_arr['errmsg'];
+
+    }
+}
 
      // 刷新access_token
 
