@@ -296,20 +296,20 @@ public function isToAll()
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
     $data = [
         "filter" => [
-            [
+
                 "is_to_all" => true,
                 "tag_id" => 2,      // view类型 跳转指定 URL
             ],
             "text" => [
                 "content"=>"群发",
-                "msgtype" => "text",
-            ],
 
-        ]
+            ],
+            "msgtype" => "text",
+        
     ];
       //处理中文编码
     $r = $client->request('POST', $url,  [ 'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
-        
+
     ]);
 
     // 3 解析微信接口返回信息
