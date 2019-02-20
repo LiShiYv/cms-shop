@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Model\WxMedia;
+use App\Model\WeixinMedia;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -79,7 +79,7 @@ class WxmediaController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new WxMedia);
+        $grid = new Grid(new WeixinMedia);
 
         $grid->id('Id');
         $grid->openid('Openid');
@@ -102,7 +102,7 @@ class WxmediaController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(WxMedia::findOrFail($id));
+        $show = new Show(WeixinMedia::findOrFail($id));
 
         $show->id('Id');
         $show->openid('Openid');
@@ -124,7 +124,7 @@ class WxmediaController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new WxMedia);
+        $form = new Form(new WeixinMedia);
 
         $form->text('openid', 'Openid');
         $form->number('add_time', 'Add time');
