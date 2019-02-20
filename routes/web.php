@@ -111,5 +111,5 @@ Route::post('/weixin/valid1','Weixin\WeiXinController@wxEvent');        //接收
 //菜单
 Route::get('/weixin/menu','Weixin\WeiXinController@wxMenu');
 //  群发
-Route::get('/weixin/wxtype','Weiin\WeiXinController@wxMenuType');
+Route::get('/weixin/wxtype','Weixin\WeiXinController@wxMenuType');
 Route::get('/weixin/send','Weixin\WeiXinController@sendTextAll');   //群发消息
