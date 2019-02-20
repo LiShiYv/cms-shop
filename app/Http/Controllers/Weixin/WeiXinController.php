@@ -291,7 +291,6 @@ public function wxMenuType()
 {
     $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getWXAccessToken();
     //echo $url;echo '</br>';
-
     //2 请求微信接口
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
     $data =[
@@ -304,9 +303,9 @@ public function wxMenuType()
    ],
     "msgtype"=>"text"
     ];
-    var_dump($data);
+    //var_dump($data);
     $body = json_encode($data,JSON_UNESCAPED_UNICODE);      //处理中文编码
-    $r = $client->request('post', $url, [
+    $r = $client->request('POST', $url, [
         'body' => $body
     ]);
 
