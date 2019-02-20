@@ -304,7 +304,7 @@ public function wxType()
         ],
         "msgtype"=>"text"
     ];
-    //var_dump($data);
+    var_dump($data);
 
     $r = $client->request('POST', $url, [
         'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
@@ -312,7 +312,7 @@ public function wxType()
     // 3 解析微信接口返回信息
 
     $response_arr = json_decode($r->getBody(),true);
-print_r($response_arr);
+    print_r($response_arr);
 
     if($response_arr['errcode'] == 0){
         echo "群发成功";
