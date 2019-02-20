@@ -51,51 +51,55 @@ class WeiXinController extends Controller
                     $xml_response = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
                     echo $xml_response;
                 }
+            }elseif($xml->MsgType=='voice'){
+                $this->dlVoice($xml->MediaId);
+            }elseif($xml->MsgType=='event'){
+//判断事件类型
+                if($event=='subscribe'){                        //扫码关注事件
+
+                    $sub_time = $xml->CreateTime;               //扫码关注时间
+
+
+                    // echo 'openid: '.$openid;echo '</br>';
+                    // echo '$sub_time: ' . $sub_time;
+
+                    //获取用户信息
+                    $user_info = $this->getUserInfo($openid);
+                    //  echo '<pre>';print_r($user_info);echo '</pre>';
+
+                    //保存用户信息
+                    $u = WeixinUser::where(['openid'=>$openid])->first();
+                    //var_dump($u);die;
+                    if($u){       //用户不存在
+                        echo '用户已存在';
+                    }else{
+                        $user_data = [
+                            'openid'            => $openid,
+                            'add_time'          => time(),
+                            'nickname'          => $user_info['nickname'],
+                            'sex'               => $user_info['sex'],
+                            'headimgurl'        => $user_info['headimgurl'],
+                            'subscribe_time'    => $sub_time,
+                        ];
+
+                        $id = WeixinUser::insertGetId($user_data);      //保存用户信息
+                        //  var_dump($id);
+                    }
+                }elseif($event=='CLICK'){               //click 菜单
+                    if($xml->EventKey=='kefu01'){       // 根据 EventKey判断菜单
+                        $this->kefu01($openid,$xml->ToUserName);
+                    }
+                }
+
+
+            }
             }
 
           
         }
 
 
-        //判断事件类型
-        if($event=='subscribe'){                        //扫码关注事件
 
-            $sub_time = $xml->CreateTime;               //扫码关注时间
-
-
-            echo 'openid: '.$openid;echo '</br>';
-            echo '$sub_time: ' . $sub_time;
-
-            //获取用户信息
-            $user_info = $this->getUserInfo($openid);
-            echo '<pre>';print_r($user_info);echo '</pre>';
-
-            //保存用户信息
-            $u = WeixinUser::where(['openid'=>$openid])->first();
-            //var_dump($u);die;
-            if($u){       //用户不存在
-                echo '用户已存在';
-            }else{
-                $user_data = [
-                    'openid'            => $openid,
-                    'add_time'          => time(),
-                    'nickname'          => $user_info['nickname'],
-                    'sex'               => $user_info['sex'],
-                    'headimgurl'        => $user_info['headimgurl'],
-                    'subscribe_time'    => $sub_time,
-                ];
-
-                $id = WeixinUser::insertGetId($user_data);      //保存用户信息
-                var_dump($id);
-            }
-        }elseif($event=='CLICK'){               //click 菜单
-            if($xml->EventKey=='kefu01'){       // 根据 EventKey判断菜单
-                $this->kefu01($openid,$xml->ToUserName);
-            }
-        }
-
-
-    }
 
     /**
      * 客服处理
@@ -139,7 +143,31 @@ class WeiXinController extends Controller
 
     }
 
+    /**
+     * 下载语音文件
+     * @param $media_id
+     */
+    public function dlVoice($media_id)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
+        echo '<pre>';print_r($url);echo '</pre>';
+        $client = new GuzzleHttp\Client();
+        $response = $client->get($url);
+        $h = $response->getHeaders();
+        echo '<pre>';print_r($h);echo '</pre>';
+        //获取文件名
+        $file_info = $response->getHeader('Content-disposition');
+        $file_name = substr(rtrim($file_info[0],'"'),-20);
 
+        $wx_image_path = 'wx/voice/'.$file_name;
+        //保存图片
+        $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
+        if($r){     //保存成功
+
+        }else{      //保存失败
+
+        }
+    }
 
 
     /**
