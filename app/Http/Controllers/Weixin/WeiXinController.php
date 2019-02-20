@@ -116,17 +116,18 @@ class WeiXinController extends Controller
     public function dlWxImg($media_id)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
-        //echo $url;echo '</br>';
+        echo $url;echo '</br>';
 
         //保存图片
         $client = new GuzzleHttp\Client();
         $response = $client->get($url);
-        //$h = $response->getHeaders();
-
+        $h = $response->getHeaders();
+            print_r($h);
         //获取文件名
         $file_info = $response->getHeader('Content-disposition');
+        print_r($file_info);
         $file_name = substr(rtrim($file_info[0],'"'),-20);
-
+        print_r($file_name);
         $wx_image_path = 'wx/images/'.$file_name;
         //保存图片
         $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
@@ -194,7 +195,7 @@ class WeiXinController extends Controller
     /**
      * 创建服务号菜单
      */
-    public function createMenu(){
+    public function wxMenu(){
         //echo __METHOD__;
         // 1 获取access_token 拼接请求接口
         $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getWXAccessToken();
