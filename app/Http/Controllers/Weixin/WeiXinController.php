@@ -257,11 +257,7 @@ public function dlVideo($media_id){
                     "name"  => "客服01",
                     "key"   => "kefu01"
                 ],
-                [
-                    "type"  => "view",      // view类型 跳转指定 URL
-                    "name"  => "百度一下",
-                    "url"   => "https://www.baidu.com"
-                ]
+                
             ],
         ];
 
@@ -296,7 +292,6 @@ public function wxMenuType()
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
     $data = [
         "filter" => [
-
                 "is_to_all" => true,
                 "tag_id" => 2     // view类型 跳转指定 URL
             ],
