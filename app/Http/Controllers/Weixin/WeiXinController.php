@@ -290,29 +290,29 @@ public function dlVideo($media_id){
 public function wxType()
 {
     $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->getWXAccessToken();
-
     //echo $url;echo '</br>';
     //2 请求微信接口
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
-    $data=[
+    $data = [
         "filter"=>[
-            "is_to_all"=>true,
-            "tag_id"=>2
-        ],
-        "text"=>[
-            "content"=>"嗨皮"
-        ],
-        "msgtype"=>"text"
+                "is_to_all"=>true,
+                "tag_id"  => 2,      // view类型 跳转指定 URL
+                  ],
+                "text"=>[
+                    "content"=>"史上是是是"
+                ],
+            "msgtype"=>"text"
     ];
     var_dump($data);
-
+    $body = json_encode($data,JSON_UNESCAPED_UNICODE);      //处理中文编码
     $r = $client->request('POST', $url, [
-        'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
+        'body' => $body
     ]);
+
     // 3 解析微信接口返回信息
 
     $response_arr = json_decode($r->getBody(),true);
-    print_r($response_arr);
+    echo '<pre>';print_r($response_arr);echo '</pre>';
 
     if($response_arr['errcode'] == 0){
         echo "群发成功";
@@ -322,6 +322,33 @@ public function wxType()
 
     }
 }
+    public function sendTextAll(){
+        $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->getWXAccessToken();
+        $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $data=[
+            "filter"=>[
+                "is_to_all"=>true,
+                "tag_id"=>2
+            ],
+            "text"=>[
+                "content"=>"嗨皮"
+            ],
+            "msgtype"=>"text"
+        ];
+        $r = $client->request('POST', $url, [
+            'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
+        ]);
+        // 3 解析微信接口返回信息
+
+        $response_arr = json_decode($r->getBody(),true);
+        var_dump($response_arr);
+        if($response_arr['errcode'] == 0){
+            echo "群发成功";
+        }else{
+            echo "群发失败，请重试";echo '</br>';
+            echo $response_arr['errmsg'];
+        }
+    }
 
      // 刷新access_token
 
