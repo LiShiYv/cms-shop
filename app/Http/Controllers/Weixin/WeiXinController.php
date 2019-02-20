@@ -289,9 +289,7 @@ public function dlVideo($media_id){
 
 public function wxMenuType()
 {
-    $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getWXAccessToken();
-    //echo $url;echo '</br>';
-    //2 请求微信接口
+    $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token='.$this->getWXAccessToken();
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
     $data=[
         "filter"=>[
@@ -303,22 +301,18 @@ public function wxMenuType()
         ],
         "msgtype"=>"text"
     ];
-    //var_dump($data);
     $r = $client->request('POST', $url, [
         'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
     ]);
-
     // 3 解析微信接口返回信息
 
     $response_arr = json_decode($r->getBody(),true);
-    echo '<pre>';print_r($response_arr);echo '</pre>';
-
+    var_dump($response_arr);
     if($response_arr['errcode'] == 0){
         echo "群发成功";
     }else{
         echo "群发失败，请重试";echo '</br>';
-
-
+        echo $response_arr['errmsg'];
     }
 }
     public function sendTextAll(){
