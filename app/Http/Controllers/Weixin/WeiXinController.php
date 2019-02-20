@@ -257,7 +257,11 @@ public function dlVideo($media_id){
                     "name"  => "客服01",
                     "key"   => "kefu01"
                 ],
-                
+                [
+                    "type"  => "view",      // view类型 跳转指定 URL
+                    "name"  => "百度一下",
+                    "url"   => "https://www.baidu.com"
+                ]
             ],
         ];
 
@@ -302,8 +306,9 @@ public function wxMenuType()
         "msgtype" => "text"
 
     ];
+    var_dump($data);
     $body = json_encode($data,JSON_UNESCAPED_UNICODE);      //处理中文编码
-    $r = $client->request('POST', $url, [
+    $r = $client->request('post', $url, [
         'body' => $body
     ]);
 
