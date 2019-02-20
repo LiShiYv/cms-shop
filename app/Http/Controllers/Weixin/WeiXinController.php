@@ -133,7 +133,7 @@ class WeiXinController extends Controller
         $file_info = $response->getHeader('Content-disposition');
         print_r($file_info);
         $file_name = substr(rtrim($file_info[0],'"'),-20);
-        print_r($file_name);
+        print_r($file_name);die;
         $wx_image_path = 'wx/images/'.$file_name;
         //保存图片
         $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
@@ -152,11 +152,11 @@ class WeiXinController extends Controller
     public function dlVoice($media_id)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
-        echo '<pre>';print_r($url);echo '</pre>';
+      //  echo '<pre>';print_r($url);echo '</pre>';
         $client = new GuzzleHttp\Client();
         $response = $client->get($url);
-        $h = $response->getHeaders();
-        echo '<pre>';print_r($h);echo '</pre>';
+        //$h = $response->getHeaders();
+       // echo '<pre>';print_r($h);echo '</pre>';
         //获取文件名
         $file_info = $response->getHeader('Content-disposition');
         $file_name = substr(rtrim($file_info[0],'"'),-20);
