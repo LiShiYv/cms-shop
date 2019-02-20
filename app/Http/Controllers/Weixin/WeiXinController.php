@@ -53,6 +53,8 @@ class WeiXinController extends Controller
                 }
             }elseif($xml->MsgType=='voice'){
                 $this->dlVoice($xml->MediaId);
+                $xml_response1 = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
+                echo $xml_response1;
             }elseif($xml->MsgType=='event'){
 //判断事件类型
                 if($event=='subscribe'){                        //扫码关注事件
@@ -143,10 +145,10 @@ class WeiXinController extends Controller
 
     }
 
-    /**
-     * 下载语音文件
-     * @param $media_id
-     */
+
+     //下载语音文件
+
+
     public function dlVoice($media_id)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
@@ -293,6 +295,13 @@ class WeiXinController extends Controller
 
 
 
+     // 刷新access_token
+
+    public function refreshToken()
+    {
+        Redis::del($this->redis_weixin_access_token);
+        echo $this->getWXAccessToken();
+    }
 
 
 }
