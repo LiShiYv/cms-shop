@@ -294,17 +294,15 @@ public function wxMenuType()
 
     //2 请求微信接口
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
-    $data = [
-        "filter" => [
+    $data =[
+        "filter" =>[
                 "is_to_all" => true,
                 "tag_id" => 2    // view类型 跳转指定 URL
             ],
-            "text" => [
-                "content"=>"杀手狂三看看思考思考"
+            "text" =>[
+                "content"=>"看看思考思考"
             ],
-
         "msgtype" => "text"
-
     ];
     var_dump($data);
     $body = json_encode($data,JSON_UNESCAPED_UNICODE);      //处理中文编码
