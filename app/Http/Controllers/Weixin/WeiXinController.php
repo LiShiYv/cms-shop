@@ -289,7 +289,7 @@ public function dlVideo($media_id){
 
 public function wxMenuType()
 {
-    $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->getWXAccessToken();
+    $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getWXAccessToken();
     //echo $url;echo '</br>';
 
     //2 请求微信接口
