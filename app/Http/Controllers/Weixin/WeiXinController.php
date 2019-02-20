@@ -55,6 +55,12 @@ class WeiXinController extends Controller
                 $this->dlVoice($xml->MediaId);
                 $xml_response1 = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response1;
+
+
+            }elseif($xml->MsgType=='video'){
+                $this->dlVideo($xml->MediaId);
+                $xml_response2 = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['. str_random(10) . ' >>> ' . date('Y-m-d H:i:s') .']]></Content></xml>';
+                echo $xml_response2;
             }elseif($xml->MsgType=='event'){
 //判断事件类型
                 if($event=='subscribe'){                        //扫码关注事件
@@ -122,18 +128,18 @@ class WeiXinController extends Controller
     public function dlWxImg($media_id)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
-        echo $url;echo '</br>';
+      //  echo $url;echo '</br>';
 
         //保存图片
         $client = new GuzzleHttp\Client();
         $response = $client->get($url);
-        $h = $response->getHeaders();
-            print_r($h);
+       // $h = $response->getHeaders();
+        //    print_r($h);
         //获取文件名
         $file_info = $response->getHeader('Content-disposition');
-        print_r($file_info);
+   //     print_r($file_info);
         $file_name = substr(rtrim($file_info[0],'"'),-20);
-        print_r($file_name);die;
+        //print_r($file_name);
         $wx_image_path = 'wx/images/'.$file_name;
         //保存图片
         $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
@@ -162,6 +168,30 @@ class WeiXinController extends Controller
         $file_name = substr(rtrim($file_info[0],'"'),-20);
 
         $wx_image_path = 'wx/voice/'.$file_name;
+        //保存图片
+        $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
+        if($r){     //保存成功
+
+        }else{      //保存失败
+
+        }
+    }
+    //下载语音文件
+
+
+    public function dlVideo($media_id)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/media/get?access_token='.$this->getWXAccessToken().'&media_id='.$media_id;
+        //  echo '<pre>';print_r($url);echo '</pre>';
+        $client = new GuzzleHttp\Client();
+        $response = $client->get($url);
+        //$h = $response->getHeaders();
+        // echo '<pre>';print_r($h);echo '</pre>';
+        //获取文件名
+        $file_info = $response->getHeader('Content-disposition');
+        $file_name = substr(rtrim($file_info[0],'"'),-20);
+
+        $wx_image_path = 'wx/video/'.$file_name;
         //保存图片
         $r = Storage::disk('local')->put($wx_image_path,$response->getBody());
         if($r){     //保存成功
