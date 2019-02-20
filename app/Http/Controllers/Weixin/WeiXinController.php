@@ -290,26 +290,26 @@ public function dlVideo($media_id){
 public function wxMenuType()
 {
     $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token=' . $this->getWXAccessToken();
-   // echo $url;echo '</br>';
+    //echo $url;echo '</br>';
 
     //2 请求微信接口
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
     $data = [
-        "filter"=>[
+        "filter" => [
 
-    "is_to_all"=>true,
-      "tag_id"=>2
-   ],
-   "text"=>[
-    "content"=>"CONTENT"
-   ],
-    "msgtype"=>"text"
+                "is_to_all" => true,
+                "tag_id" => 2     // view类型 跳转指定 URL
+            ],
+            "text" => [
+                "content"=>"群发"
+            ],
+
+        "msgtype" => "text"
 
     ];
-    var_dump($data);
-      //处理中文编码
-    $r = $client->request('POST', $url,  [ 'body' => json_encode($data,JSON_UNESCAPED_UNICODE)
-
+    $body = json_encode($data,JSON_UNESCAPED_UNICODE);      //处理中文编码
+    $r = $client->request('POST', $url, [
+        'body' => $body
     ]);
 
     // 3 解析微信接口返回信息
