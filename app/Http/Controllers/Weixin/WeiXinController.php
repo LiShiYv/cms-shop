@@ -295,14 +295,15 @@ public function wxMenuType()
     //2 请求微信接口
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
     $data = [
-        "filter" => [
-                "is_to_all" => true,
-                "tag_id" => 1,      // view类型 跳转指定 URL
-            ],
-            "text" => [
-                "content"=>"群发"
-            ],
-            "msgtype" => "text"
+        "filter"=>[
+
+    "is_to_all"=>false,
+      "tag_id"=>2
+   ],
+   "text"=>[
+    "content"=>"CONTENT"
+   ],
+    "msgtype"=>"text"
 
     ];
     var_dump($data);
