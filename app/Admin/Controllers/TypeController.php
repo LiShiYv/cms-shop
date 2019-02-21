@@ -2,7 +2,7 @@
 
 namespace App\Admin\Controllers;
 
-use App\Model\WeixinMedia;
+use App\Model\WeixinType;
 use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
@@ -10,7 +10,7 @@ use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
 
-class WxmediaController extends Controller
+class TypeController extends Controller
 {
     use HasResourceActions;
 
@@ -79,30 +79,16 @@ class WxmediaController extends Controller
      */
     protected function grid()
     {
-        $grid = new Grid(new WeixinMedia);
+        $grid = new Grid(new WeixinType);
 
         $grid->id('Id');
         $grid->openid('Openid');
-        $grid->add_time('Add time')->display(function($time){
-            return date('Y-m-d H:i:s',$time);
-        });
+        $grid->add_time('Add time');
         $grid->msg_type('Msg type');
         $grid->media_id('Media id');
         $grid->format('Format');
         $grid->msg_id('Msg id');
-        $grid->local_file_name('Local file name')->display(function($img){
-            if(substr($img,-3,3)=='mp4'){
-                $common='<a href="/wx/video/'.$img.'">观看视频</a>';
-            }elseif(substr($img,-3,3)=='amr'){
-                $common='<a href="/wx/voice/'.$img.'">视听语言</a>';
-            }else{
-               $common='<img src="/wx/image/'.$img.'" width=80px;height=80px;>';
-            }
-            return $common;
-        });
-
-
-
+        $grid->local_file_name('Local file name');
         $grid->local_file_path('Local file path');
 
         return $grid;
@@ -116,7 +102,7 @@ class WxmediaController extends Controller
      */
     protected function detail($id)
     {
-        $show = new Show(WeixinMedia::findOrFail($id));
+        $show = new Show(WeixinType::findOrFail($id));
 
         $show->id('Id');
         $show->openid('Openid');
@@ -138,17 +124,17 @@ class WxmediaController extends Controller
      */
     protected function form()
     {
-        $form = new Form(new WeixinMedia);
+        $form = new Form(new WeixinType);
 
-      $form->text('openid', 'Openid');
-      $form->number('add_time', 'Add time');
-      $form->text('msg_type', 'Msg type');
-      $form->text('media_id', 'Media id');
-      $form->text('format', 'Format');
-      $form->text('msg_id', 'Msg id');
-      $form->text('local_file_name', 'Local file name');
-      $form->text('local_file_path', 'Local file path');
-
+//        $form->text('openid', 'Openid');
+//        $form->number('add_time', 'Add time');
+//        $form->text('msg_type', 'Msg type');
+//        $form->text('media_id', 'Media id');
+//        $form->text('format', 'Format');
+//        $form->text('msg_id', 'Msg id');
+//        $form->text('local_file_name', 'Local file name');
+//        $form->text('local_file_path', 'Local file path');
+$form->textarea('text','TEXT(信息不能重复输入)');
         return $form;
     }
 }

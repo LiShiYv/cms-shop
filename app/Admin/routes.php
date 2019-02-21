@@ -15,4 +15,7 @@ Route::group([
     $router->resource('/User',UserController::class);
     $router->resource('/weixin',WeixinController::class);
     $router->resource('/media',WxmediaController::class);
+    $router->resource('/type',TypeController::class);
+    $router->resource('/message',MessageController::class);
+    $router->post('/message','MessageController@type');
 });
