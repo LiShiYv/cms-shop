@@ -371,7 +371,7 @@ public function file(){
     return view('weixin.weixin');
 }
 //上传素材
-    public function formMaterialTest($file)
+    public function formMaterialTest($file_path)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
         $client = new GuzzleHttp\Client();
@@ -379,7 +379,7 @@ public function file(){
             'multipart' => [
                 [
                     'name'     => 'media',
-                    'contents' => fopen($file, 'r')
+                    'contents' => fopen($file_path, 'r')
                 ],
             ]
         ]);
