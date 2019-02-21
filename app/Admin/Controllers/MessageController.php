@@ -9,6 +9,7 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use GuzzleHttp;
 class MessageController extends Controller
@@ -140,19 +141,20 @@ class MessageController extends Controller
         return $form;
     }
 
-    public function type()
+    public function type(Request $request)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=' . $this->getWXAccessToken();
         //echo $url;echo '</br>';
         //2 请求微信接口
+       $content=$request->input('content');
         $client = new GuzzleHttp\Client(['base_uri' => $url]);
         $data = [
             "filter" => [
                 "is_to_all" => true,
-                "tag_id" => 2
+
             ],
             "text" => [
-                "content" => "上课考试111"
+                "content" => $content
             ],
             "msgtype" => "text"
         ];
