@@ -90,13 +90,13 @@ class WxmediaController extends Controller
         $grid->media_id('Media id');
         $grid->format('Format');
         $grid->msg_id('Msg id');
-        $grid->local_file_name('Local file name')->display(function($local_file_name){
-            if($local_file_name=='image'){
-                $common='<img src="/wx/image/'.$local_file_name.'" width=80px;height=80px;>';
-            }elseif($local_file_name=='voice'){
-                $common='wx/voice/'.$local_file_name;
-            }elseif($local_file_name=='video'){
-                $common='wx/video/'.$local_file_name;
+        $grid->local_file_name('Local file name')->display(function($img){
+            if($img=='image'){
+                $common='<img src="/wx/image/'.$img.'" width=80px;height=80px;>';
+            }elseif($img=='voice'){
+                $common='wx/voice/'.$img;
+            }elseif($img=='video'){
+                $common='wx/video/'.$img;
             }
             return $common;
         });
