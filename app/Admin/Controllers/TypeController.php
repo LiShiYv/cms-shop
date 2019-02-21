@@ -134,7 +134,7 @@ class TypeController extends Controller
 //        $form->text('msg_id', 'Msg id');
 //        $form->text('local_file_name', 'Local file name');
 //        $form->text('local_file_path', 'Local file path');
-$form->textarea('text','TEXT(信息不能重复输入)');
+//$form->textarea('text','TEXT(信息不能重复输入)');
         return $form;
     }
 }

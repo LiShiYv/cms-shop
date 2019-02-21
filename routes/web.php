@@ -112,3 +112,7 @@ Route::post('/weixin/valid1','Weixin\WeiXinController@wxEvent');        //接收
 Route::get('/weixin/menu','Weixin\WeiXinController@wxMenu');
 //  群发
 Route::get('/weixin/wxtype','Weixin\WeiXinController@wxType');
+//永久素材
+Route::get('/weixin/wxfile','Weixin\WeiXinController@file');
+Route::get('/weixin/upload','Weixin\WeiXinController@upMaterial');
+Route::post('/weixin/file','Weixin\WeiXinController@materialTest');
