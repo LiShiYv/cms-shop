@@ -370,14 +370,19 @@ public function wxType()
 public function file(){
     return view('weixin.weixin');
 }
-public function upMaterial($file_path){
+//上传素材
+public function upMaterial(){
     $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
     $client = new GuzzleHttp\Client();
     $response = $client->request('POST',$url,[
         'multipart' => [
             [
+                'name'     => 'username',
+                'contents' => 'zhangsan'
+            ],
+            [
                 'name'     => 'media',
-                'contents' => fopen($file_path, 'r')
+                'contents' => fopen('abc.jpg', 'r')
             ],
         ]
     ]);
@@ -387,6 +392,27 @@ public function upMaterial($file_path){
     $d = json_decode($body,true);
     echo '<pre>';print_r($d);echo '</pre>';
 }
+    public function upMaterialTest($file_path)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
+        $client = new GuzzleHttp\Client();
+        $response = $client->request('POST',$url,[
+            'multipart' => [
+                [
+                    'name'     => 'media',
+                    'contents' => fopen($file_path, 'r')
+                ],
+            ]
+        ]);
+
+        $body = $response->getBody();
+        echo $body;echo '<hr>';
+        $d = json_decode($body,true);
+        echo '<pre>';print_r($d);echo '</pre>';
+
+
+    }
+//获取素材
     public function materialList()
     {
         $client = new GuzzleHttp\Client();
@@ -411,7 +437,8 @@ public function upMaterial($file_path){
 
 
     }
-public function materialTest(Request $request){
+
+public function formTest(Request $request){
     //echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
     //echo '<pre>';print_r($_FILES);echo '</pre>';echo '<hr>';
     //保存文件

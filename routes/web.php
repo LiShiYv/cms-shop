@@ -113,6 +113,8 @@ Route::get('/weixin/menu','Weixin\WeiXinController@wxMenu');
 //  群发
 Route::get('/weixin/wxtype','Weixin\WeiXinController@wxType');
 //永久素材
-Route::get('/weixin/wxfile','Weixin\WeiXinController@file');
-Route::get('/weixin/upload','Weixin\WeiXinController@upMaterial');
-Route::post('/weixin/file','Weixin\WeiXinController@materialTest');
+Route::get('/weixin/wxfile','Weixin\WeiXinController@file'); //表单展示
+Route::get('/weixin/material/list','Weixin\WeixinController@materialList');//获取永久素材
+Route::get('/weixin/upload','Weixin\WeiXinController@upMaterial'); //上传永久素材
+Route::post('/weixin/file','Weixin\WeiXinController@formTest');//表单提交
+Route::post('/weixin/material','Weixin\WeixinController@materialTest');//创建菜单
