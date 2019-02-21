@@ -67,16 +67,44 @@ class WeiXinController extends Controller
                     var_dump($m_id);
                 }
             }elseif($xml->MsgType=='voice'){
-                $this->dlVoice($xml->MediaId);
+                $file_name=$this->dlVoice($xml->MediaId);
                 $xml_response1 = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[' . '当前时间是'.date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response1;
+                //写入数据库
+                $data = [
+                    'openid'    => $openid,
+                    'add_time'  => time(),
+                    'msg_type'  => 'image',
+                    'media_id'  => $xml->MediaId,
+                    'format'    => $xml->Format,
+                    'msg_id'    => $xml->MsgId,
+                    'local_file_name'   => $file_name
+                ];
 
+                $m_id = WeixinMedia::insertGetId($data);
+                var_dump($m_id);
+            }
 
             }elseif($xml->MsgType=='video'){
-                $this->dlVideo($xml->MediaId);
+                $file_name=$this->dlVideo($xml->MediaId);
                 $xml_response2 = '<xml><ToUserName><![CDATA['.$openid.']]></ToUserName><FromUserName><![CDATA['.$xml->ToUserName.']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.' 当前时间是'. date('Y-m-d H:i:s') .']]></Content></xml>';
                 echo $xml_response2;
-            }elseif($xml->MsgType=='event'){
+            //写入数据库
+            $data = [
+                'openid'    => $openid,
+                'add_time'  => time(),
+                'msg_type'  => 'image',
+                'media_id'  => $xml->MediaId,
+                'format'    => $xml->Format,
+                'msg_id'    => $xml->MsgId,
+                'local_file_name'   => $file_name
+            ];
+
+            $m_id = WeixinMedia::insertGetId($data);
+            var_dump($m_id);
+
+
+    }elseif($xml->MsgType=='event'){
 //判断事件类型
                 if($event=='subscribe'){                        //扫码关注事件
 
