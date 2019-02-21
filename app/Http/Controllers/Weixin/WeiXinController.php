@@ -371,28 +371,7 @@ public function file(){
     return view('weixin.weixin');
 }
 //上传素材
-public function formMaterial(){
-    $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
-    $client = new GuzzleHttp\Client();
-    $response = $client->request('POST',$url,[
-        'multipart' => [
-            [
-                'name'     => 'username',
-                'contents' => 'weiliang'
-            ],
-            [
-                'name'     => 'media',
-               // 'contents' => fopen('PC8bHYVCCDLaHSq.jpg', 'r')
-            ],
-        ]
-    ]);
-
-    $body = $response->getBody();
-    echo $body;echo '<hr>';
-    $d = json_decode($body,true);
-    echo '<pre>';print_r($d);echo '</pre>';
-}
-    public function formMaterialTest($file_path)
+    public function formMaterialTest($file)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
         $client = new GuzzleHttp\Client();
@@ -400,7 +379,7 @@ public function formMaterial(){
             'multipart' => [
                 [
                     'name'     => 'media',
-                    'contents' => fopen($file_path, 'r')
+                    'contents' => fopen($file, 'r')
                 ],
             ]
         ]);
