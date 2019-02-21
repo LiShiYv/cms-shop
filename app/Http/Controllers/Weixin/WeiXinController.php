@@ -371,72 +371,72 @@ public function file(){
     return view('weixin.weixin');
 }
 //上传素材
-//public function formMaterial(){
-//    $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
-//    $client = new GuzzleHttp\Client();
-//    $response = $client->request('POST',$url,[
-//        'multipart' => [
-//            [
-//                'name'     => 'username',
-//                'contents' => 'zhangsan'
-//            ],
-//            [
-//                'name'     => 'media',
-//                'contents' => fopen('abc.jpg', 'r')
-//            ],
-//        ]
-//    ]);
-//
-//    $body = $response->getBody();
-//    echo $body;echo '<hr>';
-//    $d = json_decode($body,true);
-//    echo '<pre>';print_r($d);echo '</pre>';
-//}
-//    public function formMaterialTest($file_path)
-//    {
-//        $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
-//        $client = new GuzzleHttp\Client();
-//        $response = $client->request('POST',$url,[
-//            'multipart' => [
-//                [
-//                    'name'     => 'media',
-//                    'contents' => fopen($file_path, 'r')
-//                ],
-//            ]
-//        ]);
-//
-//        $body = $response->getBody();
-//        echo $body;echo '<hr>';
-//        $d = json_decode($body,true);
-//        echo '<pre>';print_r($d);echo '</pre>';
-//
-//
-//    }
+public function formMaterial(){
+    $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
+    $client = new GuzzleHttp\Client();
+    $response = $client->request('POST',$url,[
+        'multipart' => [
+            [
+                'name'     => 'username',
+                'contents' => 'weiliang'
+            ],
+            [
+                'name'     => 'media',
+                'contents' => fopen('PC8bHYVCCDLaHSq.jpg', 'r')
+            ],
+        ]
+    ]);
+
+    $body = $response->getBody();
+    echo $body;echo '<hr>';
+    $d = json_decode($body,true);
+    echo '<pre>';print_r($d);echo '</pre>';
+}
+    public function formMaterialTest($file_path)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
+        $client = new GuzzleHttp\Client();
+        $response = $client->request('POST',$url,[
+            'multipart' => [
+                [
+                    'name'     => 'media',
+                    'contents' => fopen($file_path, 'r')
+                ],
+            ]
+        ]);
+
+        $body = $response->getBody();
+        echo $body;echo '<hr>';
+        $d = json_decode($body,true);
+        echo '<pre>';print_r($d);echo '</pre>';
+
+
+    }
 //获取素材
-//    public function formList()
-//    {
-//        $client = new GuzzleHttp\Client();
-//        $type = $_GET['type'];
-//        $offset = $_GET['offset'];
-//
-//        $url = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.$this->getWXAccessToken();
-//
-//        $body = [
-//            "type"      => $type,
-//            "offset"    => $offset,
-//            "count"     => 20
-//        ];
-//        $response = $client->request('POST', $url, [
-//            'body' => json_encode($body)
-//        ]);
-//
-//        $body = $response->getBody();
-//        echo $body;echo '<hr>';
-//        $arr = json_decode($response->getBody(),true);
-//        echo '<pre>';print_r($arr);echo '</pre>';
-//
-//
-//    }
+    public function formList()
+    {
+        $client = new GuzzleHttp\Client();
+        $type = $_GET['type'];
+        $offset = $_GET['offset'];
+
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.$this->getWXAccessToken();
+
+        $body = [
+            "type"      => $type,
+            "offset"    => $offset,
+            "count"     => 20
+        ];
+        $response = $client->request('POST', $url, [
+            'body' => json_encode($body)
+        ]);
+
+        $body = $response->getBody();
+        echo $body;echo '<hr>';
+        $arr = json_decode($response->getBody(),true);
+        echo '<pre>';print_r($arr);echo '</pre>';
+
+
+    }
 
 public function formTest(Request $request){
     //echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
@@ -463,7 +463,6 @@ public function formTest(Request $request){
     echo 'save_file_path: '.$save_file_path;echo '<hr>';
 
     //上传至微信永久素材
-
     $this->formMaterialTest($save_file_path);
 }
 
