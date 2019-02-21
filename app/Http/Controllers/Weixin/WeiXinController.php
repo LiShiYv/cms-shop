@@ -74,7 +74,7 @@ class WeiXinController extends Controller
                 $data = [
                     'openid'    => $openid,
                     'add_time'  => time(),
-                    'msg_type'  => 'image',
+                    'msg_type'  => 'voice',
                     'media_id'  => $xml->MediaId,
                     'format'    => $xml->Format,
                     'msg_id'    => $xml->MsgId,
@@ -93,7 +93,7 @@ class WeiXinController extends Controller
                 $data = [
                     'openid'    => $openid,
                     'add_time'  => time(),
-                    'msg_type'  => 'image',
+                    'msg_type'  => 'video',
                     'media_id'  => $xml->MediaId,
                     'format'    => $xml->Format,
                     'msg_id'    => $xml->MsgId,
