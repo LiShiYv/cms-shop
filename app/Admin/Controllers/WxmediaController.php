@@ -84,23 +84,15 @@ class WxmediaController extends Controller
         $grid->id('Id');
         $grid->openid('Openid');
         $grid->add_time('Add time')->display(function($time){
-             return date('Y-m-d H:i:s',$time);
+            return date('Y-m-d H:i:s',$time);
         });
         $grid->msg_type('Msg type');
         $grid->media_id('Media id');
         $grid->format('Format');
         $grid->msg_id('Msg id');
-        $grid->local_file_name('Local file name')->display(function($local_file_name){
-            if($local_file_name=='image'){
-                return '<img src="/wx/image/'.$local_file_name.'" width=50px;height=50px;>';
-            }elseif($local_file_name=='voice'){
-                return '<img src="/wx/voice/'.$local_file_name.'" width=50px;height=50px;>';
-            }elseif($local_file_name=='video'){
-                return '<img src="/wx/video/'.$local_file_name.'" width=50px;height=50px;>';
-            }
-            return  $local_file_name;
+        $grid->local_file_name('Local file name')->display(function($img){
+            return '<img src="/wx/image/'.$img.'" width=80px;height=80px;>';
         });
-
 
         $grid->local_file_path('Local file path');
 
