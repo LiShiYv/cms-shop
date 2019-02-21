@@ -94,9 +94,9 @@ class WxmediaController extends Controller
             if($local_file_name=='image'){
                 $local_file_names='<img src="/wx/image/'.$local_file_name.'" width=80px;height=80px;>';
             }elseif($local_file_name=='voice'){
-                $local_file_names='<img src="/wx/voice/'.$local_file_name.'" width=80px;height=80px;>';
+                $local_file_names='wx/voice/'.$local_file_name;
             }elseif($local_file_name=='video'){
-                $local_file_names='<img src="/wx/vide/'.$local_file_name.'" width=80px;height=80px;>';
+                $local_file_names='wx/video/'.$local_file_name;
             }
             return $local_file_names;
         });
