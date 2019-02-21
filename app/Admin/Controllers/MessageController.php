@@ -146,7 +146,7 @@ class MessageController extends Controller
         $url = 'https://api.weixin.qq.com/cgi-bin/message/mass/sendall?access_token=' . $this->getWXAccessToken();
         //echo $url;echo '</br>';
         //2 请求微信接口
-       $content=$request->input('content');
+       $content=$request->input('text');
         $client = new GuzzleHttp\Client(['base_uri' => $url]);
         $data = [
             "filter" => [
