@@ -159,14 +159,74 @@ class TypeController extends Controller
 
 
         //保存文件
-        $save_file_path = $request->media->storeAs('form_test',$new_file_name);       //返回保存成功之后的文件路径
+        $save_file_path = $request->file->storeAs('file_image',$new_file_name);       //返回保存成功之后的文件路径
 
         echo 'save_file_path: '.$save_file_path;echo '<hr>';
 
         //上传至微信永久素材
         $this->formMaterialTest($save_file_path);
     }
+    //上传素材
+    public function formMaterialTest($file_path)
+    {
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
+        $client = new GuzzleHttp\Client();
+        $response = $client->request('POST',$url,[
+            'multipart' => [
+                [
+                    'name'     => 'media',
+                    'contents' => fopen($file_path, 'r')
+                ],
+            ]
+        ]);
+        $body = $response->getBody();
+        echo $body;echo '<hr>';
+        $d = json_decode($body,true);
+        echo '<pre>';print_r($d);echo '</pre>';
+    }
+//获取素材
+    public function formList()
+    {
+        $client = new GuzzleHttp\Client();
+        $type = $_GET['type'];
+        $offset = $_GET['offset'];
 
+        $url = 'https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token='.$this->getWXAccessToken();
+
+        $body = [
+            "type"      => $type,
+            "offset"    => $offset,
+            "count"     => 20
+        ];
+        $response = $client->request('POST', $url, [
+            'body' => json_encode($body)
+        ]);
+
+        $body = $response->getBody();
+        echo $body;echo '<hr>';
+        $arr = json_decode($response->getBody(),true);
+        echo '<pre>';print_r($arr);echo '</pre>';
+
+
+    }
+
+    public function getWXAccessToken()
+    {
+
+        //获取缓存
+        $token = Redis::get($this->redis_weixin_access_token);
+        if(!$token){        // 无缓存 请求微信接口
+            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WEIXIN_APPID').'&secret='.env('WEIXIN_APPSECRET');
+            $data = json_decode(file_get_contents($url),true);
+
+            //记录缓存
+            $token = $data['access_token'];
+            Redis::set($this->redis_weixin_access_token,$token);
+            Redis::setTimeout($this->redis_weixin_access_token,3600);
+        }
+        return $token;
+
+    }
 // 刷新access_token
 
     public function refreshToken()
