@@ -174,7 +174,7 @@ class TypeController extends Controller
         $response = $client->request('POST',$url,[
             'multipart' => [
                 [
-                    'name'     => 'file',
+                    'name'     => 'media',
                     'contents' => fopen($file_path, 'r')
                 ],
             ]
