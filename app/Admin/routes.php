@@ -18,4 +18,6 @@ Route::group([
     $router->resource('/type',TypeController::class);
     $router->resource('/message',MessageController::class);
     $router->post('/message','MessageController@type');
+    $router->post('/type','TypeController@formTest');
+  
 });
