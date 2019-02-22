@@ -1,3 +1,4 @@
+王晨琦 10:26:50
 <?php
 
 return [
@@ -63,7 +64,13 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
-
+        'admin' => [
+            'driver' => 'local',
+            'root' => public_path('uploads'),
+            'visibility' => 'public',
+            'url' => env('APP_URL').'public/uploads',
+        ],
     ],
 
 ];
+

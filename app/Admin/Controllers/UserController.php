@@ -117,6 +117,7 @@ class UserController extends Controller{
         $form->text('age','年龄');
         $form->email('u_email','Email');
 
+      //  $form->file('agess');
         return $form;
     }
 

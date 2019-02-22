@@ -311,8 +311,7 @@ return [
     | https://github.com/laravel-admin-extensions.
     |
     */
-    ' extensions '  => [
-
+    'extensions' => [
         'summernote' => [
 
             //Set to false if you want to disable this extension
@@ -320,9 +319,9 @@ return [
 
             // Editor configuration
             'config' => [
-
+                'lang'   => 'zh-CN',
+                'height' => 500,
             ]
         ]
-      ],
-
+    ],
 ];

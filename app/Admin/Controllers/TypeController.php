@@ -126,7 +126,7 @@ class TypeController extends Controller
     {
         $form = new Form(new WeixinType);
 
-//        $form->text('openid', 'Openid');
+        $form->file('file_column');
 //        $form->number('add_time', 'Add time');
 //        $form->text('msg_type', 'Msg type');
 //        $form->text('media_id', 'Media id');
@@ -137,4 +137,7 @@ class TypeController extends Controller
 //$form->textarea('text','TEXT(信息不能重复输入)');
         return $form;
     }
+
+
+
 }

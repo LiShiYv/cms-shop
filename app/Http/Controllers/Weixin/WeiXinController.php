@@ -383,13 +383,10 @@ public function file(){
                 ],
             ]
         ]);
-
         $body = $response->getBody();
         echo $body;echo '<hr>';
         $d = json_decode($body,true);
         echo '<pre>';print_r($d);echo '</pre>';
-
-
     }
 //获取素材
     public function formList()
