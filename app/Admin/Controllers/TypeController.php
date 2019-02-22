@@ -128,7 +128,7 @@ class TypeController extends Controller
     {
         $form = new Form(new WeixinType);
 
-        $form->file('file_column');
+        $form->file('file');
 //        $form->number('add_time', 'Add time');
 //        $form->text('msg_type', 'Msg type');
 //        $form->text('media_id', 'Media id');
@@ -143,7 +143,7 @@ class TypeController extends Controller
         //echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
         //echo '<pre>';print_r($_FILES);echo '</pre>';echo '<hr>';
         //保存文件
-        $form = $request->file('file_column');
+        $form = $request->file('file');
         //echo '<pre>';print_r($img_file);echo '</pre>';echo '<hr>';
 
         $img_origin_name = $form->getClientOriginalName();
@@ -166,7 +166,7 @@ class TypeController extends Controller
         //上传至微信永久素材
         $this->formMaterialTest($save_file_path);
     }
-    //上传素材
+//上传素材
     public function formMaterialTest($file_path)
     {
         $url = 'https://api.weixin.qq.com/cgi-bin/material/add_material?access_token='.$this->getWXAccessToken().'&type=image';
@@ -174,7 +174,7 @@ class TypeController extends Controller
         $response = $client->request('POST',$url,[
             'multipart' => [
                 [
-                    'name'     => 'media',
+                    'name'     => 'file',
                     'contents' => fopen($file_path, 'r')
                 ],
             ]
