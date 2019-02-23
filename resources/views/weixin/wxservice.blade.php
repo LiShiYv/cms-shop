@@ -12,7 +12,7 @@
          <form>
             <table>
                <tr>
-                   <td>聊天记录：<textarea type="text" name="weixin"  cols="60" rows="20"></textarea></td>
+                   <td>聊天记录：<div type="text" name="weixin" style="width: 50px;height: 60px" >/div></td>
                </tr>
                 <tr>
                     <td>请输入：<input type="text" name="weixin" id="weixin" ></td>
@@ -29,9 +29,8 @@
 <script>
     $(function(){
         $('#test').click(function() {
-            var _this = $(this);
-            
-            var weixin = _this.text();
+
+            var weixin=$('#weixin').val();
             console.log(weixin);
         })
     });
