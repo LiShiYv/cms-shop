@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
         <script src="/js/jquery-1.12.4.min.js"></script>
-        {{csrf_field()}}
+        <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
          <form>
