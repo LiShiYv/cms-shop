@@ -1,6 +1,3 @@
-@extends('layouts.new')
-
-@section('content')
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,8 +14,5 @@
 </form>
 </body>
 </html>
-@endsection
-@section('footer')
-    @parent
-    <script src="{{URL::asset('/js/weixin/weixin.js')}}"></script>
-@endsection
+
+
