@@ -110,12 +110,9 @@ class WeixinController extends Controller
             return date('Y-m-d H:i:s',$time);
         });
         $grid->actions(function ($actions) {
-
             // append一个操作
             $actions->append('<a href="/weixin/service"><i class="fa fa-eye"></i></a>');
 
-            // prepend一个操作
-            $actions->prepend('<a href=""><i class="fa fa-paper-plane"></i></a>');
         });
 
         return $grid;
