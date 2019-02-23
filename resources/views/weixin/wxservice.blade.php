@@ -46,7 +46,7 @@
                 success :   function(d){
                     if(d.error!==0){
                         alert(d.msg);
-                        window.location.href='/weixin/service';
+                      //  window.location.href='/weixin/service';
                     }else{
                         window.location.href=d.url;
                     }
