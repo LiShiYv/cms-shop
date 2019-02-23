@@ -12,8 +12,9 @@
          <form>
             <table>
                <tr>
-                   <td>聊天记录：<div type="text" name="weixin" style="width: 50px;height: 60px" >/div></td>
+                   <td>聊天记录：<div type="text" name="weixin" style="width: 50px;height: 60px" ></div></td>
                </tr>
+                <input type="hidden" name="show_id" id="show_id">
                 <tr>
                     <td>请输入：<input type="text" name="weixin" id="weixin" ></td>
                 </tr>
@@ -29,9 +30,11 @@
 <script>
     $(function(){
         $('#test').click(function() {
-
+            _this=$(this);
             var weixin=$('#weixin').val();
-            console.log(weixin);
+            //console.log(weixin);
+            var show_id=$('#show_id').val();
+            console.log(show_id);
         })
     });
 </script>
