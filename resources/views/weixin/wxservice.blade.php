@@ -20,7 +20,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <button type="submit" class="btn btn-default" id="test">发送</button>
+                        <input type="button" class="btn btn-default" id="test" value="发送">
                     </td>
                 </tr>
             </table>
