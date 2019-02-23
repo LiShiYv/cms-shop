@@ -28,9 +28,9 @@
     </html>
 <script>
     $(function(){
-        $('#weixin').click(function() {
+        $('#test').click(function() {
             var _this = $(this);
-
+            
             var weixin = _this.text();
             console.log(weixin);
         })
