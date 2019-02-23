@@ -459,7 +459,7 @@ public function wxService(Request $request){
     $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getWXAccessToken();
 
 
-    $weixin=$request->input('weixin');
+    $weixin=$request->input('media_id');
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
     $data = [
         "filter" => [
@@ -467,7 +467,7 @@ public function wxService(Request $request){
 
         ],
         "text" => [
-            "weixin" => $weixin
+            "media_id" => $weixin
         ],
         "msgtype" => "text"
     ];
