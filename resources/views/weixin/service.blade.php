@@ -12,7 +12,7 @@
 <form>
     <h1>客服</h1>
     {{csrf_field()}}
-    <textarea type="text" name="media_id" id="weixin"></textarea>
+    <textarea type="text" name="weixin" id="weixin"></textarea>
     <button type="submit" class="btn btn-default" id="text">发送</button>
 </form>
 </body>
