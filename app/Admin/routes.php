@@ -20,4 +20,5 @@ Route::group([
     $router->post('/message','MessageController@type');
     $router->post('/type','TypeController@formTest');
     $router->get('/weixin/service{show_id}','WeixinController@service');
+    $router->get('/weixin/wxservice','WeixinController@wxservice');
 });
