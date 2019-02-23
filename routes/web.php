@@ -118,3 +118,6 @@ Route::get('/weixin/material/list','Weixin\WeixinController@formList');//获取�
 Route::get('/weixin/upload','Weixin\WeiXinController@formMaterialTest'); //上传永久素材
 Route::post('/weixin/file','Weixin\WeiXinController@formTest');//表单提交
 Route::post('/weixin/material','Weixin\WeixinController@materialTest');//创建菜单
+//客服
+Route::get('/weixin/service','Weixin\WeiXinController@formService');
+Route::post('/weixin/wxservice','Weixin\WeiXinController@wxService');

@@ -450,5 +450,11 @@ public function formTest(Request $request){
         echo $this->getWXAccessToken();
     }
 
+public function formService(){
+        return view('weixin.service');
+}
+public function wxService(){
 
+   // echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
+}
 }

@@ -106,6 +106,17 @@ class WeixinController extends Controller
         $grid->subscribe_time('Subscribe time')->display(function($time){
             return date('Y-m-d H:i:s',$time);
         });
+        $grid->subscribe_time('Subscribe time')->display(function($time){
+            return date('Y-m-d H:i:s',$time);
+        });
+        $grid->actions(function ($actions) {
+
+            // append一个操作
+            $actions->append('<a href="/weixin/service"><i class="fa fa-eye"></i></a>');
+
+            // prepend一个操作
+            $actions->prepend('<a href=""><i class="fa fa-paper-plane"></i></a>');
+        });
 
         return $grid;
     }
@@ -131,7 +142,9 @@ class WeixinController extends Controller
 
         return $show;
     }
-
+    public function service(){
+        return view('weixin.service');
+    }
     /**
      * Make a form builder.
      *

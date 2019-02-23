@@ -19,5 +19,5 @@ Route::group([
     $router->resource('/message',MessageController::class);
     $router->post('/message','MessageController@type');
     $router->post('/type','TypeController@formTest');
-
+    $router->post('/weixin/service','WeixinController@service');
 });
