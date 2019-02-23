@@ -461,7 +461,7 @@ public function wxService(Request $request,$openid){
     $data = [
         "touser"=>$openid,
         "msgtype"=>"text",
-        [
+        "text"=>[
             "content"=>$content
         ]
     ];
