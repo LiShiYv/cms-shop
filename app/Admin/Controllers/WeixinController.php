@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Storage;
 class WeixinController extends Controller
 {
     use HasResourceActions;
-
+    protected $redis_weixin_access_token = 'str:weixin_access_token';
     /**
      * Index interface.
      *
@@ -126,9 +126,83 @@ class WeixinController extends Controller
 
         return $grid;
     }
-public function wxservice(Request $request){
-    echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
+    /**
+     * 获取微信AccessToken
+     */
+    public function getWXAccessToken()
+    {
 
+        //获取缓存
+        $token = Redis::get($this->redis_weixin_access_token);
+        if(!$token){        // 无缓存 请求微信接口
+            $url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.env('WEIXIN_APPID').'&secret='.env('WEIXIN_APPSECRET');
+            $data = json_decode(file_get_contents($url),true);
+
+            //记录缓存
+            $token = $data['access_token'];
+            Redis::set($this->redis_weixin_access_token,$token);
+            Redis::setTimeout($this->redis_weixin_access_token,3600);
+        }
+        return $token;
+
+    }
+
+    /**
+     * 获取用户信息
+     * @param $openid
+     */
+    public function getUserInfo($openid)
+    {
+        //$openid = 'oLreB1jAnJFzV_8AGWUZlfuaoQto';
+        $access_token = $this->getWXAccessToken();      //请求每一个接口必须有 access_token
+        $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
+
+        $data = json_decode(file_get_contents($url),true);
+        //echo '<pre>';print_r($data);echo '</pre>';
+        return $data;
+    }
+    // 刷新access_token
+
+    public function refreshToken()
+    {
+        Redis::del($this->redis_weixin_access_token);
+        echo $this->getWXAccessToken();
+    }
+
+public function wxservice(Request $request){
+   // echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
+    $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getWXAccessToken();
+    print_r($url);
+    //$content=$request->input('weixin');
+    //$client = new GuzzleHttp\Client(['base_uri' => $url]);
+//        $data = [
+//            "touser"=>"oF5pn6PkNHZjgUOf-BTJWgdMyWd8",
+//            "msgtype"=>"text",
+//            "text"=>[
+//                "content"=>$content
+//            ]
+//        ];
+  //  var_dump($data);
+//        $body = json_encode($data, JSON_UNESCAPED_UNICODE);      //处理中文编码
+//        $r = $client->request('POST', $url, [
+//            'body' => $body
+//        ]);
+//
+//        // 3 解析微信接口返回信息
+//
+//        $response_arr = json_decode($r->getBody(), true);
+//        echo '<pre>';
+//        print_r($response_arr);
+//        echo '</pre>';
+//
+//        if ($response_arr['errcode'] == 0) {
+//            echo "发送成功";
+//        } else {
+//            echo "发送失败，请重试";
+//            echo '</br>';
+//
+//
+//        }
 }
     /**
      * Make a show builder.
