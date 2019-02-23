@@ -39,7 +39,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url     :   '{{'/weixin/service'}}',
+                url     :   '{{url("/weixin/service")}}',
                 type    :   'post',
                 data    :   {weixin:weixin,show_id:show_id},
                 dataType:   'json',
