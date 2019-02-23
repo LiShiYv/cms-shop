@@ -144,11 +144,8 @@ class WeixinController extends Controller
 
         return $show;
     }
-    public function service(){
-        return view('weixin.wxservice');
-    }
-    /**
-     * Make a form builder.
+
+     /* Make a form builder.
      *
      * @return Form
      */
