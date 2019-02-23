@@ -17,9 +17,23 @@
                 <tr>
                     <td>请输入：<input type="text" name="weixin" id="weixin" ></td>
                 </tr>
-                <button type="submit" class="btn btn-default" id="text">发送</button>
+                <tr>
+                    <td>
+                        <button type="submit" class="btn btn-default" id="test">发送</button>
+                    </td>
+                </tr>
             </table>
          </form>
     </body>
     </html>
+<script>
+    $(function(){
+        $('#weixin').click(function() {
+            var _this = $(this);
+
+            var weixin = _this.text();
+            console.log(weixin);
+        })
+    });
+</script>
 
