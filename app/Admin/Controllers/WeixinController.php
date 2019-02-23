@@ -172,37 +172,40 @@ class WeixinController extends Controller
 public function wxservice(Request $request){
    // echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
     $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getWXAccessToken();
-    print_r($url);
+    $show_id=$request->input('show_id');
+    $weixin=$request->input('weixin');
+
+    //print_r($url);
     //$content=$request->input('weixin');
-    //$client = new GuzzleHttp\Client(['base_uri' => $url]);
-//        $data = [
-//            "touser"=>"oF5pn6PkNHZjgUOf-BTJWgdMyWd8",
-//            "msgtype"=>"text",
-//            "text"=>[
-//                "content"=>$content
-//            ]
-//        ];
-  //  var_dump($data);
-//        $body = json_encode($data, JSON_UNESCAPED_UNICODE);      //处理中文编码
-//        $r = $client->request('POST', $url, [
-//            'body' => $body
-//        ]);
-//
-//        // 3 解析微信接口返回信息
-//
-//        $response_arr = json_decode($r->getBody(), true);
-//        echo '<pre>';
-//        print_r($response_arr);
-//        echo '</pre>';
-//
-//        if ($response_arr['errcode'] == 0) {
-//            echo "发送成功";
-//        } else {
-//            echo "发送失败，请重试";
-//            echo '</br>';
-//
-//
-//        }
+    $client = new GuzzleHttp\Client(['base_uri' => $url]);
+        $data = [
+          "touser"=>$show_id,
+           "msgtype"=>"text",
+          "text"=>[
+              "content"=>$weixin
+         ]
+        ];
+   var_dump($data);
+        $body = json_encode($data, JSON_UNESCAPED_UNICODE);      //处理中文编码
+        $r = $client->request('POST', $url, [
+            'body' => $body
+        ]);
+
+        // 3 解析微信接口返回信息
+
+        $response_arr = json_decode($r->getBody(), true);
+        echo '<pre>';
+        print_r($response_arr);
+        echo '</pre>';
+
+        if ($response_arr['errcode'] == 0) {
+            echo "发送成功";
+        } else {
+            echo "发送失败，请重试";
+            echo '</br>';
+
+
+        }
 }
     /**
      * Make a show builder.
