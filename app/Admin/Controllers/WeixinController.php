@@ -151,7 +151,16 @@ class WeixinController extends Controller
      */
     protected function form()
     {
+        $form = new Form(new WeixinUser);
 
+        $form->number('uid', 'Uid');
+        $form->text('openid', 'Openid');
+        $form->number('add_time', 'Add time');
+        $form->text('nickname', 'Nickname');
+        $form->switch('sex', 'Sex');
+        $form->text('headimgurl', 'Headimgurl');
+        $form->number('subscribe_time', 'Subscribe time');
 
+        return $form;
     }
 }
