@@ -34,7 +34,24 @@
             var weixin=$('#weixin').val();
             //console.log(weixin);
             var show_id=$('#show_id').val();
-            console.log(show_id);
+            //console.log(show_id);
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url     :   '{{'/weixin/service'}}',
+                type    :   'post',
+                data    :   {weixin:weixin,show_id:show_id},
+                dataType:   'json',
+                success :   function(d){
+                    if(d.error!==0){
+                        alert(d.msg);
+                        window.location.href='/weixin/service';
+                    }else{
+                        window.location.href=d.url;
+                    }
+                }
+            });
         })
     });
 </script>
