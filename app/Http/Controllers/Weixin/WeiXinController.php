@@ -465,7 +465,7 @@ public function wxService(Request $request,$openid){
             "content"=>$content
         ]
     ];
-    //var_dump($data);
+    var_dump($data);
     $body = json_encode($data, JSON_UNESCAPED_UNICODE);      //处理中文编码
     $r = $client->request('POST', $url, [
         'body' => $body
