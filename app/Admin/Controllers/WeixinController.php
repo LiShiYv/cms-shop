@@ -74,7 +74,7 @@ class WeixinController extends Controller
         return $content
             ->header('Create')
             ->description('description')
-            ->body(view('weixin/service',['show_id'=>$show_id])->header());
+            ->body(view('weixin.service',['show_id'=>$show_id])->header());
 
     }
 
