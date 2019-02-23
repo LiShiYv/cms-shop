@@ -174,12 +174,12 @@ public function wxservice(Request $request){
     $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getWXAccessToken();
     $show_id=$request->input('show_id');
     $weixin=$request->input('weixin');
-
+    $openid= WeixinUser::where(['openid'=>$show_id])->all();
     //print_r($url);
     //$content=$request->input('weixin');
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
         $data = [
-          "touser"=>$show_id,
+          "touser"=>$openid,
            "msgtype"=>"text",
           "text"=>[
               "content"=>$weixin
