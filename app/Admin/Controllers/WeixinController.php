@@ -122,7 +122,10 @@ class WeixinController extends Controller
 
         return $grid;
     }
+public function wxservice(){
+    echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
 
+}
     /**
      * Make a show builder.
      *
