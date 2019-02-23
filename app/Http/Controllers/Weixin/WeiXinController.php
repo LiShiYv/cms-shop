@@ -453,13 +453,13 @@ public function formTest(Request $request){
 public function formService(){
         return view('weixin.service');
 }
-public function wxService(Request $request,$openid){
+public function wxService(Request $request){
 
     $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getWXAccessToken();
     $content=$request->input('weixin');
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
     $data = [
-        "touser"=>$openid,
+        "touser"=>"oF5pn6PkNHZjgUOf-BTJWgdMyWd8",
         "msgtype"=>"text",
         "text"=>[
             "content"=>$content
