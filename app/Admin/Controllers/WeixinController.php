@@ -179,7 +179,7 @@ public function wxservice(Request $request){
     //$content=$request->input('weixin');
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
         $data = [
-          "touser"=>$openid,
+          "touser"=>$show_id,
            "msgtype"=>"text",
           "text"=>[
               "content"=>$weixin
