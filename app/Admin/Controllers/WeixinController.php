@@ -66,10 +66,16 @@ class WeixinController extends Controller
      */
     public function create(Content $content)
     {
+        $show_id=$_GET['show_id'];
+//        return $content
+//            ->header('Create')
+//            ->description('description')
+//            ->body($this->form());
         return $content
             ->header('Create')
             ->description('description')
-            ->body($this->form());
+            ->body(view('weixin/service',['show_id'=>$show_id])->header());
+
     }
 
     /**
@@ -109,7 +115,8 @@ class WeixinController extends Controller
 
         $grid->actions(function ($actions) {
             // append一个操作
-            $actions->prepend('<a href="/weixin/service"><i class="fa fa-paper-plane"></i></a>');
+            $key=$actions->getKey();
+            $actions->prepend('<a href="/weixin/service?show_id='.$key.'"><i class="fa fa-paper-plane"></i></a>');
 
         });
 
