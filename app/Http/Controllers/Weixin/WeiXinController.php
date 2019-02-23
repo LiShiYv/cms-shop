@@ -453,20 +453,17 @@ public function formTest(Request $request){
 public function formService(){
         return view('weixin.service');
 }
-public function wxService(Request $request){
+public function wxService(Request $request,$openid){
 
     $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getWXAccessToken();
     $content=$request->input('weixin');
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
     $data = [
-        "filter" => [
-            "is_to_all" => true,
-
-        ],
-        "text" => [
-            "weixin" => $content
-        ],
-        "msgtype" => "text"
+        "touser"=>$openid,
+        "msgtype"=>"text",
+        [
+            "content"=>$content
+        ]
     ];
     //var_dump($data);
     $body = json_encode($data, JSON_UNESCAPED_UNICODE);      //处理中文编码
