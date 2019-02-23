@@ -106,10 +106,10 @@ class WeixinController extends Controller
         $grid->subscribe_time('Subscribe time')->display(function($time){
             return date('Y-m-d H:i:s',$time);
         });
-      
+
         $grid->actions(function ($actions) {
             // append一个操作
-            $actions->append('<a href="/weixin/service"><i class="fa fa-eye"></i></a>');
+            $actions->prepend('<a href="/weixin/service"><i class="fa fa-paper-plane"></i></a>');
 
         });
 
