@@ -9,6 +9,10 @@ use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
 use Encore\Admin\Show;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
+use GuzzleHttp;
+use Illuminate\Support\Facades\Storage;
 
 class WeixinController extends Controller
 {
@@ -122,7 +126,7 @@ class WeixinController extends Controller
 
         return $grid;
     }
-public function wxservice(){
+public function wxservice(Request $request){
     echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
 
 }
