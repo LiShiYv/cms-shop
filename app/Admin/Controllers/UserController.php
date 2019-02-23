@@ -94,7 +94,7 @@ class UserController extends Controller{
         $where=[
             'id'=>$id
         ];
-        $res=Cmsmodel::where($where)->delete();
+        $res=Cmsmodel::where($where)->update(['is_del'=>2]);
         if($res){
             $response = [
                 'status' => true,
