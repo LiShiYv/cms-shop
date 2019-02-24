@@ -12,6 +12,7 @@ use Encore\Admin\Show;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use GuzzleHttp;
+use App\Model\WeixinType;
 use Illuminate\Support\Facades\Storage;
 
 class WeixinController extends Controller
@@ -75,10 +76,11 @@ class WeixinController extends Controller
 //            ->header('Create')
 //            ->description('description')
 //            ->body($this->form());
+        $show=WeixinUser::where(['id'=>$show_id])->first();
         return $content
             ->header('Create')
             ->description('description')
-            ->body(view('weixin.wxservice',['show_id'=>$show_id])->render());
+            ->body(view('weixin.wxservice',['user_info'=>$show])->render());
 
     }
 
@@ -147,6 +149,7 @@ class WeixinController extends Controller
 
     }
 
+
     /**
      * 获取用户信息
      * @param $openid
@@ -172,20 +175,20 @@ class WeixinController extends Controller
 public function wxservice(Request $request){
    // echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
     $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getWXAccessToken();
-    $show_id=$request->input('show_id');
+    $openid=$request->input('openid');
     $weixin=$request->input('weixin');
-    $openid= WeixinUser::where(['openid'=>$show_id])->all();
+
     //print_r($url);
     //$content=$request->input('weixin');
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
         $data = [
-          "touser"=>$show_id,
+          "touser"=>$openid,
            "msgtype"=>"text",
           "text"=>[
               "content"=>$weixin
          ]
         ];
-   var_dump($data);
+  // var_dump($data);
         $body = json_encode($data, JSON_UNESCAPED_UNICODE);      //处理中文编码
         $r = $client->request('POST', $url, [
             'body' => $body
@@ -199,13 +202,26 @@ public function wxservice(Request $request){
         echo '</pre>';
 
         if ($response_arr['errcode'] == 0) {
-            echo "发送成功";
-        } else {
-            echo "发送失败，请重试";
-            echo '</br>';
+            //存入数据库
+                $data=[
+                    'text'=>$weixin,
+                    'add_time'=>time(),
+                    'openid'=>$openid,
+                    'media_id'=>'未凉客服'
 
-
+            ];
+                $res=WeixinType::insert($data);
+            $arr=[
+                'code'=>0,
+                'msg'=>'发送成功',
+            ];
+        }else{
+            $arr=[
+                'code'=>1,
+                'msg'=>$response_arr['errmsg'],
+            ];
         }
+    echo json_encode($arr);
 }
     /**
      * Make a show builder.

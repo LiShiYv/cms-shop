@@ -12,11 +12,13 @@
          <form>
             <table>
                <tr>
-                   <td>聊天记录：<div type="text" name="weixin" style="width: 50px;height: 60px" ></div></td>
+                   <td>聊天记录</td>
+                   <td><div style="width:400px;height:500px;overflow:auto;border: solid black 1px" id="content"></div></td>
                </tr>
-                <input type="hidden" name="show_id" id="show_id">
+                <input type="hidden" class="openid" value="{{$user_info['openid']}}">
+                <input type="hidden" class="nickname" value="{{$user_info['nickname']}}">
                 <tr>
-                    <td>请输入：<input type="text" name="weixin" id="weixin" ></td>
+                    <td>请输入：<input type="text" id="weixin"></td>
                 </tr>
                 <tr>
                     <td>
@@ -33,7 +35,7 @@
             _this=$(this);
             var weixin=$('#weixin').val();
             //console.log(weixin);
-            var show_id=$('#show_id').val();
+            var openid=$('.openid').val();
             //console.log(show_id);
             $.ajax({
                 headers: {
@@ -41,14 +43,15 @@
                 },
                 url     :   '{{url("admin/weixin/service")}}',
                 type    :   'post',
-                data    :   {weixin:weixin,show_id:show_id},
+                data    :   {weixin:weixin,openid:openid},
                 dataType:   'json',
-                success :   function(d){
-                    if(d.error!==0){
-                        alert(d.msg);
-                      //  window.location.href='/weixin/service';
+                success :   function(res){
+                    if(res.code==0){
+                        var _weixin="<h6>小智客服&nbsp;：&nbsp;"+weixin+"</h6>"
+                        $('#content').append(_weixin);
+                        $('#weixin').val('');
                     }else{
-                        window.location.href=d.url;
+                        alert(res);
                     }
                 }
             });
