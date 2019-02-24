@@ -207,7 +207,7 @@ public function wxservice(Request $request){
                     'text'=>$weixin,
                     'add_time'=>time(),
                     'openid'=>$openid,
-                    'media_id'=>'未凉客服'
+                    'nickname'=>'未凉客服'
 
             ];
                 $res=WeixinType::insert($data);
