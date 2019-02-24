@@ -21,4 +21,5 @@ Route::group([
     $router->post('/type','TypeController@formTest');
     $router->get('/weixin/create?show_id={$show_id}','WeixinController@create');
     $router->post('/weixin/service','WeixinController@wxservice');
+    $router->post('/weixin/services','WeixinController@wxservices');
 });

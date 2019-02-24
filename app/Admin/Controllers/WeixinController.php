@@ -223,6 +223,11 @@ public function wxservice(Request $request){
         }
     echo json_encode($arr);
 }
+    public function wxservices(Request $request){
+        $openid=$request->input('openid');
+        $new=WeixinType::orderBy('add_time','asc')->where(['openid'=>$openid])->get();
+        echo json_encode($new);
+    }
     /**
      * Make a show builder.
      *
