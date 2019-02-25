@@ -15,8 +15,8 @@
                    <td>聊天记录</td>
                    <td><div style="width:400px;height:500px;overflow:auto;border: solid black 1px" id="content"></div></td>
                </tr>
-                <input type="hidden" class="openid" value="{{$user_info['openid']}}">
-                <input type="hidden" class="nickname" value="{{$user_info['nickname']}}">
+                <input type="hidden" class="openid" value="{{$openid}}">
+                <input type="hidden" class="nickname" value="{{$nickname}}">
                 <tr>
                     <td>请输入：<input type="text" id="weixin"></td>
                 </tr>

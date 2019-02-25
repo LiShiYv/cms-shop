@@ -461,7 +461,7 @@ public function formService(){
     $data=[
         'openid'=>'oF5pn6PkNHZjgUOf-BTJWgdMyWd8'
     ];
-        return view('weixin.service',['user_info'=>$data]);
+        return view('weixin.service',$data);
 }
 public function wxService(Request $request){
 
