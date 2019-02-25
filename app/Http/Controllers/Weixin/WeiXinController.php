@@ -459,7 +459,8 @@ public function formTest(Request $request){
 
 public function formService(){
     $data=[
-        'openid'=>'oF5pn6PkNHZjgUOf-BTJWgdMyWd8'
+        'openid'=>'oF5pn6PkNHZjgUOf-BTJWgdMyWd8',
+        'nickname'=>'绯夜'
     ];
         return view('weixin.service',$data);
 }
