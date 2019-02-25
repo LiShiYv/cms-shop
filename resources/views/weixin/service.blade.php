@@ -16,7 +16,7 @@
     <table>
         <tr>
             <td>聊天记录</td>
-            <td><div style="width:400px;height:500px;overflow:auto;border: solid black 1px" id="content"></div></td>
+            <td><div style="width:00px;height:700px;overflow:auto;border: solid black 1px" id="content"></div></td>
         </tr>
         <input type="hidden" class="openid" value="{{$openid}}">
         <input type="hidden" class="nickname" value="{{$nickname}}">
