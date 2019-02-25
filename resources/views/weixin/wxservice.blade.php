@@ -47,7 +47,7 @@
                 dataType:   'json',
                 success :   function(res){
                     if(res.code==0){
-                        var _weixin="<h6>小智客服&nbsp;：&nbsp;"+weixin+"</h6>"
+                        var _weixin="<h6>未凉客服&nbsp;：&nbsp;"+weixin+"</h6>"
                         $('#content').append(_weixin);
                         $('#weixin').val('');
                     }else{

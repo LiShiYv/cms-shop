@@ -458,6 +458,7 @@ public function formTest(Request $request){
     }
 
 public function formService(){
+
         return view('weixin.service');
 }
 public function wxService(Request $request){
@@ -481,24 +482,33 @@ public function wxService(Request $request){
     // 3 解析微信接口返回信息
 
     $response_arr = json_decode($r->getBody(), true);
-    echo '<pre>';
-    print_r($response_arr);
-    echo '</pre>';
+//    echo '<pre>';
+//    print_r($response_arr);
+//    echo '</pre>';
 
     if ($response_arr['errcode'] == 0) {
-        echo "发送成功";
-    } else {
-        echo "发送失败，请重试";
-        echo '</br>';
+        //存入数据库
+        $data=[
+            'text'=>$content,
+            'add_time'=>time(),
+            'openid'=>'oF5pn6PkNHZjgUOf-BTJWgdMyWd8',
+            'nickname'=>'未凉客服'
 
+        ];
+        $res=WeixinType::insert($data);
+        $arr=[
+            'code'=>0,
+            'msg'=>'发送成功',
+        ];
+    }else{
+        $arr=[
+            'code'=>1,
+            'msg'=>$response_arr['errmsg'],
+        ];
+    }
+    echo json_encode($arr);
 
     }
-
-
-
-
-
-}
    // echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
 
 }
