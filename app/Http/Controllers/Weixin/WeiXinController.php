@@ -512,8 +512,10 @@ public function wxService(Request $request){
     echo json_encode($arr);
 
     }
-    public function WeixinText(){
-
+    public function WeixinText(Request $request){
+        $openid=$request->input('openid');
+        $new=WeixinType::orderBy('add_time','asc')->where(['openid'=>$openid])->get();
+        echo json_encode($new);
 
     }
 

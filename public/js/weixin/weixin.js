@@ -24,3 +24,33 @@ $("#text").click(function(e){
     });
 
 });
+setInterval(function () {
+    var openid=$('.openid').val();
+    var nickname=$('.nickname').val();
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        contentType : "application/x-www-form-urlencoded; charset=UTF-8",
+        url:  '/weixin/wxservices',
+        type:'post',
+        data:{openid:openid},
+        dataType:'json',
+        success:function (res) {
+            $('#content').html('');
+            $.each(res,function (i,n) {
+                if(n['nickname']=='未凉客服'){
+                    _weixinnew="<h5>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;未凉客服&nbsp;: &nbsp;"+n['text']+"</h5>"
+                }else{
+                    _weixinnew="<h5>"+nickname+"&nbsp;: &nbsp;"+n['text']+"</h5>"
+                }
+
+                $('#content').append(_weixinnew)
+            })
+            /* console.log(res.recorddata);
+             _newcontent=res.recorddata;
+             $('#content').html(_newcontent);*/
+        }
+    })
+},1000)
+
