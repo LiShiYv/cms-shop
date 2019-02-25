@@ -6,14 +6,14 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
         <script src="/js/jquery-1.12.4.min.js"></script>
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}" {{$user_info['nickname']}} >
     </head>
     <body>
          <form>
             <table>
                <tr>
                    <td>聊天记录</td>
-                   <td><div style="width:400px;height:500px;overflow:auto;border: solid black 1px" id="content">{{$user_info['nickname']}}</div></td>
+                   <td><div style="width:400px;height:500px;overflow:auto;border: solid black 1px" id="content"></div></td>
                </tr>
                 <input type="hidden" class="openid" value="{{$user_info['openid']}}">
                 <input type="hidden" class="nickname" value="{{$user_info['nickname']}}">
