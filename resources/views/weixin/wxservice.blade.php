@@ -1,12 +1,13 @@
 <html lang="en">
     <head>
         <h1>客服</h1>
+        <h2>正在和“{{$user_info['nickname']}}”聊天中</h2>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>Document</title>
         <script src="/js/jquery-1.12.4.min.js"></script>
-        <meta name="csrf-token" content="{{ csrf_token() }}" {{$user_info['nickname']}} >
+        <meta name="csrf-token" content="{{ csrf_token() }}"  >
     </head>
     <body>
          <form>
