@@ -458,16 +458,19 @@ public function formTest(Request $request){
     }
 
 public function formService(){
-
-        return view('weixin.service');
+    $data=[
+        'openid'=>'oF5pn6PkNHZjgUOf-BTJWgdMyWd8'
+    ];
+        return view('weixin.service',['user_info'=>$data]);
 }
 public function wxService(Request $request){
 
     $url = 'https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token='.$this->getWXAccessToken();
     $content=$request->input('weixin');
+    $openid=$request->input('openid');
     $client = new GuzzleHttp\Client(['base_uri' => $url]);
     $data = [
-        "touser"=>"oF5pn6PkNHZjgUOf-BTJWgdMyWd8",
+        "touser"=>$openid,
         "msgtype"=>"text",
         "text"=>[
             "content"=>$content
@@ -491,7 +494,7 @@ public function wxService(Request $request){
         $data=[
             'text'=>$content,
             'add_time'=>time(),
-            'openid'=>'oF5pn6PkNHZjgUOf-BTJWgdMyWd8',
+            'openid'=>$openid,
             'nickname'=>'未凉客服'
 
         ];
@@ -509,6 +512,9 @@ public function wxService(Request $request){
     echo json_encode($arr);
 
     }
-   // echo '<pre>';print_r($_POST);echo '</pre>';echo '<hr>';
+    public function WeixinText(){
+
+
+    }
 
 }

@@ -1,7 +1,8 @@
 $("#text").click(function(e){
     e.preventDefault();
+    _this=$(this);
     var weixin= $("#weixin").val();
-
+    var openid=$('.openid').val();
 
     $.ajax({
         headers: {
@@ -9,15 +10,17 @@ $("#text").click(function(e){
         },
         url     :   '/weixin/wxservice',
         type    :   'post',
-        data    :   {weixin:weixin},
+        data    :   {weixin:weixin,openid:openid},
         dataType:   'json',
-        success :   function(d){
-            if(d.error!==0){
-                alert(d.msg);
-                window.location.href='/weixin/service';
+        success :   function(res){
+            if(res.code==0){
+                var _weixin="<h6>未凉客服&nbsp;：&nbsp;"+weixin+"</h6>"
+                $('#content').append(_weixin);
+                $('#weixin').val('');
             }else{
-                window.location.href=d.url;
+                alert(res);
             }
         }
     });
+
 });

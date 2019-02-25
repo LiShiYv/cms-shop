@@ -121,3 +121,4 @@ Route::post('/weixin/material','Weixin\WeixinController@materialTest');//创建�
 //客服
 Route::get('/weixin/service','Weixin\WeiXinController@formService');
 Route::post('/weixin/wxservice','Weixin\WeiXinController@wxService');
+Route::post('/weixin/wxservices','Weixin\WeiXinController@WeixinText');
