@@ -1,4 +1,4 @@
-$("#test").click(function(e){
+$("#text").click(function(e){
     e.preventDefault();
     _this=$(this);
     var weixin= $("#weixin").val();

@@ -1,3 +1,7 @@
+@extends('layouts.new')
+
+
+@section('content')
 <html lang="en">
 <head>
     <h1>客服</h1>
@@ -21,13 +25,14 @@
         </tr>
         <tr>
             <td>
-                <input type="button" class="btn btn-default" id="test" value="发送">
+                <input type="button" class="btn btn-default" id="text" value="发送">
             </td>
         </tr>
     </table>
 </form>
 </body>
 </html>
+@endsection
 @section('footer')
     @parent
     <script src="{{URL::asset('/js/weixin/weixin.js')}}"></script>
