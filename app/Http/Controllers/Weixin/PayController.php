@@ -122,21 +122,26 @@ public function SetSign(){
     return $sign;
 }
 private function MakeSign(){
+    //签名步骤一：按字典序排序参数
     ksort($this->values);
-    $string=$this->ToUrlParams();
-    $string=$string."&key=".env('WEIXN_MCH_KEY');
-    $string=md5($string);
-    $result=strtoupper($string);
+    $string = $this->ToUrlParams();
+    //签名步骤二：在string后加入KEY
+    $string = $string . "&key=".env('WEIXIN_MCH_KEY');
+    //签名步骤三：MD5加密
+    $string = md5($string);
+    //签名步骤四：所有字符转为大写
+    $result = strtoupper($string);
     return $result;
 }
 protected function ToUrlParams(){
-    $buff ="";
-    foreach ($this->values as $k=>$v){
-        if($k!="sign"&& $v !="" && !is_array($v)){
-            $buff .= $k."=".$v."&";
+    $buff = "";
+    foreach ($this->values as $k => $v)
+    {
+        if($k != "sign" && $v != "" && !is_array($v)){
+            $buff .= $k . "=" . $v . "&";
         }
     }
-    $buff = trim($buff,"&");
+    $buff = trim($buff, "&");
     return $buff;
 }
 
