@@ -37,7 +37,7 @@ public function weixinTest(){
           $xml=$this->ToXml();
           $rs = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
           $data =simplexml_load_string($rs);
-          echo 'code_url:'.$data->code_url;echo'<br>';
+          var_dump( 'code_url:'.$data->code_url);echo'<br>';
 
     }
    protected function ToXml(){
