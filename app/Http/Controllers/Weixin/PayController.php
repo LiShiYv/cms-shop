@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Weixin\WXBizDataCryptController;
 use App\Model\OrderModel;
-
+header('Content-Type: image/png');
 class PayController extends Controller
 {
     //
@@ -36,33 +36,26 @@ class PayController extends Controller
             'notify_url'    => $this->weixin_notify_url,        //通知回调地址
             'trade_type'    => 'NATIVE'                         // 交易类型
         ];
-
-
         $this->values = [];
         $this->values = $order_info;
         $this->SetSign();
-
         $xml = $this->ToXml();      //将数组转换为XML
         $rs = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
      //   print_r($rs);
         $data =  simplexml_load_string($rs);
        // print_r($data);
-//        //var_dump($data);echo '<hr>';
-//        echo 'return_code: '.$data->return_code;echo '<br>';
-//		echo 'return_msg: '.$data->return_msg;echo '<br>';
-//		echo 'appid: '.$data->appid;echo '<br>';
-//		echo 'mch_id: '.$data->mch_id;echo '<br>';
-//		echo 'nonce_str: '.$data->nonce_str;echo '<br>';
-//		echo 'sign: '.$data->sign;echo '<br>';
-//		echo 'result_code: '.$data->result_code;echo '<br>';
-//		echo 'prepay_id: '.$data->prepay_id;echo '<br>';
-//		echo 'trade_type: '.$data->trade_type;echo '<br>';
-       echo 'code_url: '.$data->code_url;echo '<br>';
-//        die;
-        //echo '<pre>';print_r($data);echo '</pre>';
+
 
         //将 code_url 返回给前端，前端生成 支付二维码
-        // return code_url;
+
+        $url=$data->code_url;
+        //echo $url;exit;
+        $errorCorrectionLevel = 'H';//容错级别
+        $matrixPointSize = 7;//图片大小
+        $qr = rand(10000,99999).time().".png";
+        ob_clean();
+        $picture=QRcode::png($url, false, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
+        return view('weixin.wxqrcode')->with('picture',$picture);
 
     }
    protected function ToXml(){
@@ -94,14 +87,6 @@ class PayController extends Controller
         curl_setopt($ch, CURLOPT_HEADER, FALSE);
         //要求结果为字符串且输出到屏幕上
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-//		if($useCert == true){
-//			//设置证书
-//			//使用证书：cert 与 key 分别属于两个.pem文件
-//			curl_setopt($ch,CURLOPT_SSLCERTTYPE,'PEM');
-//			curl_setopt($ch,CURLOPT_SSLCERT, WxPayConfig::SSLCERT_PATH);
-//			curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
-//			curl_setopt($ch,CURLOPT_SSLKEY, WxPayConfig::SSLKEY_PATH);
-//		}
         //post提交方式
         curl_setopt($ch, CURLOPT_POST, TRUE);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
