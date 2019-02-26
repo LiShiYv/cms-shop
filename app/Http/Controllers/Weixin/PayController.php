@@ -16,7 +16,7 @@ class PayController extends Controller
 
 
 
-    public function test()
+    public function weixinTest()
     {
 
 
