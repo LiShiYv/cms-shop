@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Weixin\WXBizDataCryptController;
 use App\Model\OrderModel;
+use App\Libs\QRcode;
 header('Content-Type: image/png');
 class PayController extends Controller
 {
