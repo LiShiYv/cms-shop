@@ -44,8 +44,9 @@ class PayController extends Controller
 
         $xml = $this->ToXml();      //将数组转换为XML
         $rs = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
-
+print_r($rs);
         $data =  simplexml_load_string($rs);
+        print_r($data);
 //        //var_dump($data);echo '<hr>';
 //        echo 'return_code: '.$data->return_code;echo '<br>';
 //		echo 'return_msg: '.$data->return_msg;echo '<br>';
