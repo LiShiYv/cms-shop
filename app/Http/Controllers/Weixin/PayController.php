@@ -22,7 +22,7 @@ public function weixinTest(){
           $order_info=[
             'appid'=>env('WEIXIN_APPID_0'),
             'mch_id'=>env('WEIXIN_MCH_ID'),
-             'nonce_str'=>str_random(15),
+             'nonce_str'=>str_random(16),
               'sign_type'     => 'MD5',
               'body'          => '0214'.mt_rand(1111,9999) . str_random(6),
               'out_trade_no'  => $order_id,                       //本地订单号
@@ -36,8 +36,10 @@ public function weixinTest(){
           $this->SetSign();
           $xml=$this->ToXml();
           $rs = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
+          print_r($rs);
           $data =simplexml_load_string($rs);
-          var_dump( 'code_url:'.$data->code_url);echo'<br>';
+          print_r($data);
+         echo 'code_url:'.$data->code_url;echo'<br>';
 
     }
    protected function ToXml(){
