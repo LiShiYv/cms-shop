@@ -43,18 +43,20 @@ public function weixinTest(){
 
     }
    protected function ToXml(){
-    if(!is_array($this->values)|| count($this->values)<= 0){
+    if(!is_array($this->values)
+        || count($this->values)<= 0){
         die("数组数据出现异常！");
        }
-       $xml="<mxl>";
-            foreach ($this->values as $key=>$val){
-                if(is_numeric($val)){
-                    $xml.="<".$key.">".$val."</".$key.">";
-                }else{
-                    $xml.="<".$key."><![CDATA[".$val."]]></".$key.">";
-                }
-            }
-            $xml.="</xml>";
+       $xml = "<xml>";
+       foreach ($this->values as $key=>$val)
+       {
+           if (is_numeric($val)){
+               $xml.="<".$key.">".$val."</".$key.">";
+           }else{
+               $xml.="<".$key."><![CDATA[".$val."]]></".$key.">";
+           }
+       }
+       $xml.="</xml>";
             return $xml;
         }
     private  function postXmlCurl($xml, $url, $useCert = false, $second = 30)
