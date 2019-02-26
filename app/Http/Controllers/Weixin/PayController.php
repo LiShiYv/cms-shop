@@ -44,9 +44,9 @@ class PayController extends Controller
 
         $xml = $this->ToXml();      //将数组转换为XML
         $rs = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
-        print_r($rs);
+     //   print_r($rs);
         $data =  simplexml_load_string($rs);
-        print_r($data);
+       // print_r($data);
 //        //var_dump($data);echo '<hr>';
 //        echo 'return_code: '.$data->return_code;echo '<br>';
 //		echo 'return_msg: '.$data->return_msg;echo '<br>';
@@ -59,10 +59,10 @@ class PayController extends Controller
 //		echo 'trade_type: '.$data->trade_type;echo '<br>';
        // echo 'code_url: '.$data->code_url;echo '<br>';
 //        die;
-        //echo '<pre>';print_r($data);echo '</pre>';
+        echo '<pre>';print_r($data);echo '</pre>';
 
         //将 code_url 返回给前端，前端生成 支付二维码
-         return code_url;
+        // return code_url;
 
     }
    protected function ToXml(){
