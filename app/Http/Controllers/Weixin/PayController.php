@@ -62,7 +62,7 @@ class PayController extends Controller
         //echo '<pre>';print_r($data);echo '</pre>';
 
         //将 code_url 返回给前端，前端生成 支付二维码
-         return $data;
+         return code_url;
 
     }
    protected function ToXml(){
