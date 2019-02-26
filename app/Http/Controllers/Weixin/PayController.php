@@ -21,7 +21,7 @@ public function weixinTest(){
           $order_id = OrderModel::getModelOrder();
           $order_info=[
             'appid'=>env('WEIXIN_APPID_0'),
-            'mch_id'=>env('WEIXIN_APPID_0'),
+            'mch_id'=>env('WEIXIN_MCH_ID'),
              'nonce_str'=>str_random(15),
               'sign_type'     => 'MD5',
               'body'          => '0214'.mt_rand(1111,9999) . str_random(6),
@@ -35,8 +35,8 @@ public function weixinTest(){
           $this->values=$order_info;
           $this->SetSign();
           $xml=$this->ToXml();
-          $rs = $this->postXmlCurl($xml,$this->weixin_notify_url,$useCert=false,$second=30);
-          $data = simplexml_load_string($rs);
+          $rs = $this->postXmlCurl($xml, $this->weixin_unifiedorder_url, $useCert = false, $second = 30);
+          $data =simplexml_load_string($rs);
           echo 'code_url:'.$data->code_url;echo'<br>';
 
     }
