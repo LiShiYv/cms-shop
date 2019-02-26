@@ -16,5 +16,6 @@ class VerifyCsrfToken extends Middleware
         '/test/*',
         '/pay/alipay/notify',
         '/weixin/valid1',
+        '/weixin/pay/notice',
     ];
 }

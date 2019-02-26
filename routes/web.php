@@ -122,3 +122,6 @@ Route::post('/weixin/material','Weixin\WeixinController@materialTest');//创建�
 Route::get('/weixin/service','Weixin\WeiXinController@formService');
 Route::post('/weixin/wxservice','Weixin\WeiXinController@wxService');
 Route::post('/weixin/wxservices','Weixin\WeiXinController@WeixinText');
+//微信支付
+Route::get('/weixin/pay/test','Weixin\PayController@weixinTest');     //微信支付测试
+Route::post('/weixin/pay/notice','Weixin\PayController@notice');     //微信支付通知回调
