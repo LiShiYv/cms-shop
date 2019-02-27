@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Weixin\WXBizDataCryptController;
 use App\Model\OrderModel;
-use App\Libs\QRcode;
+
 header('Content-Type: image/png');
 class PayController extends Controller
 {
@@ -50,13 +50,7 @@ class PayController extends Controller
         //将 code_url 返回给前端，前端生成 支付二维码
 
         $url=$data->code_url;
-        //echo $url;exit;
-        $errorCorrectionLevel = 'H';//容错级别
-        $matrixPointSize = 7;//图片大小
-        $qr = rand(10000,99999).time().".png";
-        ob_clean();
-        $picture=QRcode::png($url, false, $errorCorrectionLevel, $matrixPointSize, 2);//2代表白边宽度
-        return view('weixin.wxqrcode')->with('picture',$picture);
+      return view('weixin.weixinorder',$url);
 
     }
    protected function ToXml(){
