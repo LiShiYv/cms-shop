@@ -2,7 +2,6 @@
 <script type="text/javascript" src="/js/qrcode.js"></script>
 <div id="qrcode"></div>
 <script>
-    new QRCode(document.getElementById('qrcode'), 'your content');
     var qrcode = new QRCode('qrcode', {
         text: "{{$url}}",
         width: 256,
