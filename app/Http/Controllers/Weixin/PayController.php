@@ -150,13 +150,13 @@ class PayController extends Controller
     /**
      * 微信支付回调
      */
-    public function Viset($xml)
-    {
-        $this->values = [];
+    public function verifySign($xml){
+        $this->values=[];
         $this->values=$xml;
-        $sign = $this->MakeSign();
+        $sign=$this->SetSign();
         return $sign;
     }
+
     public function notice()
     {
         $data = file_get_contents("php://input");
@@ -166,10 +166,9 @@ class PayController extends Controller
         file_put_contents('logs/wx_pay_notice.log', $log_str, FILE_APPEND);
 
         $xml = (array)simplexml_load_string($data,'SimpleXMLElement',LIBXML_NOCDATA);
-
-        if ($xml['result_code'] == 'SUCCESS' && $xml['return_code'] == 'SUCCESS') {      //微信支付成功回调
+        if($xml['result_code']=='SUCCESS' && $xml['return_code']=='SUCCESS'){      //微信支付成功回调
             //验证签名
-            $sign =$this->Viset($xml);
+            $sign=$this->verifySign($xml);
 
             if ($sign==$xml['sign']) {       //签名验证成功
                 // 逻辑处理  订单状态更新
