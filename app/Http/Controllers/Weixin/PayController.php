@@ -169,16 +169,17 @@ class PayController extends Controller
                 //验证订单交易状态
 
                     //更新订单状态
-                    $o_id =$xml->out_trade_no;     //商户订单号
+                    $order_sn =$xml->out_trade_no;
+                    $where=[
+                        $order_sn =>'order_sn'
+                    ];
+                    //商户订单号
                     $info = [
                         'is_pay' => 2,       //支付状态  1未支付 2已支付
-                        'pay_amount' => $_POST['total_amount'] * 100,    //支付金额
-                        'pay_time' => strtotime($_POST['gmt_payment']), //支付时间
-                        'plat_oid' => $_POST['trade_no'],      //支付宝订单号
-                        'plat' => 2,      //平台编号 1支付宝 2微信 3第三方g
+                        'pay_time'=>time()
                     ];
                     //  file_put_contents('logs/alipay.log',$info,FILE_APPEND);
-                    OrderModel::where(['o_id' => $o_id])->update($info);
+                    $res=OrderModel::where($where)->update($info);
                 } else {
                     // 验签失败
                     echo '验签失败，IP: ' . $_SERVER['REMOTE_ADDR'];
