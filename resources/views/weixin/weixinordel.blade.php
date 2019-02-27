@@ -4,7 +4,7 @@
 <script>
     new QRCode(document.getElementById('qrcode'), 'your content');
     var qrcode = new QRCode('qrcode', {
-        text: "{{$url}}",
+        text: "{{$arr}}",
         width: 256,
         height: 256,
         colorDark : '#000000',
