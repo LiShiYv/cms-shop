@@ -24,24 +24,23 @@ class CartController extends Controller
 
     public function cart(Request $request)
     {
-
-        $uid = $this->id;
-    $is_login =Auth::check();
-    if($is_login){
-        $cart_goods = CartModel::where(['id' => $uid])->get()->toArray();
+        $uid=session()->get('id');
+        $is_login = Auth::check();
+        if($is_login){
+            $cart_detail = CartModel::where(['id'=>$uid,'is_delete'=>1])->get()->toArray();
 
 
         //echo $id;exit;
         // $cart_goods=CartModel::where(['id'=>$id])->get()->toArray();
 //echo 111;exit;
         //print_r($cart_goods);exit;
-        if (empty($cart_goods)) {
+        if (empty($cart_detail)) {
             header("Refresh:3;url=/goods/1");
             die('购物车太空了');
         } else {
             //获取最新的信息
-            foreach ($cart_goods as $k => $v) {
-                $goods_info = GoodsModel::where(['goods_id' => $v['goods_id']])->first()->toArray();
+            foreach ($cart_detail as $k => $v) {
+                $goods_info = GoodsModel::where(['goods_id' => $v['goods_id']])->first();
                 //print_r($goods_info);exit;
                 $goods_info['cart_id'] = $v['cart_id'];
                 $goods_info['goods_num'] = $v['goods_num'];
