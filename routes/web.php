@@ -125,4 +125,4 @@ Route::post('/weixin/wxservices','Weixin\WeiXinController@WeixinText');
 //微信支付
 Route::get('/weixin/pay/test','Weixin\PayController@weixinTest');     //微信支付测试
 Route::post('/weixin/pay/notice','Weixin\PayController@notice');     //微信支付通知回调
-Route::get('/weixin/pay/order/{o_id}','Weixin\PayController@WeixinTest');
+Route::get('/weixin/pay/order/{o_id}','Weixin\PayController@weixinTest');
