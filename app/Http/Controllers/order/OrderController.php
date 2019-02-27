@@ -109,13 +109,15 @@ class OrderController extends Controller
         $goods_num = $request->input('goods_num');
         $goods_price=$request->input('goods_price');
         $order_amount=$goods_num*$goods_price;
+        $id=session()->get('id');
+        $goods_id=$request->input('goods_id');
         $order_sn=OrderModel::getModelOrder();
-        $data=[
-            'order_sn' =>$order_sn,
-            'id' =>session()->get('id'),
-            'reg_time'=>time(),
-            'goods_num'=>$goods_num,
-            'order_amount'=>$order_amount
+            $data=[
+                'order_sn'=>$order_sn,
+                'id'=>$id,
+                'goods_id'=>$goods_id,
+                'order_amount'=>$order_amount,
+                'reg_time'=>time(),
         ];
         $oid=OrderModel::insertGetId($data);
         if($oid){
