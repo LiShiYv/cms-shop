@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Test;
 
-    use App\Model\CmsModel;
+    use App\Model\Cmsmodel;
     use App\Model\GoodsModel;
     use Illuminate\Support\Facades\Hash;
     use Illuminate\Http\Request;
@@ -17,58 +17,6 @@ class TestController extends Controller
            $this->middleware('auth');
       }
 
-    public function abc()
-    {
-        var_dump($_POST);echo '</br>';
-        var_dump($_GET);echo '</br>';
-    }
-
-    public function world1()
-    {
-        echo __METHOD__;
-    }
-
-
-    public function hello2()
-    {
-        echo __METHOD__;
-        header('Location:/world2');
-    }
-
-    public function world2()
-    {
-        header('Location:http://www.baidu.com');
-    }
-
-    public function md($m,$d)
-    {
-        echo 'm: '.$m;echo '<br>';
-        echo 'd: '.$d;echo '<br>';
-    }
-
-    public function showName($name=null)
-    {
-        var_dump($name);
-    }
-
-    public function query1()
-    {
-        $list = DB::table('p_users')->get()->toArray();
-        echo '<pre>';print_r($list);echo '</pre>';
-    }
-
-    public function query2()
-    {
-        $user = DB::table('p_users')->where('id', 3)->first();
-        echo '<pre>';print_r($user);echo '</pre>';echo '<hr>';
-        $root= DB::table('p_users')->where('id', 4)->value('root');
-        var_dump($root);echo '<hr>';
-        $info = DB::table('p_users')->pluck('age', 'sex')->toArray();
-        echo '<pre>';print_r($info);echo '</pre>';
-
-
-    }
-
 
     public function viewtest1()
     {
@@ -78,7 +26,7 @@ class TestController extends Controller
 
     public function viewtest2()
     {
-        $list = CmsModel::all()->toArray();
+        $list = Cmsmodel::all()->toArray();
         //echo '<pre>';print_r($list);echo '</pre>';
 
         $data = [
@@ -95,7 +43,7 @@ class TestController extends Controller
        // echo __METHOD__;
         $u_name = $request->input('u_name');
 
-        $w = CmsModel::where(['u_name'=>$u_name])->first();
+        $w = Cmsmodel::where(['u_name'=>$u_name])->first();
         if($w){
             die("用户名已存在");
 
@@ -115,7 +63,7 @@ class TestController extends Controller
             'pwd'=>$pass,
             'reg_time' =>time()
         ];
-        $id=CmsModel::insertGetId($data);
+        $id=Cmsmodel::insertGetId($data);
         //var_dump($id);
         if($id){
             setcookie('u_name',$u_name,time()+86400,'/','lsy.52self.cn',false,true);
@@ -139,7 +87,7 @@ class TestController extends Controller
         $pass = $request->input('u_pwd');
         $root=$request->input('u_name');
 
-        $id2 = CmsModel::where(['u_name'=>$root])->first();
+        $id2 = Cmsmodel::where(['u_name'=>$root])->first();
         //var_dump($id2);
             if($id2){
                 if(password_verify($pass,$id2->pwd)){

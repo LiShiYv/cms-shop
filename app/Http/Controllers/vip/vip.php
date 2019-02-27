@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\vip;
 
 use Illuminate\Http\Request;
-use App\Model\CmsModel;
+use App\Model\Cmsmodel;
 use App\Http\Controllers\Controller;
 
 class vip extends Controller
@@ -24,7 +24,7 @@ class vip extends Controller
         }
     }
     public function goodsList(){
-        $list=CmsModel::paginate(2);
+        $list=Cmsmodel::paginate(2);
         $data=[
             'list'=>$list
         ];
