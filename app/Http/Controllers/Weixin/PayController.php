@@ -50,7 +50,7 @@ class PayController extends Controller
         //将 code_url 返回给前端，前端生成 支付二维码
 
         $url=$data->code_url;
-      return view('weixin.weixinorder',$url);
+      return view('weixin.weixinordel',$url);
 
     }
    protected function ToXml(){
