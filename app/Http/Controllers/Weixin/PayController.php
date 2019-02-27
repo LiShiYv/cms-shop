@@ -21,10 +21,20 @@ class PayController extends Controller
         //print_r($o_id);exit;
 
 
+        //验证订单状态 是否已支付 是否是有效订单
+        $order = OrderModel::where(['o_id' => $o_id])->first();
 
+        //判断订单是否已被支付
+        if ($order['is_pay'] == 2) {
+            die("订单已支付，请勿重复支付");
+        }
+        //判断订单是否已被删除
+        if ($order['is_del'] == 2) {
+            die("订单已被删除，无法支付");
+        }
         //
         $total_fee = 1;         //用户要支付的总金额
-        $order_id = OrderModel::getModelOrder();
+
 
         $order_info = [
             'appid' => env('WEIXIN_APPID_0'),      //微信支付绑定的服务号的APPID
@@ -32,7 +42,7 @@ class PayController extends Controller
             'nonce_str' => str_random(16),             // 随机字符串
             'sign_type' => 'MD5',
             'body' => '未凉订单0214' . mt_rand(1111, 9999) . str_random(6),
-            'out_trade_no' => $order_id,                       //本地订单号
+            'out_trade_no' => $order['order_sn'],                       //本地订单号
             'total_fee' => $total_fee,
             'spbill_create_ip' => $_SERVER['REMOTE_ADDR'],     //客户端IP
             'notify_url' => $this->weixin_notify_url,        //通知回调地址
