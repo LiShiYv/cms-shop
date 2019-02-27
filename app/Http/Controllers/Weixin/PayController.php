@@ -17,9 +17,9 @@ class PayController extends Controller
 
 
 
-    public function weixinTest()
+    public function weixinTest($o_id)
     {
-
+echo $o_id;exit;
 
         //
         $total_fee = 1;         //用户要支付的总金额
