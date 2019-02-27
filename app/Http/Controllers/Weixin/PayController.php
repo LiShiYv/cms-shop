@@ -175,7 +175,7 @@ class PayController extends Controller
                 //验证订单交易状态
 
                     //更新订单状态
-                    $order_sn =$xml->out_trade_no;
+                    $order_sn =$xml['out_trade_no'];
                     $data = [
                     'is_pay' => 2,       //支付状态  1未支付 2已支付
                     'pay_time'=>time()
