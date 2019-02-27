@@ -1,6 +1,6 @@
 <script type="text/javascript" src="/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="/js/qrcode.js"></script>
-<h1>微信扫码支付<h1>
+<h1 align="center">微信扫码支付<h1>
 <div align="center" id="qrcode"></div>
 <script>
     var qrcode = new QRCode('qrcode', {
