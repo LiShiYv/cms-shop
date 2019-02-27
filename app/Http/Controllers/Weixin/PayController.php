@@ -167,9 +167,9 @@ class PayController extends Controller
             if ($sign) {       //签名验证成功
                 // 逻辑处理  订单状态更新
                 //验证订单交易状态
-                if ($_POST['trade_status'] == 'TRADE_SUCCESS') {
+
                     //更新订单状态
-                    $o_id = $_POST['out_trade_no'];     //商户订单号
+                    $o_id =$xml->out_trade_no;     //商户订单号
                     $info = [
                         'is_pay' => 2,       //支付状态  1未支付 2已支付
                         'pay_amount' => $_POST['total_amount'] * 100,    //支付金额
@@ -184,7 +184,7 @@ class PayController extends Controller
                     echo '验签失败，IP: ' . $_SERVER['REMOTE_ADDR'];
                     //  记录日志
                 }
-            }
+
 
                 $response = '<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>';
                 echo $response;
