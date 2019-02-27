@@ -19,7 +19,7 @@ class PayController extends Controller
     public function weixinTest($o_id)
     {
         //print_r($o_id);exit;
-       
+
 
 
         //
@@ -161,7 +161,7 @@ class PayController extends Controller
                     //更新订单状态
                     $order_sn =$xml->out_trade_no;
                     $where=[
-                        $order_sn =>'order_sn'
+                        'order_sn' =>$order_sn 
                     ];
                     //商户订单号
                     $info = [
