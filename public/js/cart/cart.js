@@ -27,13 +27,14 @@ $(".del_goods").click(function(d) {
         var cart_id=_this.parents('tr').attr('cart_id');
         var goods_num=_this.parents('tr').attr('goods_num');
         var goods_price=_this.parents('tr').attr('goods_price');
+        var goods_id=_this.parents('tr').attr('goods_id');
         $.ajax({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             url :'/order/add2',
             type :'post',
-            data :{cart_id:cart_id,goods_num:goods_num,goods_price:goods_price},
+            data :{cart_id:cart_id,goods_num:goods_num,goods_price:goods_price,goods_id:goods_id},
             dataType :'json',
             success :function(add){
                 if(add.error!==301){
