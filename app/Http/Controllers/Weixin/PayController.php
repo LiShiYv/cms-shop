@@ -19,17 +19,7 @@ class PayController extends Controller
     public function weixinTest($o_id)
     {
         //print_r($o_id);exit;
-        //验证订单状态 是否已支付 是否是有效订单
-        $order_info = OrderModel::where(['o_id' => $o_id])->first()->toArray();
-
-        //判断订单是否已被支付
-        if ($order_info['is_pay'] == 2) {
-            die("订单已支付，请勿重复支付");
-        }
-        //判断订单是否已被删除
-        if ($order_info['is_del'] == 2) {
-            die("订单已被删除，无法支付");
-        }
+       
 
 
         //
