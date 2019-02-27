@@ -114,7 +114,7 @@ class OrderController extends Controller
             'order_sn' =>$order_sn,
             'id' =>session()->get('id'),
             'reg_time'=>time(),
-
+            'goods_num'=>$goods_num,
             'order_amount'=>$order_amount
         ];
         $oid=OrderModel::insertGetId($data);

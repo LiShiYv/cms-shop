@@ -190,7 +190,7 @@ class PayController extends Controller
               OrderModel::where($where)->update($data);
                  $order=OrderModel::where($where)->first();
                  $goods=GoodsModel::where(['goods_id'=>$order['goods_id']])->first();
-                 GoodsModel::where(['goods_id'=>$order['goods_id']])->update(['store'=>$goods['store']-$order['order_amount']]);
+                 GoodsModel::where(['goods_id'=>$order['goods_id']])->update(['store'=>$goods['store']-$order['order_num']]);
 
                 } else {
                     // 验签失败

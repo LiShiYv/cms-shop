@@ -26,39 +26,39 @@ class CartController extends Controller
     {
 
         $uid = $this->id;
+    $is_login =Auth::check();
+    if($is_login){
+        $cart_goods = CartModel::where(['id' => $uid])->get()->toArray();
 
-            $cart_goods = CartModel::where(['id' => $uid])->get()->toArray();
 
-
-            //echo $id;exit;
-            // $cart_goods=CartModel::where(['id'=>$id])->get()->toArray();
+        //echo $id;exit;
+        // $cart_goods=CartModel::where(['id'=>$id])->get()->toArray();
 //echo 111;exit;
-            //print_r($cart_goods);exit;
-            if (empty($cart_goods)) {
-                header("Refresh:3;url=/goods/1");
-                die('购物车太空了');
+        //print_r($cart_goods);exit;
+        if (empty($cart_goods)) {
+            header("Refresh:3;url=/goods/1");
+            die('购物车太空了');
+        } else {
+            //获取最新的信息
+            foreach ($cart_goods as $k => $v) {
+                $goods_info = GoodsModel::where(['goods_id' => $v['goods_id']])->first()->toArray();
+                //print_r($goods_info);exit;
+                $goods_info['cart_id'] = $v['cart_id'];
+                $goods_info['goods_num'] = $v['goods_num'];
+                //echo '<pre>';print_r($goods_info);echo '</pre>';
+                $goods_info['goods_id'] = $v['goods_id'];
+                $list[] = $goods_info;
             }
-            //echo $uid;exit;
-
-            // echo 11;exit;
-            if ($cart_goods) {
-                //获取最新的信息
-                foreach ($cart_goods as $k => $v) {
-                    $goods_info = GoodsModel::where(['goods_id' => $v['goods_id']])->first()->toArray();
-
-                    //print_r($goods_info);exit;
-                    $goods_info['cart_id'] = $v['cart_id'];
-                    $goods_info['goods_num'] = $v['goods_num'];
-                    //echo '<pre>';print_r($goods_info);echo '</pre>';
-                    $list[] = $goods_info;
-                }
-            }
-
             $data = [
                 'list' => $list
             ];
             return view('cart.index', $data);
         }
+    }else{
+        echo '请先登录';
+        hrader('refresh:1,url=/userlogs');
+}
+}
 
 
 
