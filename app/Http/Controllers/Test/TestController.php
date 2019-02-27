@@ -78,7 +78,7 @@ class TestController extends Controller
 
     public function viewtest2()
     {
-        $list = Cmsmodel::all()->toArray();
+        $list = CmsModel::all()->toArray();
         //echo '<pre>';print_r($list);echo '</pre>';
 
         $data = [
@@ -95,7 +95,7 @@ class TestController extends Controller
        // echo __METHOD__;
         $u_name = $request->input('u_name');
 
-        $w = Cmsmodel::where(['u_name'=>$u_name])->first();
+        $w = CmsModel::where(['u_name'=>$u_name])->first();
         if($w){
             die("用户名已存在");
 
@@ -115,7 +115,7 @@ class TestController extends Controller
             'pwd'=>$pass,
             'reg_time' =>time()
         ];
-        $id=Cmsmodel::insertGetId($data);
+        $id=CmsModel::insertGetId($data);
         //var_dump($id);
         if($id){
             setcookie('u_name',$u_name,time()+86400,'/','lsy.52self.cn',false,true);
@@ -139,7 +139,7 @@ class TestController extends Controller
         $pass = $request->input('u_pwd');
         $root=$request->input('u_name');
 
-        $id2 = Cmsmodel::where(['u_name'=>$root])->first();
+        $id2 = CmsModel::where(['u_name'=>$root])->first();
         //var_dump($id2);
             if($id2){
                 if(password_verify($pass,$id2->pwd)){
