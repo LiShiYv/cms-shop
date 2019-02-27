@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Weixin\WXBizDataCryptController;
 use App\Model\OrderModel;
-
+use App\Model\GoodsModel;
 header('Content-Type: image/png');
 class PayController extends Controller
 {
@@ -150,6 +150,13 @@ class PayController extends Controller
     /**
      * 微信支付回调
      */
+    public function Viset($xml)
+    {
+        $this->values = [];
+        $this->values=$xml;
+        $sign = $this->MakeSign();
+        return $sign;
+    }
     public function notice()
     {
         $data = file_get_contents("php://input");
@@ -158,13 +165,13 @@ class PayController extends Controller
         $log_str = date('Y-m-d H:i:s') . "\n" . $data . "\n<<<<<<<";
         file_put_contents('logs/wx_pay_notice.log', $log_str, FILE_APPEND);
 
-        $xml = simplexml_load_string($data);
+        $xml = (array)simplexml_load_string($data,'SimpleXMLElement',LIBXML_NOCDATA);
 
-        if ($xml->result_code == 'SUCCESS' && $xml->return_code == 'SUCCESS') {      //微信支付成功回调
+        if ($xml['result_code'] == 'SUCCESS' && $xml['return_code'] == 'SUCCESS') {      //微信支付成功回调
             //验证签名
-            $sign = true;
+            $sign =$this->Viset($xml);
 
-            if ($sign) {       //签名验证成功
+            if ($sign==$xml['sign']) {       //签名验证成功
                 // 逻辑处理  订单状态更新
                 //验证订单交易状态
 
@@ -180,11 +187,16 @@ class PayController extends Controller
                     //商户订单号
 
                     //  file_put_contents('logs/alipay.log',$info,FILE_APPEND);
-                    $res=OrderModel::where($where)->update($data);
+              OrderModel::where($where)->update($data);
+                 $order=OrderModel::where($where)->first();
+                 $goods=GoodsModel::where(['goods_id'=>$order['goods_id']])->first();
+                 GoodsModel::where(['goods_id'=>$order['goods_id']])->update(['store'=>$goods['store']-$order['order_amount']]);
+
                 } else {
                     // 验签失败
                     echo '验签失败，IP: ' . $_SERVER['REMOTE_ADDR'];
                     //  记录日志
+                file_put_contents('logs/wx_ip.log',$_SERVER['REMOTE_ADDR'].'<br/>'.$sign,FILE_APPEND);
                 }
 
 
