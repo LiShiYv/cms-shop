@@ -535,7 +535,7 @@ public function weiXinLogin(){
     $user_json = file_get_contents($user_info_url);
     $user_arr = json_decode($user_json,true);
     $openidWhere=[
-        'openid'=>$user_arr['openid']
+        'wx_openid'=>$user_arr['openid']
     ];
     $res=WxUser::where($openidWhere)->first();
     if($res){
