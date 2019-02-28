@@ -25,8 +25,8 @@ class CartController extends Controller
     public function cart(Request $request)
     {
         $uid=session()->get('id');
-        $is_login = Auth::check();
-        if($is_login){
+    
+        if($uid){
             $cart_detail = CartModel::where(['id'=>$uid,'is_delete'=>1])->get()->toArray();
 
 
