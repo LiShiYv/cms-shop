@@ -19,7 +19,7 @@
         @endforeach
         </tbody>
     </table>
-
+    {{$deta->links()}}
 @endsection
 @section('footer')
     @parent

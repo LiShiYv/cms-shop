@@ -18,26 +18,10 @@ class TestController extends Controller
       }
 
 
-    public function viewtest1()
-    {
-        $data = [];
-        return view('test.index',$data);
-    }
 
-    public function viewtest2()
-    {
-        $list = Cmsmodel::all()->toArray();
-        //echo '<pre>';print_r($list);echo '</pre>';
-
-        $data = [
-            'title'     => 'XXXX',
-            'list'      => $list
-        ];
-
-        return view('test.child',$data);
-    }
     public function reg(){
         return view('test.reg');
+        return view('layouts.new');
     }
     public function toreg(Request $request){
        // echo __METHOD__;
@@ -113,15 +97,10 @@ class TestController extends Controller
 
     public function center(Request $request)
     {
-        //if(!empty($_COOKIE['token'])){
-            //if($request->session()->get('u_token')!=$_COOKIE['token']){
-           //     header("Refresh:3;url=/userlogin");
-             //   die("非法请求");
 
+            return view('test.center');
 
-          //  }
-      //  }
-
+    }
 
 
         //echo 'token: '.$request->session()->get('u_token'); echo '</br>';
@@ -133,9 +112,9 @@ class TestController extends Controller
           //  echo '请先登录';
           //  exit;
         //}//else{
-            return view('test.center');
 
-        }
+
+
    // }
     public function show(Request $request){
 

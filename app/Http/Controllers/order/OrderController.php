@@ -20,15 +20,7 @@ class OrderController extends Controller
         $this->middleware('auth');
     }
     //下单
-    public function add(Request $request)
-    {
-        //查询购物车
-        $cart_goods = CartModel::where(['id' => session()->get('id')])->orderBy('id', 'desc')->get()->toArray();
-        if (empty($cart_goods)) {
-            die('购物车还没有商品');
-        }
-        //查询单个商品的信息
-    }
+
     public function ordershow(){
         $uid = session()->get('id');
         //if(!empty($uid)){

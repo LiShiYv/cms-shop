@@ -1,7 +1,7 @@
 @extends('layouts.new')
 @section('content')
 @if(Session::has('id'))
-    <p><font size="6px" color="aqua">欢迎 </font><font size="6px" color="#fafad2">{{$_COOKIE['u_name']}}</font></p>
+   
     <p>这里是 商品
     <table border="1"  class="table table-bordered">
         <thead>

@@ -28,29 +28,27 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="/cart/goods">全部商品</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @if(Session::has('auth'))
+                @if(!Session::has('id'))
+                    <li><a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->u_name }} <span class="caret"></span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('退出') }}
+                            </a>
 
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">个人中心 <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="/order">我的订单</a></li>
-                            <li><a href="#">待收货</a></li>
-                            <li><a href="/cart">购物车</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
                     </li>
                     @endif
-                    @if(Session::has('auth'))
-                         <li><a href="/userquit">退出</a></li>
-                        @else
-                            <li><a href="/userlogin">登录</a></li>
-                    @endif
-                </ul>
+                    </ul>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
             </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
     </nav>

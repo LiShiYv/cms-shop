@@ -16,7 +16,7 @@
             @endforeach
 
         </table>
-        <a href="/order/add" class="btn btn-success" > 一键下单 </a>
+
 
 
 
