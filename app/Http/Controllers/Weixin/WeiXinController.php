@@ -521,7 +521,7 @@ public function wxService(Request $request){
 
     }
 
-public function weiXinLogin(){
+public function weiXinLogin(Request $request){
     $code = $_GET['code'];
     //2 用code换取access_token 请求接口
 
@@ -538,7 +538,7 @@ public function weiXinLogin(){
         'wx_openid'=>$user_arr['openid']
     ];
     $order=WxUserModel::where($openidWhere)->first();
-
+var_dump($order);die;
     if($order){
         //用户已存在
         $update=[
