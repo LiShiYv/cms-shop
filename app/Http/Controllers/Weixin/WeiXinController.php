@@ -568,7 +568,7 @@ public function weiXinLogin(Request $request){
             'add_time'=>time()
 
         ];
-     //  var_dump($info);
+     var_dump($WeixinDate);
         $use_id=WxUserModel::insertGetId($WeixinDate);;
     }
 
