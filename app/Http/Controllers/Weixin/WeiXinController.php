@@ -562,6 +562,7 @@ public function weiXinLogin(){
             'wx_unionid'=>$user_arr['unionid'],
             'add_time'=>time()
         ];
+        var_dump($info);
         WxUser::insert($info);
     }
 
