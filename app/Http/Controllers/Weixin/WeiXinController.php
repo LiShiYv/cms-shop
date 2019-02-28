@@ -535,38 +535,41 @@ public function weiXinLogin(Request $request){
     $user_json = file_get_contents($user_info_url);
     $user_arr = json_decode($user_json,true);
     var_dump($user_arr);
-    $usersWhere=[
-        'wx_openid'=>$user_arr['openid'],
+    $openidWhere=[
+        'wx_openid'=>$user_arr['openid']
     ];
-    $res=WxUserModel::where($usersWhere)->first();
-    //var_dump($res);exit;
-    if($res){
+   // var_dump($openidWhere);
+    $order=WxUserModel::where($openidWhere)->first();
+//var_dump($order);die;
+    if($order){
         //用户已存在
-        $updatedata=[
-            'wx_nickname'=>$user_arr['nickname'],
-            'wx_sex'=>$user_arr['sex'],
-            'wx_headimgurl'=>$user_arr['headimgurl'],
-            'wx_unionid'=>$user_arr['unionid'],
-            'wx_openid'=>$user_arr['openid'],
-            'upp_time'=>time()
-        ];
-        WxUserModel::where($usersWhere)->update($updatedata);
+        $update=[
 
+        'wx_nickname'=>$user_arr['nickname'],
+        'wx_sex'=>$user_arr['sex'],
+        'wx_language'=>$user_arr['language'],
+        'wx_headimgurl'=>$user_arr['headimgurl'],
+
+        'wx_unionid'=>$user_arr['unionid'],
+        'wx_openid'=>$user_arr['openid'],
+        'upp_time'=>time()
+        ];
+        var_dump($update);
+        WxUserModel::where($openidWhere)->update($update);
     }else{
-        //用户不存在
-        $insertData=[
-
-            'add_time'=>time(),
+        $WeixinDate=[
             'wx_nickname'=>$user_arr['nickname'],
             'wx_sex'=>$user_arr['sex'],
-
+            'wx_language'=>$user_arr['language'],
             'wx_headimgurl'=>$user_arr['headimgurl'],
+       
             'wx_unionid'=>$user_arr['unionid'],
             'wx_openid'=>$user_arr['openid'],
-        ];
-        var_dump($insertData);
-        $user_id=WxUserModel::insertGetId($insertData);
+            'add_time'=>time()
 
+        ];
+        var_dump($user_arr);
+        $use_id=WxUserModel::insertGetId($WeixinDate);;
     }
 
 }
