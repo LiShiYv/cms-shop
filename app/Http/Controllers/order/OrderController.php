@@ -73,6 +73,7 @@ class OrderController extends Controller
                 'order_sn'=>$order_sn,
                 'id'=>$id,
                 'goods_id'=>$goods_id,
+                'goods_num'=>$goods_num,
                 'order_amount'=>$order_amount,
                 'reg_time'=>time(),
         ];

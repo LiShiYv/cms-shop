@@ -1,7 +1,7 @@
 @extends('layouts.new')
 @section('content')
 @if(Session::has('id'))
-   
+
     <p>这里是 商品
     <table border="1"  class="table table-bordered">
         <thead>
