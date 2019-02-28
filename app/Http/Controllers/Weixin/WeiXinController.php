@@ -519,5 +519,13 @@ public function wxService(Request $request){
         echo json_encode($new);
 
     }
-
+//微信登录
+public function wxLogin(){
+        return view('weixin.wxlogin');
+}
+public function weiXinLogin(){
+    echo '<pre>';print_r($_GET);echo '</pre>';
+    $code = $_GET['code'];
+    echo 'code: '.$code;
+}
 }
