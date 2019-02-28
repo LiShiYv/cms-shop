@@ -534,12 +534,13 @@ public function weiXinLogin(Request $request){
     $user_info_url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
     $user_json = file_get_contents($user_info_url);
     $user_arr = json_decode($user_json,true);
+    var_dump($user_arr);
     $openidWhere=[
         'wx_openid'=>$user_arr['openid']
     ];
-    var_dump($openidWhere);
+   // var_dump($openidWhere);
     $order=WxUserModel::where($openidWhere)->first();
-var_dump($order);die;
+//var_dump($order);die;
     if($order){
         //用户已存在
         $update=[
@@ -553,6 +554,7 @@ var_dump($order);die;
         'wx_openid'=>$user_arr['openid'],
         'upp_time'=>time()
         ];
+        var_dump($update);
         WxUserModel::where($openidWhere)->update($update);
     }else{
         $info=[
@@ -566,7 +568,7 @@ var_dump($order);die;
             'wx_openid'=>$user_arr['openid'],
             'add_time'=>time()
         ];
-       // var_dump($info);die;
+       var_dump($info);die;
         $use_id=WxUserModel::insertGetId($info);
     }
 
