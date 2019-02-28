@@ -535,41 +535,38 @@ public function weiXinLogin(Request $request){
     $user_json = file_get_contents($user_info_url);
     $user_arr = json_decode($user_json,true);
     var_dump($user_arr);
-    $openidWhere=[
-        'wx_openid'=>$user_arr['openid']
-    ];
-   // var_dump($openidWhere);
-    $order=WxUserModel::where($openidWhere)->first();
-//var_dump($order);die;
-    if($order){
-        //用户已存在
-        $update=[
-
-        'wx_nickname'=>$user_arr['nickname'],
-        'wx_sex'=>$user_arr['sex'],
-        'wx_language'=>$user_arr['language'],
-        'wx_headimgurl'=>$user_arr['headimgurl'],
-        'wx_privilege'=>$user_arr['privilege'],
-        'wx_unionid'=>$user_arr['unionid'],
+    $usersWhere=[
         'wx_openid'=>$user_arr['openid'],
-        'upp_time'=>time()
-        ];
-        var_dump($update);
-        WxUserModel::where($openidWhere)->update($update);
-    }else{
-        $WeixinDate=[
+    ];
+    $res=WxUserModel::where($usersWhere)->first();
+    //var_dump($res);exit;
+    if($res){
+        //用户已存在
+        $updatedata=[
             'wx_nickname'=>$user_arr['nickname'],
             'wx_sex'=>$user_arr['sex'],
-            'wx_language'=>$user_arr['language'],
             'wx_headimgurl'=>$user_arr['headimgurl'],
-            'wx_privilege'=>$user_arr['privilege'],
             'wx_unionid'=>$user_arr['unionid'],
             'wx_openid'=>$user_arr['openid'],
-            'add_time'=>time()
-
+            'upp_time'=>time()
         ];
-        var_dump($user_arr);die;
-        $use_id=WxUserModel::insertGetId($WeixinDate);;
+        WxUserModel::where($usersWhere)->update($updatedata);
+
+    }else{
+        //用户不存在
+        $insertData=[
+
+            'add_time'=>time(),
+            'wx_nickname'=>$user_arr['nickname'],
+            'wx_sex'=>$user_arr['sex'],
+
+            'wx_headimgurl'=>$user_arr['headimgurl'],
+            'wx_unionid'=>$user_arr['unionid'],
+            'wx_openid'=>$user_arr['openid'],
+        ];
+        var_dump($insertData);
+        $user_id=WxUserModel::insertGetId($insertData);
+
     }
 
 }
