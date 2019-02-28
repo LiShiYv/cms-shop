@@ -19,7 +19,9 @@
         <div class="col-sm-10">
             <input type="password" class="form-control" id="inputPassword3" placeholder="请输入密码" name="u_pwd">
         </div>
+
     </div>
+
     <div class="form-group">
         <div class="col-sm-offset-2 col-sm-10">
             <button type="submit" class="btn btn-default">提交</button>
