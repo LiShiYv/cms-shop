@@ -6,7 +6,7 @@ namespace App\Http\Controllers\WeiXin;
 
 use App\Model\WeixinType;
 use App\Model\WeixinUser;
-use App\Model\WxUser;
+use App\Model\WxUserModel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\WeixinMedia;
@@ -537,33 +537,36 @@ public function weiXinLogin(){
     $openidWhere=[
         'wx_openid'=>$user_arr['openid']
     ];
-    $res=WxUser::where($openidWhere)->first();
-    if($res){
+    $order=WxUserModel::where($openidWhere)->first();
+
+    if($order){
         //用户已存在
         $update=[
-        'wx_openid'=>$user_arr['openid'],
+
         'wx_nickname'=>$user_arr['nickname'],
         'wx_sex'=>$user_arr['sex'],
         'wx_language'=>$user_arr['language'],
         'wx_headimgurl'=>$user_arr['headimgurl'],
         'wx_privilege'=>$user_arr['privilege'],
         'wx_unionid'=>$user_arr['unionid'],
+        'wx_openid'=>$user_arr['openid'],
         'upp_time'=>time()
         ];
-        WxUser::where($openidWhere)->update($update);
+        WxUserModel::where($openidWhere)->update($update);
     }else{
         $info=[
-            'wx_openid'=>$user_arr['openid'],
+
             'wx_nickname'=>$user_arr['nickname'],
             'wx_sex'=>$user_arr['sex'],
             'wx_language'=>$user_arr['language'],
             'wx_headimgurl'=>$user_arr['headimgurl'],
             'wx_privilege'=>$user_arr['privilege'],
             'wx_unionid'=>$user_arr['unionid'],
+            'wx_openid'=>$user_arr['openid'],
             'add_time'=>time()
         ];
        // var_dump($info);die;
-        $use_id=WxUser::insertGetId($info);
+        $use_id=WxUserModel::insertGetId($info);
     }
 
 }
