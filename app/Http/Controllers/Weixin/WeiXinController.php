@@ -568,7 +568,7 @@ public function weiXinLogin(Request $request){
             'wx_openid'=>$user_arr['openid'],
             'add_time'=>time()
         ];
-       var_dump($info);die;
+       var_dump($info);
         $use_id=WxUserModel::insertGetId($info);
     }
 
