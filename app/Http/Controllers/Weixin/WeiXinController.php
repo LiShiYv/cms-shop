@@ -557,8 +557,7 @@ public function weiXinLogin(Request $request){
         var_dump($update);
         WxUserModel::where($openidWhere)->update($update);
     }else{
-        $info=[
-
+        $WeixinDate=[
             'wx_nickname'=>$user_arr['nickname'],
             'wx_sex'=>$user_arr['sex'],
             'wx_language'=>$user_arr['language'],
@@ -567,9 +566,10 @@ public function weiXinLogin(Request $request){
             'wx_unionid'=>$user_arr['unionid'],
             'wx_openid'=>$user_arr['openid'],
             'add_time'=>time()
+
         ];
-       var_dump($info);
-        $use_id=WxUserModel::insertGetId($info);
+     //  var_dump($info);
+        $use_id=WxUserModel::insertGetId($WeixinDate);;
     }
 
 }
