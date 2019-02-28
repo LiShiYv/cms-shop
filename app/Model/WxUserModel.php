@@ -11,6 +11,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class WxUserModel extends Model
 {
-    public $table = 'wx_users';
+    public $table = 'weixin';
     public $timestamps = false;
 }
