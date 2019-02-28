@@ -537,6 +537,7 @@ public function weiXinLogin(Request $request){
     $openidWhere=[
         'wx_openid'=>$user_arr['openid']
     ];
+    var_dump($openidWhere);
     $order=WxUserModel::where($openidWhere)->first();
 var_dump($order);die;
     if($order){
