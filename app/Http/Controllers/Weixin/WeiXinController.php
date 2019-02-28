@@ -541,25 +541,25 @@ public function weiXinLogin(){
     if($res){
         //用户已存在
         $update=[
-          'openid'=>$user_arr['openid'],
-            'nickname'=>$user_arr['nickname'],
-            'sex'=>$user_arr['sex'],
-            'language'=>$user_arr['language'],
-            'headimgurl'=>$user_arr['headimgurl'],
-            'privilege'=>$user_arr['privilege'],
-            'unionid'=>$user_arr['unionid'],
-            'upp_time'=>time()
+        'wx_openid'=>$user_arr['openid'],
+        'wx_nickname'=>$user_arr['nickname'],
+        'wx_sex'=>$user_arr['sex'],
+        'wx_language'=>$user_arr['language'],
+        'wx_headimgurl'=>$user_arr['headimgurl'],
+        'wx_privilege'=>$user_arr['privilege'],
+        'wx_unionid'=>$user_arr['unionid'],
+        'upp_time'=>time()
         ];
         WxUser::where($openidWhere)->update($update);
     }else{
         $info=[
-            'openid'=>$user_arr['openid'],
-            'nickname'=>$user_arr['nickname'],
-            'sex'=>$user_arr['sex'],
-            'language'=>$user_arr['language'],
-            'headimgurl'=>$user_arr['headimgurl'],
-            'privilege'=>$user_arr['privilege'],
-            'unionid'=>$user_arr['unionid'],
+            'wx_openid'=>$user_arr['openid'],
+            'wx_nickname'=>$user_arr['nickname'],
+            'wx_sex'=>$user_arr['sex'],
+            'wx_language'=>$user_arr['language'],
+            'wx_headimgurl'=>$user_arr['headimgurl'],
+            'wx_privilege'=>$user_arr['privilege'],
+            'wx_unionid'=>$user_arr['unionid'],
             'add_time'=>time()
         ];
         WxUser::insert($info);
