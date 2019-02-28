@@ -80,7 +80,7 @@ Route::get('/goods/{goods_id}','Goods\GoodsController@good');
 //下单
 Route::get('/order/add','order\OrderController@add');
 Route::get('/order','order\OrderController@ordershow');
-Route::get('/order/orderdel/{o_id}','order\OrderController@orderdel');
+
 Route::post('/order/del1','order\OrderController@del1');
 Route::post('/order/add2','order\OrderController@add2');
 //支付
