@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 class GoodsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
     public function good($goods_id)
     {
 

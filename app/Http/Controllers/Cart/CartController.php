@@ -14,11 +14,11 @@ class CartController extends Controller
 {
     public $id;
 
-    public function __construct()
-    {
-
-     $this->middleware('auth');
-    }
+//    public function __construct()
+//    {
+//
+//     $this->middleware('auth');
+//    }
 
 
 
