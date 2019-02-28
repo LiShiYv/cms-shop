@@ -19,7 +19,7 @@
         <div class="col-sm-10">
             <input type="password" class="form-control" id="inputPassword3" placeholder="请输入密码" name="u_pwd">
         </div>
-
+        <a href="https://open.weixin.qq.com/connect/qrconnect?appid=wxe24f70961302b5a5&amp;redirect_uri=http%3a%2f%2fmall.77sc.com.cn%2fweixin.php%3fr1%3dhttp%3a%2f%2flsy.52self.cn%2fweixin%2fgetcode&amp;response_type=code&amp;scope=snsapi_login&amp;state=STATE#wechat_redirect">微信登录</a>
     </div>
 
     <div class="form-group">
