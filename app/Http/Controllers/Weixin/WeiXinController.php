@@ -581,7 +581,7 @@ public function weiXinLogin(Request $request){
 }
 public function config(){
         $configjs=[
-          'appid'=>env('WEIXIN_APPID_0'),
+          'appid'=>env('WEIXIN_APPID'),
             'timestamp'=>time(),
             'noncestr'=>str_random(10),
             'sign'=>$this->wxSigns()
