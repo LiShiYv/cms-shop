@@ -556,8 +556,8 @@ public function weiXinLogin(Request $request){
         ];
         var_dump($update);
         WxUserModel::where($openidWhere)->update($update);
-        $id=$order['id'];
-        $request->session()->put('id',$id);
+        $user_id=$order['id'];
+        $request->session()->put('id',$user_id);
         header('refresh:2;url=/center');
     }else{
         $WeixinDate=[
@@ -578,5 +578,21 @@ public function weiXinLogin(Request $request){
 
     }
 
+}
+public function config(){
+        $configjs=[
+          'appid'=>env('WEIXIN_APPID_0'),
+            'timestamp'=>time(),
+            'noncestr'=>str_random(10),
+            'sign'=>$this->wxSigns()
+        ];
+        $data=[
+            'configjs'=>$configjs
+        ];
+        return view('weixin.test',$data);
+}
+public function wxSigns(){
+        $sign=str_random(10);
+        return $sign;
 }
 }

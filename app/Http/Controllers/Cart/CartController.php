@@ -25,7 +25,7 @@ class CartController extends Controller
     public function cart(Request $request)
     {
         $uid=session()->get('id');
-    
+
         if($uid){
             $cart_detail = CartModel::where(['id'=>$uid,'is_delete'=>1])->get()->toArray();
 
