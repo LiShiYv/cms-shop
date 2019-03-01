@@ -19,6 +19,7 @@ class WeiXinController extends Controller
     //
 
     protected $redis_weixin_access_token = 'str:weixin_access_token';     //微信 access_token
+    protected $redis_weixin_jsapi_ticket = 'str:weixin_jsapi_ticket';     //微信 jsapi_ticket
 
 
 
@@ -584,7 +585,7 @@ public function config(){
           'appid'=>env('WEIXIN_APPID'),
             'timestamp'=>time(),
             'noncestr'=>str_random(10),
-            'sign'=>$this->wxSigns()
+           // 'sign'=>$this->wxSigns()
         ];
         $data=[
             'configjs'=>$configjs
@@ -594,5 +595,12 @@ public function config(){
 public function wxSigns(){
         $sign=str_random(10);
         return $sign;
+}
+//获取 jsapi_ticket
+public function getJsapiTicket(){
+        $ticket=Redis::get($this->redis_weixin_jsapi_ticket);
+        if(!$ticket){
+            $access_token='';
+        }
 }
 }
