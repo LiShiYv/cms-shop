@@ -600,7 +600,16 @@ public function wxSigns(){
 public function getJsapiTicket(){
         $ticket=Redis::get($this->redis_weixin_jsapi_ticket);
         if(!$ticket){
-            $access_token='';
+            $access_token='19_N-b23N99Gvr79BN_Oi4NaOdoiBdMCEGHVIfYYXIkRCVnfFSXh6E2_OVrTrYgjlDxK66l-kMeOQBpAnpxmoo6qhNB3ffHqLyatAggv-lfR6HlvIhUmeNyx4ytUQcBGKhAJARWA';
+            $ticket_url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token='.$access_token.'&type=jsapi';
+            $ticket_info = file_get_contents($ticket_url);
+            $ticket_arr = json_decode($ticket_info,true);
+
+            if(isset($ticket_arr['ticket'])){
+                $ticket = $ticket_arr['ticket'];
+                Redis::set($this->redis_weixin_jsapi_ticket,$ticket);
+                Redis::setTimeout($this->redis_weixin_jsapi_ticket,3600);       //设置过期时间 3600s
+            }
         }
 }
 }
