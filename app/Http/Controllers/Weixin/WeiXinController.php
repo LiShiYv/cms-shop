@@ -616,5 +616,6 @@ public function getJsapiTicket(){
                 Redis::setTimeout($this->redis_weixin_jsapi_ticket,3600);       //设置过期时间 3600s
             }
         }
+    return $ticket;
 }
 }
